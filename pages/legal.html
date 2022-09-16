@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Legal Library</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#7952b3">
+
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/legal/main.css" rel="stylesheet">
+
+    <!-- https://getbootstrap.com/docs/5.0/examples/carousel/ -->
+
+    <style>
+        .custombghead {
+            background: rgb(168, 50, 121);
+            background: linear-gradient(90deg, rgba(168, 50, 121, 1) 0%, rgba(210, 130, 18, 1) 100%, rgba(0, 212, 255, 1) 100%);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <!-- <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"> -->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top custombghead">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Law Finder</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse" style="flex-grow: 0;">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item" style="margin-right: 20px">
+                            <a class="nav-link" style="font-weight: bolder;" href="#">Home</a>
+                        </li>
+                        <li class="nav-item" style="margin-right: 20px">
+                            <a class="nav-link" style="font-weight: bolder;" href="#">Features</a>
+                        </li>
+                        <li class="nav-item" style="margin-right: 20px">
+                            <a class="nav-link" style="font-weight: bolder;" href="#">About</a>
+                        </li>
+                        <li class="nav-item" style="margin-right: 20px">
+                            <a class="nav-link" style="font-weight: bolder;" href="#">Lawyer</a>
+                        </li>
+                        <li class="nav-item" style="margin-right: 20px">
+                            <a class="nav-link active" style="font-weight: bolder;" aria-current="page" href="#">Legals</a>
+                            <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Law Library</a> -->
+                        </li>
+                    </ul>
+                    <!-- <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </form> -->
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- Marketing messaging and featurettes
+        ================================================== -->
+        <!-- Wrap the rest of the page in another container to center all the content. -->
+
+        <div class="container marketing">
+
+            <div class="input-group mb-3" style="margin-top: 50px; display: flex; justify-content: center;">
+                <div style="display: flex; justify-content: center; width: 80%">
+                    <input type="text" class="form-control" placeholder="Input Law Here"
+                        aria-label="Input Law Here" aria-describedby="button-addon2" style="margin-right: 10px;">
+                    <button class="btn btn-primary" type="button" id="button-addon2" style="font-size: 1.3rem;">Search</button>
+                </div>
+            </div>
+
+            <!-- Three columns of text below the carousel -->
+            <div class="row" style="margin-top: 50px">
+                <div class="col-lg-4">
+                    <!-- <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
+                        preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777"
+                            dy=".3em">140x140</text>
+                    </svg> -->
+                    <img class="rounded-circle" src="../res/legal/politics.jpg" width="140" height="140">
+                    <h2>Political Law</h2>
+                    <p>Law which deals with the organization and operation of the governmental organs of the
+                        State and define the relations of the state with the inhabitants of its territory.</p>
+                    <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
+                </div><!-- /.col-lg-4 -->
+                <div class="col-lg-4">
+                    <img class="rounded-circle" src="../res/legal/labor.jpg" width="140" height="140">
+                    <h2>Labor Law</h2>
+                    <p>Stands as the law governing employment practices and labor relations. Prescribes rules for hiring
+                        and termination of private employees; work conditions; employee benefits; and Guidelines in
+                        labor unions.</p>
+                    <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
+                </div><!-- /.col-lg-4 -->
+                <div class="col-lg-4">
+                    <img class="rounded-circle" src="../res/legal/civil.jpg" width="140" height="140">
+                    <h2>Civil Law</h2>
+                    <p>Law describe the law that pertains to persons, things, and relationships that develop among them,
+                        excluding not only criminal law but also commercial law, labor law, etc.</p>
+                    <p><a class="btn btn-primary" href="legal-search.html">View details &raquo;</a></p>
+                </div><!-- /.col-lg-4 -->
+            </div><!-- /.row -->
+
+            <div class="row" style="margin-top: 50px">
+                <div class="col-lg-4">
+                    <img class="rounded-circle" src="../res/legal/civil.jpg" width="140" height="140">
+                    <h2>Criminal Law</h2>
+                    <p>Law that relates to crime. It prescribes conduct perceived as threatening, harmful, or otherwise
+                        endangering to the property, health, safety, and moral welfare of people inclusive of one's
+                        self.</p>
+                    <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
+                </div><!-- /.col-lg-4 -->
+                <div class="col-lg-4">
+                    <img class="rounded-circle" src="../res/legal/commercial.JPG" width="140" height="140">
+
+                    <h2>Commercial Law</h2>
+                    <p>Law that applies to the rights, relations, and conduct of persons and business engaged in
+                        commerce, merchandising, trade, and sales.</p>
+                    <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
+                </div><!-- /.col-lg-4 -->
+                <div class="col-lg-4">
+                    <img class="rounded-circle" src="../res/legal/taxation.jpg" width="140" height="140">
+
+                    <h2>Taxation</h2>
+                    <p>covers the rules, policies and laws that oversee the tax process, which involves charges on
+                        estates, transactions, property, income, licenses and more by the government.</p>
+                    <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
+                </div><!-- /.col-lg-4 -->
+            </div><!-- /.row -->
+
+            <div class="row" style="margin-top: 50px">
+                <div class="col-lg-4">
+                    <img class="rounded-circle" src="../res/legal/international.jpg" width="140" height="140">
+
+                    <h2>International Law</h2>
+                    <p>Establishes rules and normative guidelines and a common conceptual framework for states across a
+                        broad range domains, like war, diplomacy, economic and human rights.</p>
+                    <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
+                </div><!-- /.col-lg-4 -->
+                <div class="col-lg-4">
+                    <img class="rounded-circle" src="../res/legal/remedial.JPG" width="140" height="140">
+
+                    <h2>Remedial Law</h2>
+                    <p>Law which provides for the enforcement or protection of a right, or a prevention or redress of a
+                        wrong, or the establishment of status of right of a party or a particular fact.</p>
+                    <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
+                </div>
+            </div><!-- /.row -->
+
+
+        </div><!-- /.container -->
+
+
+        <!-- FOOTER -->
+        <footer class="container">
+            <p class="float-end"><a href="#">Back to top</a></p>
+            <p>&copy; 2022 Law Finder, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        </footer>
+    </main>
+
+
+    <script src="../js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

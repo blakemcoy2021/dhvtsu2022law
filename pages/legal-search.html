@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Legal Library</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#7952b3">
+
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/legal/main.css" rel="stylesheet">
+
+    <!-- https://getbootstrap.com/docs/5.0/examples/carousel/ -->
+
+    <style>
+        .custombghead {
+            background: rgb(168, 50, 121);
+            background: linear-gradient(90deg, rgba(168, 50, 121, 1) 0%, rgba(210, 130, 18, 1) 100%, rgba(0, 212, 255, 1) 100%);
+        }
+
+        .custombgcard {
+            /* background-image: url('../res/legal/bg-politics-fill.jpg'); */
+            background-image: url('../res/legal/bg-civil-fill.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <!-- <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"> -->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top custombghead">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Law Finder</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse" style="flex-grow: 0;">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item" style="margin-right: 20px">
+                            <a class="nav-link" style="font-weight: bolder;" href="#">Home</a>
+                        </li>
+                        <li class="nav-item" style="margin-right: 20px">
+                            <a class="nav-link" style="font-weight: bolder;" href="#">Features</a>
+                        </li>
+                        <li class="nav-item" style="margin-right: 20px">
+                            <a class="nav-link" style="font-weight: bolder;" href="#">About</a>
+                        </li>
+                        <li class="nav-item" style="margin-right: 20px">
+                            <a class="nav-link" style="font-weight: bolder;" href="#">Lawyer</a>
+                        </li>
+                        <li class="nav-item" style="margin-right: 20px">
+                            <a class="nav-link active" style="font-weight: bolder;" aria-current="page"
+                                href="#">Legals</a>
+                            <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Law Library</a> -->
+                        </li>
+                    </ul>
+                    <!-- <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </form> -->
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- Marketing messaging and featurettes
+        ================================================== -->
+        <!-- Wrap the rest of the page in another container to center all the content. -->
+
+        <div class="container marketing">
+
+            <div class="card text-end custombgcard" style="width: 100%; margin-top: 30px;">
+                <div class="card-body" style="color: white">
+                    <!-- <h2 class="card-title">Political Law</h2>
+                    <p class="card-text customfontcard">Established legal practice area encompassing the
+                        intersection of politics and law. Political law comprises election law, voting rights law,
+                        campaign finance law, laws governing lobbying and lobbyists, open government laws, legislative
+                        and executive branch ethics codes, legislative procedure, administrative procedure,
+                        constitutional law, and legislative and regulatory drafting. Political laws are applied
+                        primarily to government officials, candidates, advocacy groups, lobbyists, businesses, nonprofit
+                        organizations, and trade unions.</p> -->
+                        
+                    <h2 class="card-title">Civil Law</h2>
+                    <p class="card-text customfontcard">Deals with behavior that constitutes an injury to an 
+                        individual or other private party, such as a corporation. Examples are defamation 
+                        (including libel and slander), breach of contract, negligence resulting in injury or 
+                        death, and property damage.</p>
+
+                    <a href="legal.html" class="btn btn-primary">See other law types</a>
+                </div>
+            </div>
+
+            <div class="input-group mb-3" style="margin-top: 20px; display: flex; justify-content: center;">
+                <div class="row" style="width: 100%;">
+
+                    <div class="col-sm-5" style="padding: 5px;">
+                        <input type="text" class="form-control" placeholder="Lawyer Name Here"
+                            aria-label="Lawyer Name Here" aria-describedby="button-addon2">
+                    </div>
+                    <div class="col-sm-5" style="padding: 5px;">
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="height: 100%;">
+                            <option selected>Open this select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select>
+                    </div>
+                    <div class="col-sm-2" style="padding: 5px;">
+                        <button class="btn btn-primary" type="button" id="button-addon2" style="height: 100%; width: 100%;"
+                            style="font-size: 1.3rem;">Search</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">List group item heading</h5>
+                            <small>3 days ago</small>
+                          </div>
+                          <p class="mb-1">Some placeholder content in a paragraph.</p>
+                          <small>And some small print.</small>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">List group item heading</h5>
+                            <small class="text-muted">3 days ago</small>
+                          </div>
+                          <p class="mb-1">Some placeholder content in a paragraph.</p>
+                          <small class="text-muted">And some muted small print.</small>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">List group item heading</h5>
+                            <small class="text-muted">3 days ago</small>
+                          </div>
+                          <p class="mb-1">Some placeholder content in a paragraph.</p>
+                          <small class="text-muted">And some muted small print.</small>
+                        </a>
+                      </div>
+                </div>
+
+            </div>
+
+
+        </div><!-- /.container -->
+
+
+        <!-- FOOTER -->
+        <footer class="container" style="margin-top: 30px;">
+            <p class="float-end"><a href="#">Back to top</a></p>
+            <p>&copy; 2022 Law Finder, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        </footer>
+    </main>
+
+
+    <script src="../js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
