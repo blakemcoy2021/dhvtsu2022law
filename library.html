@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <title>Law Finder</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link rel="stylesheet" href="css/main.css" />
+   <link rel="stylesheet" href="css/library.css" />
+   <script src="js/script.js"></script>
+
+</head>
+
+<body>
+    <!-- header -->
+    <button id="my_bttn">
+        <a href="#"><i class="material-icons">arrow_upward</i>
+        </a></button>
+    <div class="header" style="position: sticky;">
+        <div class="menu-bar" style="position: sticky;">
+            <nav class="navbar navbar-expand-sm navbar-dark" style="position: sticky;">
+                <div class="container-fluid" style="position: sticky;">
+                    <a class="navbar-brand" href="homepage.html"><img src="assets\LOGO.png"></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar" onclick="hideProfile()">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <!-- nav link -->
+                    <div class="collapse navbar-collapse" id="mynavbar">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item"> <a href="homepage.html" class="nav-link">Home</a></li>
+                            <li class="nav-item"> <a href="#features" class="nav-link">Features</a></li>
+                            <li class="nav-item"> <a href="about.html" class="nav-link">About</a></li>
+                            <li class="nav-item"> <a href="lawyer.html" class="nav-link">Lawyer</a></li>
+                            <li class="nav-item"><a href="library.html" class="nav-link">Library</a></li>
+                        </ul>
+                        <!-- end of nav link -->
+                    </div>
+                <div class="action" id="htmProfile">
+                    <div class="profile" onclick="menuToggle();">
+                        <img src="assets/team/team1.png" alt="">
+                    </div>
+            
+                    <div class="menu">
+                        <h3>
+                            User Account
+                            <div>
+                                Operational Team
+                            </div>
+                        </h3>
+                        <ul>
+                            <li>
+                                <span class="material-icons icons-size">person</span>
+                                <a href="#">My Profile</a>
+                            </li>
+                            <li>
+                                <span class="material-icons icons-size">mode</span>
+                                <a href="#">Edit Account</a>
+                            </li>
+                            <li>
+                                <span class="material-icons icons-size">insert_comment</span>
+                                <a href="#">Comments</a>
+                            </li>
+                            <li>
+                                <span class="material-icons icons-size">monetization_on</span>
+                                <a href="#">Budget</a>
+                            </li>
+                            <li>
+                                <span class="material-icons icons-size">account_balance</span>
+                                <a href="#">Appointment</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+   <!-- end of nav --> <br><br><h1 class="legal">Legal Library</h1>
+   <p class="legalp">This Legal Library is a collection of laws, 
+      Written in 2 languages. The database contains philippines laws, international law, and other civil society legal resources. 
+      You can search the library using the text bar or browse by topic, section, Republic Act, or document type using the search tab.</p>
+   <div class="library">
+      <div class="main" style="text-align: center;">
+        
+         <!--cards -->
+
+         <div class="card">
+
+            <div class="image">
+               <img src="assets/law/civillaw.jpg">
+            </div>
+            <div class="title">
+               <h1>
+                  Civil Law</h1>
+            </div>
+            <div class="des">
+               <p>
+                  A body of rules that delineate private rights and remedies, and govern disputes between individuals in
+                  such areas as contracts, property, and Family Law; distinct from criminal or public law.</p>
+               <button>Read More...</button>
+            </div>
+         </div>
+         <!--cards -->
+
+
+         <div class="card">
+
+            <div class="image">
+               <img src="assets/law/familylaw.jpg">
+            </div>
+            <div class="title">
+               <h1>
+                  Family Law</h1>
+            </div>
+            <div class="des">
+               <p>family law, body of law regulating family relationships,
+                  including marriage and divorce, the treatment of children, and related economic matters </p></br>
+               <button>Read More...</button>
+            </div>
+         </div>
+         <!--cards -->
+
+
+         <div class="card">
+
+            <div class="image">
+               <img src="assets/law/business.jfif">
+            </div>
+            <div class="title">
+               <h1>
+                  Business Law</h1>
+            </div>
+            <div class="des">
+               <p>Corporate law is the body of law governing the rights, relations, and conduct of persons, companies,
+                  organizations and businesses.
+                  The term refers to the legal practice of law relating to corporation</p>
+               <button>Read More...</button>
+            </div>
+         </div>
+         <!--cards -->
+
+
+         <div class="card">
+
+            <div class="image">
+               <img src="assets/law/education.jpg">
+            </div>
+            <div class="title">
+               <h1>
+                  Educational Law</h1>
+            </div>
+            <div class="des">
+               <p>Education law is the legal discipline covering all issues pertaining to schools. Historically,
+                  attorneys practicing education law.</p>
+               <button>Read More...</button>
+            </div>
+         </div>
+         <!--cards -->
+
+
+         <div class="card">
+
+            <div class="image">
+               <img src="assets/law/criminal.jpeg">
+            </div>
+            <div class="title">
+               <h1>
+                  Criminal Law</h1>
+            </div>
+            <div class="des">
+               <p>Criminal law is the body of law that relates to crime. It prescribes conduct perceived as threatening,
+                  harmful, or
+                  otherwise endangering to the property, health, safety, and moral welfare of people. </p>
+               <button>Read More...</button>
+            </div>
+         </div>
+         <!--cards -->
+
+
+         <div class="card">
+
+            <div class="image">
+               <img src="assets/law/cyber.jpg">
+            </div>
+            <div class="title">
+               <h1>
+                  Cyber Law</h1>
+            </div>
+            <div class="des">
+               <p>
+                  Cyber law otherwise known as “internet law” is the area of law that regulates how people use the
+                  internet.
+                  There are cyber laws that are criminal laws and there are cyber laws that are civil laws.</p>
+               <button>Read More...</button>
+            </div>
+         </div>
+         <div class="card">
+
+            <div class="image">
+               <img src="assets/law/international.jpg">
+            </div>
+            <div class="title">
+               <h1>
+                  International</h1>
+            </div>
+            <div class="des">
+               <p> International Law is the set of rules, norms, and standards generally recognized as binding between states. It establishes
+                   normative guidelines and a common conceptual framework for states        </p>
+               <button>Read More...</button>
+            </div>
+         </div>
+         <div class="card">
+
+            <div class="image">
+               <img src="assets/law/remedial.webp">
+            </div>
+            <div class="title">
+               <h1>
+                  Remedial Law</h1>
+            </div>
+            <div class="des">
+               <p>
+                  Remedial law is that branch of law which provides for the enforcement or protection of'a right, or the prevention
+                   or redress of a wrong, or the establishment of the status or right of a party, or a particular fact.</p>
+               <button>Read More...</button>
+            </div>
+         </div>
+      </div>
+      <!--cards -->
+
+
+   </div>
+</body>
+
+</html>
