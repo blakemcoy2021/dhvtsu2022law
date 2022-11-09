@@ -17,7 +17,7 @@ var nameError = document.getElementById("nameError")
 var passError = document.getElementById("passwordError")
 var emailError = document.getElementById("emailError")
 function validateUsername() {
-    var name1 = document.getElementById("registerFirstName").value
+    var name1 = document.getElementById("htmInpRegUsername").value
 
     if (name1.length >= 1) {
         nameError.innerHTML = '<i class="fas fa-solid fa-circle-check" style="color:green"></i>'
@@ -44,7 +44,6 @@ function validateEmail() {
     return true;
 
 };
-
 function validatePassword() {
     var pass1 = document.getElementById("htmlPassword").value
     if (pass1.length > 6) {
@@ -62,18 +61,17 @@ function validatePassword() {
 ///register////
 
 var btnRegister = document.getElementById("htmBtnRegister");
-
 btnRegister.addEventListener("click", function () {
+
     var request = new XMLHttpRequest();
-    var htm_firstname = document.getElementById("registerFirstName")
+    var htm_username = document.getElementById("htmInpRegUsername")
     var htm_email = document.getElementById("htmEmail")
     var htm_password = document.getElementById("htmlPassword")
 
-
-
-    request.open("POST", "register.php", true);
+    route = "services/back/php/register/register.php";
+    request.open("POST", route, true);
     var data = new FormData();
-    data.append('firstname', htm_firstname.value);
+    data.append('username', htm_username.value);
     data.append('email', htm_email.value);
     data.append('password', htm_password.value);
 
@@ -99,7 +97,7 @@ btnRegister.addEventListener("click", function () {
                 });
             }
         }
-        htm_firstname.value = '';
+        htm_username.value = '';
         htm_email.value = '';
         htm_password.value = '';
         nameError.innerHTML ='<i class="fa-solid fa-circle-exclamation" style="color:orange"></i>' 
@@ -111,10 +109,11 @@ btnRegister.addEventListener("click", function () {
 ////login/////
 var userLogin = document.getElementById("usernameLogin")
 var passLogin = document.getElementById("passwordLogin")
-var btnLogin = document.getElementById("htmbtnLogin")
+var btnLogin = document.getElementById("htmBtnLogin")
 
 btnLogin.addEventListener("click", function () {
-    var backEndSCript = "login.php";
+
+    var backEndSCript = "services/back/php/login/login.php";
     var request = new XMLHttpRequest();
     request.open("POST", backEndSCript, true);
 

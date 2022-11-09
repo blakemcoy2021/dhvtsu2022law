@@ -13,7 +13,20 @@
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/style.css">
 
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+        integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc"
+        crossorigin="anonymous"></script>
+
     <title>Law Finder</title>
+
+    <style>
+        #divSearchBarLaw {
+            padding: 10px 10px 10px 0;
+            margin-top: 20px;
+            justify-content: left;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
@@ -24,36 +37,30 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top"
         style="background-image:  linear-gradient(-90deg, #d38312, #a83279);">
         <div class="container">
-            <a class="navbar-brand" href="#">Law Finder<span class="dot">.</span></a>
+            <a class="navbar-brand" style="color: white;" href="#">Law Finder</a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#services">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#portfolio">Legal Library</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#reviews">Team </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#blog">Law Firm</a>
-                    </li>
-                </ul>
-                <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    class="btn btn-brand ms-lg-3">Contact</a>
+            <div class="input-group mb-3" id="divSearchBarLaw">
+                <input type="text" class="form-control" placeholder="Search Law Here" aria-label="Search Law Here"
+                    aria-describedby="htmBtnSearchLaw" style="background-color: white; margin-right: 5px;">
+                <button class="btn btn-brand" type="button" id="htmBtnSearchLaw"><i class="fas fa-search"></i></button>
             </div>
+
+            <div class="dropdown">
+                <button class="btn btn-brand dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="login.html">Login</a></li>
+                    <li><a class="dropdown-item" href="#about">About</a></li>
+                    <li><a class="dropdown-item" href="#services">Services</a></li>
+                    <li><a class="dropdown-item" href="#portfolio">Legals</a></li>
+                    <li><a class="dropdown-item" href="#reviews">Team</a></li>
+                    <li><a class="dropdown-item" href="#blog">Law Firm</a></li>
+                    <li><a class="dropdown-item" href="#">Contact</a></li>
+                </ul>
+            </div>
+
         </div>
     </nav>
 
@@ -141,7 +148,7 @@
                 </div>
                 <div class="col-lg-2 col-sm-6">
                     <h1 class="display-4">6</h1>
-                    <p class="mb-0" > Legal Libraries</p>
+                    <p class="mb-0"> Legal Libraries</p>
                 </div>
                 <div class="col-lg-2 col-sm-6">
                     <h1 class="display-4">53</h1>
@@ -170,7 +177,7 @@
                 </div>
             </div>
             <div class="row g-4">
-                <div class="col-lg-4 col-md-6"  onclick="document.location='#'">
+                <div class="col-lg-4 col-md-6" onclick="document.location='#'">
                     <div class="service">
                         <img src="img/icon1.png" alt="">
                         <h5>Free Consultation</h5>
@@ -178,7 +185,7 @@
                             members of the society free access to courts.</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6"  onclick="document.location='#'">
+                <div class="col-lg-4 col-md-6" onclick="document.location='#'">
                     <div class="service">
                         <img src="img/icon2.png" alt="">
                         <h5>Public Notary</h5>
@@ -186,7 +193,7 @@
                             matters </p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6"  onclick="document.location='#'">
+                <div class="col-lg-4 col-md-6" onclick="document.location='#'">
                     <div class="service">
                         <img src="img/icon3.png" alt="">
                         <h5>Google Map</h5>
@@ -194,7 +201,7 @@
                             especially locating lawyers law office</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6"  onclick="document.location='#'">
+                <div class="col-lg-4 col-md-6" onclick="document.location='#'">
                     <div class="service">
                         <img src="img/icon4.png" alt="">
                         <h5>Legal Library</h5>
@@ -203,7 +210,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6"  onclick="document.location='#'">
+                <div class="col-lg-4 col-md-6" onclick="document.location='#'">
                     <div class="service">
                         <img src="img/icon5.png" alt="">
                         <h5>Lawyer</h5>
@@ -212,7 +219,7 @@
                             problems</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6"  onclick="document.location='#'">
+                <div class="col-lg-4 col-md-6" onclick="document.location='#'">
                     <div class="service">
                         <img src="img/icon6.png" alt="">
                         <h5>Appointment</h5>

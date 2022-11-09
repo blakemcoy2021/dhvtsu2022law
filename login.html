@@ -3,11 +3,32 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
     <title>Law Finder</title>
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+        integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="css/login.css">
+    <style>
+        .custombtn {
+            background-color: #5b13b9;
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            font-size: 16px;
+            margin: 4px 2px;
+            opacity: 0.6;
+            transition: 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .custombtn:hover {opacity: 1}
+    </style>
 </head>
 
 <body>
@@ -15,7 +36,7 @@
         <input type="checkbox" id="flip">
         <div class="cover">
             <div class="front">
-                <img src="img/12.jpg" alt="">
+                <img src="img/login/logo.jpg" alt="">
                 <div class="text">
                     <span class="text-1"><br></span>
                     <span class="text-2"></span>
@@ -35,69 +56,72 @@
             <div class="form-content">
                 <div class="login-form">
                     <div class="title">Login</div>
-                    <form action="#">
+                    <form id="htmFormLogin">
                         <div class="input-boxes">
                             <div class="input-box">
                                 <i class="fas fa-envelope"></i>
-                                <input type="text" placeholder="Enter your email" required
-                                id="usernameLogin">
+                                <input type="text" placeholder="Enter your email" required id="usernameLogin">
                             </div>
 
                             <div class="input-box">
                                 <i class="fas fa-lock"></i>
-                                <input type="password" placeholder="Enter your password" required
-                               id="passwordLogin" >
+                                <input type="password" placeholder="Enter your password" required id="passwordLogin">
                             </div>
 
                             <div class="text"><a href="#">Forgot password?</a></div>
-                            <div class="button input-box">
-                                <input type="button" value="Submit"
-                                id="htmbtnLogin">
+                            <div class="button" style="width: 100%;">
+                                <button class="custombtn" id="htmBtnLogin">Submit</button>
                             </div>
 
 
 
 
-                            <div class="text sign-up-text">Don't have an account? <label for="flip">Sigup now</label>
+                            <div class="text sign-up-text">
+                                Don't have an account? <label for="flip">Sigup now</label>
                             </div>
+                            <div class="text sign-up-text">
+                                <a href="index.html">Homepage</a>
+                            </div>
+
+
                         </div>
                     </form>
                 </div>
-                
-                
+
+
                 <!-- Sign up!----------------------------------------------------------------------------->
                 <div class="signup-form">
                     <div class="title">Signup</div>
-                    <form action="#">
+                    <form id="htmFormRegister">
                         <div class="input-boxes">
                             <div class="input-box">
                                 <i class="fas fa-user"></i>
-                                <input type="text" placeholder="Enter your name" required 
-                                id="registerFirstName" onkeyup="validateUsername()">
+                                <input type="text" placeholder="Enter your username" required id="htmInpRegUsername"
+                                    onkeyup="validateUsername()">
                                 <div>
                                     <span id="nameError">
                                         <i class="fa-solid fa-circle-exclamation"></i>
                                     </span>
-                                    
-                                </div>
-                            </div>  
 
-                        
+                                </div>
+                            </div>
+
+
                             <div class="input-box">
                                 <i class="fas fa-envelope"></i>
-                                <input type="text" placeholder="Enter your email" required
-                                id="htmEmail" onkeyup="validateEmail()">
+                                <input type="text" placeholder="Enter your email" required id="htmEmail"
+                                    onkeyup="validateEmail()">
                                 <div>
                                     <span id="emailError">
                                         <i class="fa-solid fa-circle-exclamation"></i>
                                     </span>
                                 </div>
                             </div>
-                            
+
                             <div class="input-box">
                                 <i class="fas fa-lock"></i>
-                                <input type="password" placeholder="Enter your password" required
-                                id="htmlPassword" onkeyup="validatePassword()">
+                                <input type="password" placeholder="Enter your password" required id="htmlPassword"
+                                    onkeyup="validatePassword()">
                                 <div>
                                     <span id="passwordError">
                                         <i class="fa-solid fa-circle-exclamation"></i>
@@ -108,14 +132,18 @@
                                 <input type="checkbox" id="showPassword">
                                 <span>Show Password</label>
                             </div>
-                            
-                            <div class="button input-box">
-                                <input type="submit" value="Submit" 
-                                id="htmBtnRegister">
+
+                            <div class="button" style="width: 100%;">
+                                <button class="custombtn" id="htmBtnRegister">Register</button>
                             </div>
-                            
-                            <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label>
+
+                            <div class="text sign-up-text">
+                                Already have an account? <label for="flip">Login now</label>
                             </div>
+                            <div class="text sign-up-text">
+                                <a href="index.html">Homepage</a>
+                            </div>
+
                         </div>
                     </form>
                 </div>
@@ -124,12 +152,21 @@
         </div>
     </div>
     <div>
-        
+
     </div>
     <!---jquery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="js/login.js"></script>
+    
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <!-- **below scripts were not used, old scripts of richiee -->
+    <!-- <script src="services/front/login/core.js"></script> -->
+    
+
+
+    <script src="services/front/login/elements.js"></script>
+    <script src="services/front/login/controls.js"></script>
+
 </body>
 
-</html> 
+</html>
