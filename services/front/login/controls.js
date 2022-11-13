@@ -21,58 +21,54 @@ function fnLogin(event) {
     xmlhttp.send(data);
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
+            let tag = "LOGIN: Authentication - ";
+            let respo = xmlhttp.responseText; console.log(tag, respo);
 
-            //**below is template: json formatted
-            // let d;
-            // try {
-            //     d = JSON.parse(this.responseText);
-            // } catch (e) {
-            //     alert('Response Format error! ' + this.responseText);
-            //     return false;
+            /** below is template: json formatted */
+            let d;
+            try { 
+                d = JSON.parse(respo); 
+            } catch (e) {
+                console.log(tag, e)
+                return; 
+            }   console.log(tag, d.success);
+            
+            if (d.success == false) { 
+                console.log(tag, d.message);
+                alert(d.message);
+                return; 
+            }
 
-            // }
-            // if (d.success == false) {
-            //     alert(d.message);
-            //     return false;
 
-            // } console.log(d.success);
-
-
+            d = d.success.split(" _ ");
 
             uname.value = "";
             passw.value = "";
+            
+            if (typeof (Storage) !== "undefined") {
+                window.localStorage.setItem("uid", d[0]);
+                window.localStorage.setItem("fname", d[1]);
+                window.localStorage.setItem("role", d[2]);
 
-            // d = d.success.split(",");
+                if (d[2] == 1) {
+                    window.location.href = "dashboard.html"; //dashboard
+                } else {
+                    window.location.href = "home.html";
+                }
 
-            // alert("Welcome aboard Mr/Ms. " + d[1]); //[2]
-            // if (typeof (Storage) !== "undefined") {
-            //     //window.localStorage.setItem("role", d[0]);
-            //     window.localStorage.setItem("uid", d[0]);
-            //     window.localStorage.setItem("fname", d[1].replace("-", " "));
+            } else {    // no web storage
+                console.log("**** No web storage.");
 
-            //     // if (d[0] == "superadmin" || d[0] == "admin") {
-            //     //     window.location.href = "dashboard.html"; //dashboard
-            //     // } else {
-            //     //     window.location.href = "home.html";
-            //     // }
+                if (d[2] == 1) {   //dashboard
+                    window.location.href = "dashboard.html?uid=" + d[0] + "&fname=" + d[1] + "&role=" + d[2];
+                } else {
+                    window.location.href = "home.html?uid=" + d[0] + "&fname=" + d[1] + "&role=" + d[2];
+                }
 
-            //     window.location.href = "dashboard.html";
+            }
 
-            // } else {    // no web storage
-            //     console.log("**** No web storage.");
-
-            //     // if (d[0] == "superadmin" || d[0] == "admin") {   //dashboard
-            //     //     window.location.href = "dashboard.html?uid=" + d[1] + "&fname=" + d[2].replace("-", " ");
-            //     // } else {
-            //     //     window.location.href = "home.html?uid=" + d[1] + "&fname=" + d[2].replace("-", " ");
-            //     // }
-
-            //     window.location.href = "dashboard.html?uid=" + d[0] + "&fname=" + d[1].replace("-", " ");
-            // }
-
-
-        } else if (this.readyState == 4) {
+        } 
+        else if (this.readyState == 4) {
             alert("Server Unreachable. Possible Slow Internet Connection..!");
         }
     };
@@ -112,31 +108,46 @@ function fnRegister(event) {
     xmlhttp.send(data);
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
 
-            //**below is template: json formatted
-            // let d;
-            // try {
-            //     d = JSON.parse(this.responseText);
-            // } catch (e) {
-            //     alert('Response Format error! ' + this.responseText);
-            //     return false;
+            let tag = "LOGIN: Registration - ";
+            let respo = xmlhttp.responseText; console.log(tag, respo);
 
-            // }
-            // if (d.success == false) {
-            //     alert(d.message);
-            //     return false;
+            /** below is template: json formatted */
+            let d;
+            try { 
+                d = JSON.parse(respo); 
+            } catch (e) {
+                console.log(tag, e)
+                return; 
+            }   console.log(tag, d.success);
 
-            // } console.log(d.success);
+            if (d.success == false) { // alert(d.message);
+                $(function () {
+                    Swal.fire(
+                        'Signup Failed',
+                        d.message,
+                        'error'
+                    )
+                });
+                return false;
 
+            } console.log(d.success);
 
+            $(function () {
+                Swal.fire(
+                    'Registration Success',
+                    ``,
+                    'success'
+                )
+            });
 
             username.value = "";
             password.value = "";
             email.value = "";
 
 
-        } else if (this.readyState == 4) {
+        } 
+        else if (this.readyState == 4) {
             alert("Server Unreachable. Possible Slow Internet Connection..!");
         }
     };
@@ -148,9 +159,10 @@ var showPassword = document.getElementById("showPassword")
 
 showPassword.addEventListener("click", function () {
     var password = document.getElementById("htmlPassword")
-    if (password.type === "password") {
+    if (password.type == "password") {
         password.type = "text";
-    } else {
+    } 
+    else {
         password.type = "password";
     }
 });
@@ -166,7 +178,8 @@ function validateUsername() {
     if (name1.length >= 1) {
         nameError.innerHTML = '<i class="fas fa-solid fa-circle-check" style="color:green"></i>'
         validUsername = true
-    } else {
+    } 
+    else {
         nameError.innerHTML = '<i class="fa-solid fa-circle-xmark" style="color:red"></i>'
         validUsername = false
     };

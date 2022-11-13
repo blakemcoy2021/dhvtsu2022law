@@ -4,9 +4,10 @@ var showPassword = document.getElementById("showPassword")
 
 showPassword.addEventListener("click", function () {
     var password = document.getElementById("htmlPassword")
-    if (password.type === "password") {
+    if (password.type == "password") {
         password.type = "text";
-    } else {
+    } 
+    else {
         password.type = "password";
     }
 });
@@ -22,7 +23,8 @@ function validateUsername() {
     if (name1.length >= 1) {
         nameError.innerHTML = '<i class="fas fa-solid fa-circle-check" style="color:green"></i>'
 
-    } else {
+    } 
+    else {
         nameError.innerHTML = '<i class="fa-solid fa-circle-xmark" style="color:red"></i>'
     };
 
@@ -87,7 +89,8 @@ btnRegister.addEventListener("click", function () {
                     )
                 });
 
-            } else if (this.responseText == "Register Success") {
+            } 
+            else if (this.responseText == "Register Success") {
                 $(function () {
                     Swal.fire(
                         'Registration Success',

@@ -1,9 +1,11 @@
 <?php
     require '../common/dbconfig.php';
+    require '../common/utilities.php';
     require '../common/model_login.php';
     require '../common/model_user.php';
     require '../common/model_contact.php';
     require '../common/model_role.php';
+    require '../common/model_logs.php';
 
     $dbconn = getConnection();
 
@@ -16,6 +18,13 @@
 
     $isExist = isExist($dbconn, $mdl_login);
     register($dbconn, $mdl_login, $mdl_contact, $isExist);
+
+    $mdl = new ModelLogs();
+    $mdl->userid = getLastId($dbconn, "tbl_user", 'user_id');
+    $mdl->webpage = "register";
+    $mdl->process = "signing up";
+    $mdl->errlbl .= "register-audit";
+    auditLog($dbconn, $mdl);
     die();
 
 
@@ -45,7 +54,7 @@
     function register($dbconn, $mdl_login, $mdl_contact, $isExist)
     {
         if ($isExist) {
-            echo "Signup failed: User already exist.";
+            echo getResponse(false, "Signup failed: User already exist.", 0);
             return;
         }
 
@@ -55,8 +64,8 @@
         try {
             $statement = $dbconn->prepare($query_str);
             $statement->execute();
-        } catch (PDOException $e) { echo "failed @ contacts : $e"; return; }
-        $contactId = getId($dbconn, $tblname, 'contact_id');
+        } catch (PDOException $e) { echo getResponse(false, "failed @ contact : $e", -1); return; }
+        $contactId = getLastId($dbconn, $tblname, 'contact_id');
 
         $mdl = new ModelUser();
         $tblname = "tbl_user";
@@ -65,8 +74,8 @@
         try {
             $statement = $dbconn->prepare($query_str);
             $statement->execute();
-        } catch (PDOException $e) { echo "failed @ user : $e"; return; }
-        $userId = getId($dbconn, $tblname, 'user_id');
+        } catch (PDOException $e) { echo getResponse(false, "failed @ user : $e", -1); return; }
+        $userId = getLastId($dbconn, $tblname, 'user_id');
 
         $mdl = $mdl_login;
         $tblname = "tbl_login";
@@ -75,32 +84,14 @@
         try {
             $statement = $dbconn->prepare($query_str);
             $statement->execute();
-        } catch (PDOException $e) { echo "failed @ login : $e"; return; }
+        } catch (PDOException $e) { echo getResponse(false, "failed @ login : $e", -1); return; }
 
-        echo "You have successfully Registered!";
+        // echo "You have successfully Registered!";
+        echo getResponse(true, "You have successfully Registered!", $userId);
 
     }
 
-    function getId($dbconn, $tbl, $idname)
-    {
-        $tbl_id = 0;
 
-        $query_str = "SELECT `$idname` FROM `$tbl` order by `$idname` desc limit 1";
-        try {
-            $statement = $dbconn->prepare($query_str);
-            $statement->execute();
-            $fetch_id = $statement->fetchColumn();
-
-            if($fetch_id > 0) {
-                $tbl_id = $fetch_id;
-            }
-
-        } catch (PDOException $e) {
-            return $tbl_id;
-        }
-
-        return $tbl_id;
-    }
 
 
 
