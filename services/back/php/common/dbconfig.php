@@ -7,7 +7,7 @@ function getConnection()
     $conn_str = "mysql:host=$hostname;dbname=$database;";
 
     $username = "root";
-    $password = "toor";
+    $password = "toor"; //ActivPower@123L
 
     $dbconn = new PDO($conn_str, $username, $password);
     $dbconn-> setAttribute(PDO ::ATTR_ERRMODE, PDO :: ERRMODE_EXCEPTION);

@@ -46,7 +46,7 @@
                 session_unset();
                 session_destroy();
             
-                header("Location: /zlawfirm/index.html");
+                header("Location: ../../../../index.html");
                 die();
             }
 
