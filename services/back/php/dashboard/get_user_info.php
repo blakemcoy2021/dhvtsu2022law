@@ -12,6 +12,7 @@
     $query .= "inner join tbl_contact on tbl_user.user_contactid=tbl_contact.contact_id ";
     $query .= "inner join tbl_login on tbl_user.user_id=tbl_login.login_userid ";
     $query .= "inner join tbl_role on tbl_login.login_roleid=tbl_role.role_id ";
+    $query .= "inner join tbl_lawyer on tbl_user.user_id=tbl_lawyer.lawyer_userid ";
     $query .= "where tbl_user.user_id=$uid ";
     $query .= "order by user_id desc";
 

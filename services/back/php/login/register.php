@@ -86,6 +86,14 @@
             $statement->execute();
         } catch (PDOException $e) { echo getResponse(false, "failed @ login : $e", -1); return; }
 
+        $tblname = "tbl_lawyer";
+        $query_str = "INSERT INTO `$tblname` (`lawyer_userid`,`lawyer_prcid`,`lawyer_lawfieldid`,`lawyer_mapaddr`,`lawyer_opentime`,`lawyer_closetime`,`lawyer_daysid`) ";
+        $query_str .= "VALUES ('$userId','n/a',0,'n/a','00:00:00','00:00:00',0);";
+        try {
+            $statement = $dbconn->prepare($query_str);
+            $statement->execute();
+        } catch (PDOException $e) { echo getResponse(false, "failed @ login : $e", -1); return; }
+
         // echo "You have successfully Registered!";
         echo getResponse(true, "You have successfully Registered!", $userId);
 

@@ -29,6 +29,9 @@ function getUserInfo(userid) {
                 return; 
             }   console.log(tag, records);
             
+            uname.innerHTML = records.login_username;
+            lbl_username.innerHTML = records.login_username; 
+            
             let verify = records.login_verified;
             let uploadphoto = records.user_photo;
             let firstname = records.user_firstname;
@@ -38,6 +41,19 @@ function getUserInfo(userid) {
             let contact = records.contact_phone;
             let address = records.contact_address;
             let bday = records.user_birthdate;
+
+            let uploadvalidid = records.user_validid;
+            let uploadprcid = records.lawyer_prcid;
+
+            var formattedDate = bday.split("-")
+            var birthdateTimeStamp = new Date(formattedDate[0], formattedDate[1], formattedDate[2])
+            var currentDate = new Date().getTime();
+            var difference = currentDate - birthdateTimeStamp;
+            var currentAge = Math.floor(difference / 31557600000);
+            if (currentAge == -1) {
+                currentAge = 0;
+            }
+
             let islawyer = records.login_roleid;
             let uploadvalidId = records.user_validid;
 
@@ -52,11 +68,17 @@ function getUserInfo(userid) {
             }
             lbl_verified.innerHTML = verified;
 
-
             let rmcache = new Date();
             if (uploadphoto != "n/a") {
                 photo_upload.src = uploadphoto + "?nc=" + rmcache.getMilliseconds();
+                photo_usersm.src = photo_upload.src;
             }
+            if (uploadvalidid != "n/a") {
+                photo_validId.src = uploadvalidid + "?nc=" + rmcache.getMilliseconds();
+            }
+            // if (uploadprcid != "n/a") {
+            //     photo_upload.src = uploadprcid + "?nc=" + rmcache.getMilliseconds();
+            // }
 
             inp_firstname.value = firstname;
             inp_lastname.value = lastname;
@@ -66,16 +88,16 @@ function getUserInfo(userid) {
             inp_address.value = address;
             inp_bday.value = bday;
 
+            lbl_age.innerHTML = currentAge + " year(s) old";
+
             chk_lawyer.checked = false;
             if (islawyer == 3) {
                 chk_lawyer.checked = true;
             }
 
-            if (uploadvalidId != "n/a") {
-                photo_validId.src = uploadvalidId + "?nc=" + rmcache.getMilliseconds();
-            }
-
-
+        }
+        else if (this.readyState == 4) {
+            alert("Server Unreachable. Possible Slow Internet Connection..!");
         }
     };
 }

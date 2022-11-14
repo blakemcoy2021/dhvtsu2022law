@@ -131,7 +131,7 @@
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="fw-bold py-3 mb-4">Profile</h4>
+                        <h4 class="fw-bold py-3 mb-4"><span id="htmLblUsername">username_here</span>`s Profile</h4>
 
                         <div class="row">
                             <div class="col-md-12">
@@ -157,10 +157,10 @@
                                             <img id="htmImgUploadPhoto" src="img/default-profile-photo.png" alt="user-avatar" class="d-block rounded"
                                                 height="100" width="100" id="htmImgUserPhoto" />
                                             <div class="button-wrapper">
-                                                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                                <label for="htmInpUploadPhoto" class="btn btn-primary me-2 mb-4" tabindex="0">
                                                     <span class="d-none d-sm-block">Upload new photo</span>
                                                     <i class="bx bx-upload d-block d-sm-none"></i>
-                                                    <input type="file" id="upload" class="account-file-input" hidden
+                                                    <input type="file" id="htmInpUploadPhoto" class="account-file-input" hidden
                                                         accept="image/png, image/jpeg" />
                                                 </label>
                                                 <button type="button"
@@ -177,7 +177,8 @@
                                     <hr class="my-0" />
 
                                     <div class="card-body">
-                                        <form id="formAccountSettings" method="POST" onsubmit="return false">
+                                        <!-- <form id="formAccountSettings" method="POST" onsubmit="return false"> -->
+                                        <form id="formAccountSettings">
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                     <label for="htmInpFirstName" class="form-label">First Name</label>
@@ -214,7 +215,8 @@
                                                         placeholder="Complete Address Here" />
                                                 </div>
                                                 <div class="mb-3 col-md-6">
-                                                    <label for="htmInpBirtdate" class="col-md-2 col-form-label">Birthdate</label>
+                                                    <label for="htmInpBirtdate" class="col-md-12 col-form-label">
+                                                        Birthdate: <span id="htmLblAge" style="text-decoration: underline;">0 year(s) old</span></label>
                                                     <div class="col-md-10">
                                                       <input class="form-control" type="date" id="htmInpBirtdate" />
                                                     </div>
@@ -230,8 +232,8 @@
 
                                             </div>
                                             <div class="mt-2">
-                                                <button type="submit" class="btn btn-primary me-2">Save changes</button>
-                                                <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                                                <button type="button" class="btn btn-primary me-2" id="htmBtnProfileUpdate">Save changes</button>
+                                                <button type="button" class="btn btn-outline-secondary" id="htmBtnProfileClear">Clear</button>
                                             </div>
                                         </form>
                                     </div>
@@ -241,12 +243,12 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-start align-items-sm-center gap-4">
                                             <img id="htmImgUploadValidId" src="img/default-valid-id.png" alt="user-avatar" class="d-block rounded"
-                                                height="100" width="100" id="htmImgValidId" />
+                                                height="250" width="450" id="htmImgValidId" />
                                             <div class="button-wrapper">
-                                                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                                <label for="htmInpValidPhoto" class="btn btn-primary me-2 mb-4" tabindex="0">
                                                     <span class="d-none d-sm-block">Upload Valid Id</span>
                                                     <i class="bx bx-upload d-block d-sm-none"></i>
-                                                    <input type="file" id="upload" class="account-file-input" hidden
+                                                    <input type="file" id="htmInpValidPhoto" class="account-file-input" hidden
                                                         accept="image/png, image/jpeg" />
                                                 </label>
                                                 <button type="button"

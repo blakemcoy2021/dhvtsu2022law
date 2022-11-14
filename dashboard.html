@@ -49,7 +49,7 @@
         }
     </style>
     <script>
-        window.sessionStorage.setItem("uid", 0); 
+        window.sessionStorage.setItem("userid", 0); 
     </script>
 </head>
 
@@ -259,7 +259,8 @@
                                         </div>
                                         <div class="row g-2 mb-3">
                                             <div class="col mb-0">
-                                                <label for="dobBackdrop" style="padding: 0" class="col-md-2 col-form-label">Birthdate</label>
+                                                <label for="dobBackdrop" style="padding: 0" class="col-md-12 col-form-label">
+                                                    Birthdate: <span id="htmLblAge" style="text-decoration: underline;">0 year(s) old</span></label>
                                                 <div class="col-md-10" style="margin-top: 7px;">
                                                   <input class="form-control" type="date" id="dobBackdrop" disabled />
                                                 </div>

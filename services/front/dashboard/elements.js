@@ -9,6 +9,7 @@ var inp_address = document.getElementById("addressBackdrop");
 var inp_phone = document.getElementById("phoneBackdrop");
 var inp_email = document.getElementById("emailBackdrop");
 var inp_birthdate = document.getElementById("dobBackdrop");
+var lbl_age = document.getElementById("htmLblAge");
 var inp_usertype = document.getElementById("usertypeBackdrop");
 
 var btn_decline = document.getElementById("htmBtnUpdate1");

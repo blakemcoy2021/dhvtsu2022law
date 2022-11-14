@@ -1,12 +1,12 @@
 function closeModal() {
     document.getElementById("htmBtnBackDropModal").click();
-    window.sessionStorage.setItem("uid", 0);    
+    window.sessionStorage.setItem("userid", 0);    
 }
 
 function getUserInfo(userid) {
     document.getElementById("htmAncBackDropModal").click();
 
-    window.sessionStorage.setItem("uid", userid);
+    window.sessionStorage.setItem("userid", userid);
 
     let route = "services/back/php/dashboard/get_user_info.php?uid=" + userid;
     let xhttp = new XMLHttpRequest();
@@ -44,6 +44,16 @@ function getUserInfo(userid) {
             let email = records.contact_email;
             let bday = records.user_birthdate;
 
+            var formattedDate = bday.split("-")
+            var birthdateTimeStamp = new Date(formattedDate[0], formattedDate[1], formattedDate[2])
+            var currentDate = new Date().getTime();
+            var difference = currentDate - birthdateTimeStamp;
+            var currentAge = Math.floor(difference / 31557600000);
+            if (currentAge == -1) {
+                currentAge = 0;
+            }
+
+
             let verified = "New";
             btn_decline.disabled = false;
             btn_approve.disabled = false;
@@ -70,7 +80,7 @@ function getUserInfo(userid) {
             inp_usertype.value = usertype;
 
 
-
+            lbl_age.innerHTML = currentAge + " year(s) old";
 
         }
     };
