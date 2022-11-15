@@ -112,7 +112,7 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="services/back/php/common/logout.php">
+                                        <a class="dropdown-item" href="services/back/php/common/logout.php?page=home">
                                             <i class="bx bx-power-off me-2"></i>
                                             <span class="align-middle">Log Out</span>
                                         </a>
@@ -131,7 +131,7 @@
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="fw-bold py-3 mb-4"><span id="htmLblUsername">username_here</span>`s Profile</h4>
+                        <h4 class="fw-bold py-3 mb-4"><span id="htmLblUserfullname">username_here</span>`s Profile</h4>
 
                         <div class="row">
                             <div class="col-md-12">
@@ -365,9 +365,9 @@
                     roletyp.innerHTML = "Lawyer";
                 }
 
-                document.getElementById("hidfld_role").value = role;
-                document.getElementById("hidfld_fname").value = fname;
-                document.getElementById("hidfld_uid").value = uid;
+                hrole.value = role;
+                hname.value = fname;
+                huid.value = uid;
             } 
             else {
                 let urlParams = new URLSearchParams(window.location.search);
@@ -381,9 +381,9 @@
                     roletyp.innerHTML = "Lawyer";
                 }
 
-                document.getElementById("hidfld_role").value = role;
-                document.getElementById("hidfld_fname").value = fname;
-                document.getElementById("hidfld_uid").value = uid;
+                hrole.value = role;
+                hname.value = fname;
+                huid.value = uid;
             }
             getUserInfo(uid);
         }

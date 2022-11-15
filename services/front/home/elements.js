@@ -1,10 +1,15 @@
 var uname = document.getElementById("htmLblUserName");
+
+var hname = document.getElementById("hidfld_fname"); 
+var huid = document.getElementById("hidfld_uid");
+var hrole = document.getElementById("hidfld_role");
+
 var roletyp = document.getElementById("htmLblUserType");
 var photo_usersm = document.getElementById("htmImgUserPhotoSm");
 
 var frm_profile = document.getElementById("formAccountSettings");
 
-var lbl_username = document.getElementById("htmLblUsername");
+var lbl_username = document.getElementById("htmLblUserfullname");
 var lbl_verified = document.getElementById("htmLblVerified");
 
 var photo_upload = document.getElementById("htmImgUploadPhoto");
@@ -26,3 +31,6 @@ var inp_validId = document.getElementById("htmInpValidPhoto");
 
 var btn_update = document.getElementById("htmBtnProfileUpdate");
 var btn_clear = document.getElementById("htmBtnProfileClear");
+
+
+var link_notifs = document.getElementById("htmAncClientNotifications");

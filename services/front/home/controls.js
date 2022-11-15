@@ -63,8 +63,6 @@ inp_validId.onchange = () => {
     uploadPhoto(1);
 }
 
-
-
 function uploadPhoto(idtype) {
     let userid = window.localStorage.getItem("uid");
 
@@ -115,4 +113,25 @@ function uploadPhoto(idtype) {
             getUserInfo(userid);
         }
     };
+}
+
+link_notifs.onclick = () => {
+
+    if (typeof (Storage) !== "undefined") {
+        if (hrole.value == 1) {
+            window.location.href = "dashboard.html"; //dashboard
+        } else {
+            window.location.href = "notifications.html";
+        }
+
+    } else {    // no web storage
+        console.log("**** No web storage.");
+
+        if (d[2] == 1) {   //dashboard
+            window.location.href = "dashboard.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
+        } else {
+            window.location.href = "notifications.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
+        }
+
+    }    
 }

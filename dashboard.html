@@ -149,7 +149,7 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="services/back/php/common/logout.php">
+                                        <a class="dropdown-item" href="services/back/php/common/logout.php?page=admin">
                                             <i class="bx bx-power-off me-2"></i>
                                             <span class="align-middle">Log Out</span>
                                         </a>
@@ -228,7 +228,7 @@
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col mb-3" style="display: flex; justify-content: center;">
-                                                <img src="img/default-profile-photo.png" width="150" height="150" class="rounded-circle" style="border: 4px solid #ECEEF1">
+                                                <img id="htmImgUserPhoto" src="img/default-profile-photo.png" width="150" height="150" class="rounded-circle" style="border: 4px solid #ECEEF1">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -274,7 +274,7 @@
                                         <div class="row">
                                             <div class="col mb-0">
                                                 <label for="validIdBackDrop" class="form-label">Valid Id</label>
-                                                <img src="img/default-valid-id.png" id="validIdBackDrop" class="img-thumbnail" style="width: 100%; border: 4px solid #ECEEF1">
+                                                <img id="htmImgUserValidId" src="img/default-valid-id.png" id="validIdBackDrop" class="img-thumbnail" style="width: 100%; border: 4px solid #ECEEF1">
                                             </div>
                                         </div>
 
@@ -365,18 +365,18 @@
                 let fname = window.localStorage.getItem("fname"); console.log("Acquire localstorage value :: " + fname);
                 uname.innerHTML = fname;
 
-                document.getElementById("hidfld_fname").value = fname;
-                document.getElementById("hidfld_uid").value = window.localStorage.getItem("uid");
-                document.getElementById("hidfld_role").value =  window.localStorage.getItem("role");
+                hname.value = fname;
+                huid.value = window.localStorage.getItem("uid");
+                hrole.value =  window.localStorage.getItem("role");
             } 
             else {
                 let urlParams = new URLSearchParams(window.location.search);
                 let fname = urlParams.get("fname"); console.log("NO localstorage support :: " + fname);
                 uname.innerHTML = fname;
                 
-                document.getElementById("hidfld_fname").value = fname;
-                document.getElementById("hidfld_uid").value = urlParams.get('uid');
-                document.getElementById("hidfld_role").value = urlParams.get('role');
+                hname.value = fname;
+                huid.value = urlParams.get('uid');
+                hrole.value = urlParams.get('role');
             }
             getUsersCtr();
             getUsers();

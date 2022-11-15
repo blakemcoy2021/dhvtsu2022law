@@ -37,6 +37,10 @@ function getUserInfo(userid) {
                 console.log(tag, e)
                 return; 
             }   console.log(tag, records);
+
+            let uploadphoto = records.user_photo;
+            let uploadvalidid = records.user_validid;
+            let uploadprcid = records.lawyer_prcid;
             
             let fullname = records.user_lastname + ", " + records.user_firstname + " " + records.user_midname;
             let address = records.contact_address;
@@ -51,6 +55,16 @@ function getUserInfo(userid) {
             var currentAge = Math.floor(difference / 31557600000);
             if (currentAge == -1) {
                 currentAge = 0;
+            }
+
+            
+            
+            let rmcache = new Date();
+            if (uploadphoto != "n/a") {
+                img_userphoto.src = uploadphoto + "?nc=" + rmcache.getMilliseconds();
+            }
+            if (uploadvalidid != "n/a") {
+                img_uservalidid.src = uploadvalidid + "?nc=" + rmcache.getMilliseconds();
             }
 
 
@@ -93,9 +107,9 @@ function delUserInfo(userid) {
 }
 
 btn_approve.onclick = () => {
-    let userid = window.sessionStorage.getItem("uid");
+    let userid = window.sessionStorage.getItem("userid");
 
-    let route = "services/back/php/dashboard/upd_user_verify.php?uid=" + userid + "&vfy=1";
+    let route = "services/back/php/dashboard/upd_user_verify.php?uid=" + userid + "&vfy=1&id=" + huid.value;
     let xhttp = new XMLHttpRequest();
     xhttp.open("GET", route, true);
     xhttp.send();
@@ -127,9 +141,9 @@ btn_approve.onclick = () => {
 }
 
 btn_decline.onclick = () => {
-    let userid = window.sessionStorage.getItem("uid");
+    let userid = window.sessionStorage.getItem("userid");
 
-    let route = "services/back/php/dashboard/upd_user_verify.php?uid=" + userid + "&vfy=-1";
+    let route = "services/back/php/dashboard/upd_user_verify.php?uid=" + userid + "&vfy=-1&id=" + huid.value;
     let xhttp = new XMLHttpRequest();
     xhttp.open("GET", route, true);
     xhttp.send();

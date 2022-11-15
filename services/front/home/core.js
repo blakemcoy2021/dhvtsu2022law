@@ -29,13 +29,13 @@ function getUserInfo(userid) {
                 return; 
             }   console.log(tag, records);
             
-            uname.innerHTML = records.login_username;
-            lbl_username.innerHTML = records.login_username; 
+            uname.innerHTML = records.login_username; 
             
             let verify = records.login_verified;
             let uploadphoto = records.user_photo;
             let firstname = records.user_firstname;
             let lastname = records.user_lastname;
+                lbl_username.innerHTML = lastname + ", " + firstname;
             let midname = records.user_midname;
             let email = records.contact_email;
             let contact = records.contact_phone;
@@ -55,7 +55,6 @@ function getUserInfo(userid) {
             }
 
             let islawyer = records.login_roleid;
-            let uploadvalidId = records.user_validid;
 
 
 
