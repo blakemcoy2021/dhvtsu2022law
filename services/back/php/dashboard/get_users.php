@@ -11,7 +11,7 @@
     $query .= "inner join tbl_login on tbl_user.user_id=tbl_login.login_userid ";
     $query .= "inner join tbl_role on tbl_login.login_roleid=tbl_role.role_id ";
     $query .= "where NOT tbl_login.login_roleid='1' ";
-    $query .= "order by user_id desc";
+    $query .= "order by tbl_login.login_lastupdate desc";
 
     try {
         $conn = getConnection();

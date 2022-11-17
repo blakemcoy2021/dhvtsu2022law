@@ -36,6 +36,14 @@ function getNotifications(userid) {
 
             if (records.length > 0) {
                 let stream = "";
+                
+                let uploadphoto = records[0].user_photo;
+                let rmcache = new Date();
+                if (uploadphoto != "n/a") {
+                    photo_usersm.src = uploadphoto + "?nc=" + rmcache.getMilliseconds();
+                }
+                verified = records[0].login_verified;
+
                 for (let i = 0; i < records.length; i++) {
 
                     // <div class="card mb-3">
@@ -50,7 +58,14 @@ function getNotifications(userid) {
                     let monthsArr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
                     let dtstamp = records[i].log_datesaved;
                     let dt = new Date(dtstamp);
-                    let notif_dt = "<span style='font-size: x-small'><u>" + monthsArr[dt.getMonth()] + " " + dt.getDate() + ", " + dt.getFullYear() + "</u></span>";
+                    let notif_dt = "<span style='font-size: x-small'><u>" + 
+                                        monthsArr[dt.getMonth()] + 
+                                        " " + dt.getDate() +
+                                        ", " + dt.getFullYear() + 
+                                        " " + dt.getHours() +
+                                        ":" + dt.getMinutes() +
+                                        ":" + dt.getSeconds() +
+                                    "</u></span>";
 
                     let notifs = records[i].log_transaction;
                     let notif_title = "";
@@ -67,7 +82,9 @@ function getNotifications(userid) {
                             notif_message = "Your account has not passed to the verification ";
                             notif_message += "process due to suspicious/inconsistent information given ";
                             notif_message += "specially if ID uploaded is not matched to your account.";
-                            options += "<a href='javascript: requestReVerify(" + userid + ")' class='btn btn-primary'>Request Again</a>";
+                            if (verified != "1") {
+                                options += "<a href='javascript: requestReVerify(" + userid + ");' class='btn btn-primary'>Request Again</a>";
+                            }
                         }
                     }
 
@@ -87,3 +104,4 @@ function getNotifications(userid) {
         }
     };
 }
+

@@ -34,3 +34,7 @@ var btn_clear = document.getElementById("htmBtnProfileClear");
 
 
 var link_notifs = document.getElementById("htmAncClientNotifications");
+var link_appoint = document.getElementById("htmAncClientAppointments");
+
+
+var btn_notverified = document.getElementById("htmBtnNotVerified");

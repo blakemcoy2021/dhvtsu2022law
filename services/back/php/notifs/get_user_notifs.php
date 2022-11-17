@@ -8,9 +8,14 @@
 
     $uid = $_GET["uid"];
 
-    $query = "select * from tbl_logs ";
-    $query .= "where log_getuid='$uid' ";
-    $query .= "order by log_id desc";
+    $t1 = "tbl_logs";
+    $t2 = "tbl_user";
+    $t3 = "tbl_login";
+    $query = "select $t1.log_id, $t1.log_datesaved, $t1.log_transaction, $t2.user_photo, $t3.login_verified from $t1 ";
+    $query .= "inner join $t2 on $t1.log_getuid=$t2.user_id ";
+    $query .= "inner join $t3 on $t1.log_getuid=$t3.login_userid ";
+    $query .= "where $t1.log_getuid='$uid' ";
+    $query .= "order by $t1.log_id desc";
 
     try {
         $conn = getConnection();

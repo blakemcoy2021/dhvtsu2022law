@@ -39,7 +39,9 @@
     <script src="sneat/assets/vendor/js/helpers.js"></script>
 
     <script src="sneat/assets/js/config.js"></script>
-
+    <script>
+        var verified = "0";
+    </script>
 </head>
 
 <body>
@@ -92,9 +94,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <span class="fw-semibold d-block"
-                                                        id="htmLblUserName">client_name_here</span>
-                                                    <small class="text-muted" id="htmLblUserType">user_type_here</small>
+                                                    <span class="fw-semibold d-block" id="htmLblUserName">???</span>
+                                                    <small class="text-muted" id="htmLblUserType">???</small>
                                                 </div>
                                             </div>
                                         </a>
@@ -131,7 +132,7 @@
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="fw-bold py-3 mb-4"><span id="htmLblUserfullname">username_here</span>`s Notifications
+                        <h4 class="fw-bold py-3 mb-4"><span id="htmLblUserfullname">???</span>`s Notifications
                         </h4>
 
                         <div class="row">
@@ -142,8 +143,8 @@
                                                 class="bx bx-user me-1"></i> Account</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="#"><i
-                                                class="bx bx-bell me-1"></i> Notifications</a>
+                                        <a class="nav-link active" href="#"><i class="bx bx-bell me-1"></i>
+                                            Notifications</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="htmAncClientAppointments" href="#"><i
@@ -151,7 +152,8 @@
                                     </li>
                                 </ul>
 
-                                <div class="col-md-12 col-lg-8" id="htmListNotifications" style="overflow-y: auto; height: 320px">
+                                <div class="col-md-12 col-lg-8" id="htmListNotifications"
+                                    style="overflow-y: auto; height: 320px">
 
                                     <div class="card mb-3">
                                         <div class="card-body">
@@ -164,6 +166,28 @@
 
                             </div>
                         </div>
+
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#smallModal" style="display: none;" id="htmBtnNotVerified">
+                        </button>
+                        <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="card bg-danger text-white">
+                                            <div class="card-header">Sorry!</div>
+                                            <div class="card-body">
+                                                <h5 class="card-title text-white">Not Yet Verified</h5>
+                                                <p class="card-text">Unable to proceed see/create appointment unless you
+                                                    are a verified user.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                     <!-- / Content -->
 
@@ -217,6 +241,7 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Main JS -->
     <script src="sneat/assets/js/main.js"></script>
@@ -231,10 +256,12 @@
 
             if (typeof (Storage) !== "undefined") {
                 let fname = window.localStorage.getItem("fname"); console.log("Acquire localstorage value :: name " + fname);
-                let role = window.localStorage.getItem("role"); console.log("Acquire localstorage value :: role " + fname);
+                let role = window.localStorage.getItem("role"); console.log("Acquire localstorage value :: role " + role);
+                let usern = window.localStorage.getItem("uname"); console.log("Acquire localstorage value :: username " + usern);
                 uid = window.localStorage.getItem("uid"); console.log("Acquire localstorage value :: uid " + uid);
 
-                uname.innerHTML = fname;
+                uname.innerHTML = usern;
+                lbl_username.innerHTML = fname;
                 roletyp.innerHTML = "Client";
                 if (role == 3) {
                     roletyp.innerHTML = "Lawyer";
@@ -248,9 +275,11 @@
                 let urlParams = new URLSearchParams(window.location.search);
                 let fname = urlParams.get("fname"); console.log("NO localstorage support :: name " + fname);
                 let role = urlParams.get('role'); console.log("NO localstorage support :: role " + role);
+                let usern = urlParams.get('uname'); console.log("NO localstorage support :: username " + usern);
                 uid = urlParams.get("uid"); console.log("NO localstorage support :: uid " + uid);
 
-                uname.innerHTML = fname;
+                uname.innerHTML = usern;
+                lbl_username.innerHTML = fname;
                 roletyp.innerHTML = "Client";
                 if (role == 3) {
                     roletyp.innerHTML = "Lawyer";
@@ -260,6 +289,8 @@
                 hname.value = fname;
                 huid.value = uid;
             }
+            lbl_username.innerHTML = hname.value;
+
             getNotifications(uid);
         }
     </script>

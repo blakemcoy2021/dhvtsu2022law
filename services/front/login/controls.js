@@ -29,13 +29,27 @@ function fnLogin(event) {
             try { 
                 d = JSON.parse(respo); 
             } catch (e) {
+                $(function () {
+                    Swal.fire(
+                        'Signup Failed',
+                        d.message,
+                        'error'
+                    )
+                });
                 console.log(tag, e)
                 return; 
             }   console.log(tag, d.success);
             
             if (d.success == false) { 
                 console.log(tag, d.message);
-                alert(d.message);
+                $(function () {
+                    Swal.fire(
+                        'Signup Failed',
+                        d.message,
+                        'error'
+                    )
+                });
+                // alert(d.message);
                 return; 
             }
 
@@ -44,6 +58,14 @@ function fnLogin(event) {
 
             uname.value = "";
             passw.value = "";
+
+            $(function () {
+                Swal.fire(
+                    'Login Success',
+                    ``,
+                    'success'
+                )
+            });
             
             if (typeof (Storage) !== "undefined") {
                 window.localStorage.setItem("uid", d[0]);

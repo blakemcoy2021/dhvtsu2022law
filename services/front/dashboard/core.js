@@ -109,6 +109,9 @@ function getUsers() {
                     else if (records[i].login_verified == -1) {
                         verified = "<span class='badge bg-label-danger me-1'>Unapproved";
                     }
+                    else if (records[i].login_verified == 2) {
+                        verified = "<span class='badge bg-label-warning me-1'>Reverify";
+                    }
                     let role = records[i].role_name;
                     let usertype = role.charAt(0).toUpperCase() + role.slice(1);
 

@@ -33,13 +33,16 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="sneat/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
+
     <!-- Page CSS -->
 
     <!-- Helpers -->
     <script src="sneat/assets/vendor/js/helpers.js"></script>
 
     <script src="sneat/assets/js/config.js"></script>
-
+    <script>
+        var verified = "0";
+    </script>
 </head>
 
 <body>
@@ -78,8 +81,7 @@
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="img/default-settings.png" alt
-                                            class="w-px-40 h-auto rounded-circle" />
+                                        <img src="img/default-settings.png" alt class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -88,13 +90,13 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img id="htmImgUserPhotoSm" src="img/default-profile-photo.png" alt
-                                                            class="w-px-40 h-auto rounded-circle" />
+                                                        <img id="htmImgUserPhotoSm" src="img/default-profile-photo.png"
+                                                            alt class="w-px-40 h-auto rounded-circle" />
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <span class="fw-semibold d-block" id="htmLblUserName">client_name_here</span>
-                                                    <small class="text-muted" id="htmLblUserType">user_type_here</small>
+                                                    <span class="fw-semibold d-block" id="htmLblUserName">???</span>
+                                                    <small class="text-muted" id="htmLblUserType">???</small>
                                                 </div>
                                             </div>
                                         </a>
@@ -131,7 +133,7 @@
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="fw-bold py-3 mb-4"><span id="htmLblUserfullname">username_here</span>`s Profile</h4>
+                        <h4 class="fw-bold py-3 mb-4"><span id="htmLblUserfullname">???</span>`s Profile</h4>
 
                         <div class="row">
                             <div class="col-md-12">
@@ -154,14 +156,16 @@
                                     <!-- Account -->
                                     <div class="card-body">
                                         <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                            <img id="htmImgUploadPhoto" src="img/default-profile-photo.png" alt="user-avatar" class="d-block rounded"
-                                                height="100" width="100" id="htmImgUserPhoto" />
+                                            <img id="htmImgUploadPhoto" src="img/default-profile-photo.png"
+                                                alt="user-avatar" class="d-block rounded" height="100" width="100"
+                                                id="htmImgUserPhoto" />
                                             <div class="button-wrapper">
-                                                <label for="htmInpUploadPhoto" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                                <label for="htmInpUploadPhoto" class="btn btn-primary me-2 mb-4"
+                                                    tabindex="0">
                                                     <span class="d-none d-sm-block">Upload new photo</span>
                                                     <i class="bx bx-upload d-block d-sm-none"></i>
-                                                    <input type="file" id="htmInpUploadPhoto" class="account-file-input" hidden
-                                                        accept="image/png, image/jpeg" />
+                                                    <input type="file" id="htmInpUploadPhoto" class="account-file-input"
+                                                        hidden accept="image/png, image/jpeg" />
                                                 </label>
                                                 <button type="button"
                                                     class="btn btn-outline-secondary account-image-reset mb-4">
@@ -183,7 +187,8 @@
                                                 <div class="mb-3 col-md-6">
                                                     <label for="htmInpFirstName" class="form-label">First Name</label>
                                                     <input class="form-control" type="text" id="htmInpFirstName"
-                                                        name="htmInpFirstName" placeholder="First Name Here" autofocus />
+                                                        name="htmInpFirstName" placeholder="First Name Here"
+                                                        autofocus />
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label for="htmInpLastName" class="form-label">Last Name</label>
@@ -197,43 +202,52 @@
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label for="htmInpEmail" class="form-label">E-mail</label>
-                                                    <input class="form-control" type="text" id="htmInpEmail" name="htmInpEmail"
-                                                        placeholder="e.g. xxxx@mail.xx" />
+                                                    <input class="form-control" type="text" id="htmInpEmail"
+                                                        name="htmInpEmail" placeholder="e.g. xxxx@mail.xx" />
                                                 </div>
 
                                                 <div class="mb-3 col-md-6">
-                                                    <label class="form-label" for="htmInpPhoneNumber">Phone Number</label>
+                                                    <label class="form-label" for="htmInpPhoneNumber">Phone
+                                                        Number</label>
                                                     <div class="input-group input-group-merge">
                                                         <span class="input-group-text">PH (+63)</span>
-                                                        <input type="text" id="htmInpPhoneNumber" name="htmInpPhoneNumber"
-                                                            class="form-control" placeholder="966 322 1135" />
+                                                        <input type="text" id="htmInpPhoneNumber"
+                                                            name="htmInpPhoneNumber" class="form-control"
+                                                            placeholder="966 322 1135" />
                                                     </div>
                                                 </div>
                                                 <div class="mb-3 col-md-6">
-                                                    <label for="htmInpAddress" class="form-label">Complete Address</label>
-                                                    <input type="text" class="form-control" id="htmInpAddress" name="htmInpAddress"
-                                                        placeholder="Complete Address Here" />
+                                                    <label for="htmInpAddress" class="form-label">Complete
+                                                        Address</label>
+                                                    <input type="text" class="form-control" id="htmInpAddress"
+                                                        name="htmInpAddress" placeholder="Complete Address Here" />
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label for="htmInpBirtdate" class="col-md-12 col-form-label">
-                                                        Birthdate: <span id="htmLblAge" style="text-decoration: underline;">0 year(s) old</span></label>
+                                                        Birthdate: <span id="htmLblAge"
+                                                            style="text-decoration: underline;">0 year(s)
+                                                            old</span></label>
                                                     <div class="col-md-10">
-                                                      <input class="form-control" type="date" id="htmInpBirtdate" />
+                                                        <input class="form-control" type="date" id="htmInpBirtdate" />
                                                     </div>
                                                 </div>
 
                                                 <div class="mb-3 col-md-6">
-                                                    <label for="htmDivIsLawyer" class="col-md-3 col-form-label">You are Lawyer?</label>
+                                                    <label for="htmDivIsLawyer" class="col-md-3 col-form-label">You are
+                                                        Lawyer?</label>
                                                     <div class="col-md-10" id="htmDivIsLawyer">
-                                                      <input class="form-check-input" type="checkbox" id="htmChkIsLawyer" value="option1" />
-                                                      <label class="form-check-label" for="htmChkIsLawyer">Yes</label>
+                                                        <input class="form-check-input" type="checkbox"
+                                                            id="htmChkIsLawyer" value="option1" />
+                                                        <label class="form-check-label" for="htmChkIsLawyer">Yes</label>
                                                     </div>
                                                 </div>
 
                                             </div>
                                             <div class="mt-2">
-                                                <button type="button" class="btn btn-primary me-2" id="htmBtnProfileUpdate">Save changes</button>
-                                                <button type="button" class="btn btn-outline-secondary" id="htmBtnProfileClear">Clear</button>
+                                                <button type="button" class="btn btn-primary me-2"
+                                                    id="htmBtnProfileUpdate">Save changes</button>
+                                                <button type="button" class="btn btn-outline-secondary"
+                                                    id="htmBtnProfileClear">Clear</button>
                                             </div>
                                         </form>
                                     </div>
@@ -242,14 +256,16 @@
 
                                     <div class="card-body">
                                         <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                            <img id="htmImgUploadValidId" src="img/default-valid-id.png" alt="user-avatar" class="d-block rounded"
-                                                height="250" width="450" id="htmImgValidId" />
+                                            <img id="htmImgUploadValidId" src="img/default-valid-id.png"
+                                                alt="user-avatar" class="d-block rounded" height="250" width="450"
+                                                id="htmImgValidId" />
                                             <div class="button-wrapper">
-                                                <label for="htmInpValidPhoto" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                                <label for="htmInpValidPhoto" class="btn btn-primary me-2 mb-4"
+                                                    tabindex="0">
                                                     <span class="d-none d-sm-block">Upload Valid Id</span>
                                                     <i class="bx bx-upload d-block d-sm-none"></i>
-                                                    <input type="file" id="htmInpValidPhoto" class="account-file-input" hidden
-                                                        accept="image/png, image/jpeg" />
+                                                    <input type="file" id="htmInpValidPhoto" class="account-file-input"
+                                                        hidden accept="image/png, image/jpeg" />
                                                 </label>
                                                 <button type="button"
                                                     class="btn btn-outline-secondary account-image-reset mb-4">
@@ -289,6 +305,27 @@
                                 </div>
                             </div>
                         </div>
+
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#smallModal" style="display: none;" id="htmBtnNotVerified">
+                        </button>
+                        <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                            <div class="card bg-danger text-white">
+                                                <div class="card-header">Sorry!</div>
+                                                <div class="card-body">
+                                                    <h5 class="card-title text-white">Not Yet Verified</h5>
+                                                    <p class="card-text">Unable to proceed see/create appointment unless you are a verified user.</p>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                     <!-- / Content -->
 
@@ -342,6 +379,7 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Main JS -->
     <script src="sneat/assets/js/main.js"></script>
@@ -354,12 +392,12 @@
         window.onload = () => {
             var uid = 0;
 
-            if (typeof(Storage) !== "undefined") {
+            if (typeof (Storage) !== "undefined") {
                 let fname = window.localStorage.getItem("fname"); console.log("Acquire localstorage value :: name " + fname);
                 let role = window.localStorage.getItem("role"); console.log("Acquire localstorage value :: role " + fname);
                 uid = window.localStorage.getItem("uid"); console.log("Acquire localstorage value :: uid " + uid);
 
-                uname.innerHTML = fname;
+                lbl_username.innerHTML = fname;
                 roletyp.innerHTML = "Client";
                 if (role == 3) {
                     roletyp.innerHTML = "Lawyer";
@@ -368,14 +406,14 @@
                 hrole.value = role;
                 hname.value = fname;
                 huid.value = uid;
-            } 
+            }
             else {
                 let urlParams = new URLSearchParams(window.location.search);
                 let fname = urlParams.get("fname"); console.log("NO localstorage support :: name " + fname);
                 let role = urlParams.get('role'); console.log("NO localstorage support :: role " + role);
                 uid = urlParams.get("uid"); console.log("NO localstorage support :: uid " + uid);
 
-                uname.innerHTML = fname;
+                lbl_username.innerHTML = fname;
                 roletyp.innerHTML = "Client";
                 if (role == 3) {
                     roletyp.innerHTML = "Lawyer";

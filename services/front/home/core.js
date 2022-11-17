@@ -29,13 +29,15 @@ function getUserInfo(userid) {
                 return; 
             }   console.log(tag, records);
             
-            uname.innerHTML = records.login_username; 
+            uname.innerHTML = records.login_username;
+            window.localStorage.setItem("uname", uname.innerHTML);
+
             
-            let verify = records.login_verified;
+            verified = records.login_verified;
             let uploadphoto = records.user_photo;
             let firstname = records.user_firstname;
             let lastname = records.user_lastname;
-                lbl_username.innerHTML = lastname + ", " + firstname;
+
             let midname = records.user_midname;
             let email = records.contact_email;
             let contact = records.contact_phone;
@@ -58,19 +60,23 @@ function getUserInfo(userid) {
 
 
 
-            let verified = "<span style='color: green'>New</span>";
-            if (verify == 1) {
-                verified = "<span style='color: blue'>Verified</span>";
+            let verified_str = "<span style='color: green'>New</span>";
+            if (verified == "1") {
+                verified_str = "<span style='color: blue'>Verified</span>";
             }
-            else if (records.login_verified == -1) {
-                verified = "<span style='color: red'>Unapproved</span>"
+            else if (verified == "-1") {
+                verified_str = "<span style='color: red'>Unapproved</span>"
             }
-            lbl_verified.innerHTML = verified;
+            else if (verified == "2") {
+                verified_str = "<span style='color: orange'>Re-verification</span>"
+            }
+            lbl_verified.innerHTML = verified_str;
 
             let rmcache = new Date();
             if (uploadphoto != "n/a") {
                 photo_upload.src = uploadphoto + "?nc=" + rmcache.getMilliseconds();
                 photo_usersm.src = photo_upload.src;
+            
             }
             if (uploadvalidid != "n/a") {
                 photo_validId.src = uploadvalidid + "?nc=" + rmcache.getMilliseconds();
