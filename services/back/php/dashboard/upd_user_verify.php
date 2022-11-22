@@ -21,12 +21,12 @@
         $stmt->execute();
 
         $msg = "Verified";
-        if ($role == "lawyer") {
+        if (strtolower($role) == "lawyer") {
             $msg = "Lawyer Verified";
         }
         if ($vfy == -1) {
             $msg = "Declined";
-            if ($role == "lawyer") {
+            if (strtolower($role) == "lawyer") {
                 $msg = "Lawyer Declined";
             }
         }

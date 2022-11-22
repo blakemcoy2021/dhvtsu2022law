@@ -149,8 +149,35 @@ function getLawyerInfo(userid, usertype) {
 }
 
 function delUserInfo(userid) {
-    alert("world " + userid);
-    return;
+    let route = "services/back/php/dashboard/del_user.php?uid=" + userid + "&id=" + huid.value;
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("GET", route, true);
+    xhttp.send();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let tag = "LAWYER: DeleteLawyersInfo - ";
+            let respo = xhttp.responseText; console.log(tag, respo);
+
+            let d;
+            try { 
+                d = JSON.parse(respo); 
+            } catch (e) {
+                console.log(tag, e)
+                return; 
+            }   console.log(tag, d.success);
+            
+            if (d.success == false) { 
+                console.log(tag, d.message);
+                return; 
+            }
+            alert(d.message);
+
+            getLawyersCtr();
+            getLawyers();
+            closeModal();
+
+        }
+    };
 
 }
 
@@ -161,7 +188,7 @@ inp_address.onclick = () => {
 btn_approve.onclick = () => {
     let userid = window.sessionStorage.getItem("userid");
     let usertyp = window.sessionStorage.getItem("usertyp");
-    usertype = usertyp.toLowerCase();
+    usertyp = usertyp.toLowerCase();
 
     let route = "services/back/php/dashboard/upd_user_verify.php?uid=" + userid + "&vfy=1&id=" + huid.value + "&role=" + usertyp;
     let xhttp = new XMLHttpRequest();
@@ -197,7 +224,7 @@ btn_approve.onclick = () => {
 btn_decline.onclick = () => {
     let userid = window.sessionStorage.getItem("userid");
     let usertyp = window.sessionStorage.getItem("usertyp");
-    usertype = usertyp.toLowerCase();
+    usertyp = usertyp.toLowerCase();
 
     let route = "services/back/php/dashboard/upd_user_verify.php?uid=" + userid + "&vfy=-1&id=" + huid.value + "&role=" + usertyp;
     let xhttp = new XMLHttpRequest();
@@ -240,5 +267,16 @@ link_clients.onclick = () => {
         console.log("**** No web storage.");
 
         window.location.href = "dashboard.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
+    }     
+}
+link_audit.onclick = () => {
+    if (typeof (Storage) !== "undefined") {
+        window.location.href = "auditlogs.html";
+
+    } 
+    else {    // no web storage
+        console.log("**** No web storage.");
+
+        window.location.href = "auditlogs.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
     }     
 }
