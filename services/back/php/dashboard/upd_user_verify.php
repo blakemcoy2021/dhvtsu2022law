@@ -10,16 +10,25 @@
     $uid = $_GET["uid"];
     $vfy = $_GET["vfy"];
     $id = $_GET["id"];
+    $role = $_GET["role"];
 
-    $query = "update tbl_login set login_verified='$vfy' where login_userid='$uid' ";
+    date_default_timezone_set('Asia/Singapore');
+    $dtupdate = date("Y-m-d G:i:s");
+    $query = "update tbl_login set login_verified='$vfy', login_lastupdate='$dtupdate' where login_userid='$uid' ";
     try {
         $conn = getConnection();
         $stmt = $conn->prepare($query);
         $stmt->execute();
 
         $msg = "Verified";
+        if ($role == "lawyer") {
+            $msg = "Lawyer Verified";
+        }
         if ($vfy == -1) {
             $msg = "Declined";
+            if ($role == "lawyer") {
+                $msg = "Lawyer Declined";
+            }
         }
         echo getResponse(true, "Successfully $msg User #$uid!", "User #$uid $msg.");
 

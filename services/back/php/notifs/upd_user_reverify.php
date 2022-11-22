@@ -8,6 +8,7 @@
     $data = array();
 
     $uid = $_GET["uid"];
+    $roleid = $_GET["role"];
 
     date_default_timezone_set('Asia/Singapore');
     $dtupdate = date("Y-m-d G:i:s");
@@ -19,12 +20,18 @@
 
         echo getResponse(true, "Successfully Requested Re-verification!", "User #$uid Requested.");
 
+        $msgtyp = "request";
+        $msgusr = "client";
+        if ($roleid == 3) {
+            $msgtyp = "lawrequest";
+            $msgusr = "lawyer";
+        }
         $mdl = new ModelLogs();
         $mdl->userid = $uid;
         $mdl->webpage = "notif";
-        $mdl->process = "verify request";
+        $mdl->process = "verify $msgtyp";
         $mdl->receiver = 0;
-        $mdl->errlbl .= "client-audit";
+        $mdl->errlbl .= "$msgusr-audit";
         auditLog($conn, $mdl);
 
     } catch (PDOException $e) {

@@ -2,6 +2,7 @@
 
     include "../common/dbconfig.php";
     include "../common/utilities.php";
+    include "../common/model_logs.php";
 
     $errors = [];
     $data = array();
@@ -121,13 +122,24 @@
         $stmt->execute();
 
         $msg = "User Photo";
+        $msgtyp = "imguser";
         if ($type == "1") {
             $msg = "Valid Id";
+            $msgtyp = "imgvalid";
         }
         else if ($type == "2") {
             $msg = "PRC Id";
+            $msgtyp = "imgprc";
         }
         echo getResponse(true, "Successfully Uploaded $msg of User #$uid!", "User #$uid Uploaded $msg.");
+
+        $mdl = new ModelLogs();
+        $mdl->userid = $uid;
+        $mdl->webpage = "home";
+        $mdl->process = "update $msgtyp";
+        $mdl->receiver = 0;
+        $mdl->errlbl .= "client-audit";
+        auditLog($conn, $mdl);
 
     } catch(PDOException $e) {
         echo getResponse(false, "Server Error! upddbusers", "Database Exception - " . $e->getMessage());

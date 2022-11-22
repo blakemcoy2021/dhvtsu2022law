@@ -19,6 +19,12 @@ link_profile.onclick = () => {
 }
 link_appoint.onclick = () => {
     if (verified != "1") {
+        if (lawyer == "1") {
+            lbl_userverify.innerHTML = "Lawyer Status Not Yet Verified";
+        }
+        else {
+            lbl_userverify.innerHTML = "Not Yet Verified";
+        }
         btn_notverified.click();
         return;
     }
@@ -42,8 +48,8 @@ link_appoint.onclick = () => {
     }    
 }
 
-function requestReVerify(userid) {
-    let route = "services/back/php/notifs/upd_user_reverify.php?uid=" + userid;
+function requestReVerify(userid, roleid) {
+    let route = "services/back/php/notifs/upd_user_reverify.php?uid=" + userid + "&role=" +roleid;
     let xhttp = new XMLHttpRequest();
     xhttp.open("GET", route, true);
     xhttp.send();

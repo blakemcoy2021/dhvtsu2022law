@@ -86,13 +86,23 @@
             $statement->execute();
         } catch (PDOException $e) { echo getResponse(false, "failed @ login : $e", -1); return; }
 
-        $tblname = "tbl_lawyer";
-        $query_str = "INSERT INTO `$tblname` (`lawyer_userid`,`lawyer_prcid`,`lawyer_lawfieldid`,`lawyer_mapaddr`,`lawyer_opentime`,`lawyer_closetime`,`lawyer_daysid`) ";
-        $query_str .= "VALUES ('$userId','n/a',0,'n/a','00:00:00','00:00:00',0);";
+
+        $tblname = "tbl_days";
+        $query_str = "INSERT INTO `$tblname` (`days_ismon`,`days_istue`,`days_iswed`,`days_isthu`,`days_isfri`,`days_issat`,`days_issun`) ";
+        $query_str .= "VALUES ('0','0',0,'0','0','0',0);";
         try {
             $statement = $dbconn->prepare($query_str);
             $statement->execute();
-        } catch (PDOException $e) { echo getResponse(false, "failed @ login : $e", -1); return; }
+        } catch (PDOException $e) { echo getResponse(false, "failed @ days : $e", -1); return; }
+        $daysId = getLastId($dbconn, $tblname, 'days_id');
+
+        $tblname = "tbl_lawyer";
+        $query_str = "INSERT INTO `$tblname` (`lawyer_userid`,`lawyer_prcid`,`lawyer_lawcatid`,`lawyer_mapaddr`,`lawyer_opentime`,`lawyer_closetime`,`lawyer_daysid`) ";
+        $query_str .= "VALUES ('$userId','n/a',0,'n/a','00:00:00','00:00:00',$daysId);";
+        try {
+            $statement = $dbconn->prepare($query_str);
+            $statement->execute();
+        } catch (PDOException $e) { echo getResponse(false, "failed @ lawyer : $e", -1); return; }
 
         // echo "You have successfully Registered!";
         echo getResponse(true, "You have successfully Registered!", $userId);

@@ -3,36 +3,36 @@ function getUserInfo(userid) {
     let xhttp = new XMLHttpRequest();
     xhttp.open("GET", route, true);
     xhttp.send();
-    xhttp.onreadystatechange = function() {
+    xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             let tag = "HOME: GetUsersInfo - ";
             let respo = xhttp.responseText; console.log(tag, respo);
 
             let d;
-            try { 
-                d = JSON.parse(respo); 
+            try {
+                d = JSON.parse(respo);
             } catch (e) {
                 console.log(tag, e)
-                return; 
-            }   console.log(tag, d.success);
-            
-            if (d.success == false) { 
+                return;
+            } console.log(tag, d.success);
+
+            if (d.success == false) {
                 console.log(tag, d.message);
-                return; 
+                return;
             }
 
             var records;
-            try { 
-                records = JSON.parse(d.success); 
+            try {
+                records = JSON.parse(d.success);
             } catch (e) {
                 console.log(tag, e)
-                return; 
-            }   console.log(tag, records);
-            
+                return;
+            } console.log(tag, records);
+
             uname.innerHTML = records.login_username;
             window.localStorage.setItem("uname", uname.innerHTML);
 
-            
+
             verified = records.login_verified;
             let uploadphoto = records.user_photo;
             let firstname = records.user_firstname;
@@ -76,14 +76,15 @@ function getUserInfo(userid) {
             if (uploadphoto != "n/a") {
                 photo_upload.src = uploadphoto + "?nc=" + rmcache.getMilliseconds();
                 photo_usersm.src = photo_upload.src;
-            
+
             }
             if (uploadvalidid != "n/a") {
                 photo_validId.src = uploadvalidid + "?nc=" + rmcache.getMilliseconds();
             }
-            // if (uploadprcid != "n/a") {
-            //     photo_upload.src = uploadprcid + "?nc=" + rmcache.getMilliseconds();
-            // }
+            if (uploadprcid != "n/a") {
+                photo_prcId.src = uploadprcid + "?nc=" + rmcache.getMilliseconds();
+                islawyer = 3;
+            }
 
             inp_firstname.value = firstname;
             inp_lastname.value = lastname;
@@ -97,7 +98,26 @@ function getUserInfo(userid) {
 
             chk_lawyer.checked = false;
             if (islawyer == 3) {
+                lawyer = "1";
                 chk_lawyer.checked = true;
+                toggleLawyerFields(1);
+                slctPopulateLawyerCat(records.lawyer_lawcatid);
+                inp_lawyeraddr.value = records.lawyer_mapaddr; // adjust when google map is working
+                inp_lawyeropent.value = records.lawyer_opentime;
+                inp_lawyercloset.value = records.lawyer_closetime;
+                
+                let daysArr = [records.days_issun, records.days_ismon, 
+                                records.days_istue, records.days_iswed, 
+                                records.days_isthu, records.days_isfri, records.days_issat];
+                for (let j = 0; j < daysArr.length; j++) {
+                    let id_str = "inlineCheckbox" + (j+1).toString();
+                    let element = document.getElementById(id_str);
+                    element.checked = false;
+                    if (daysArr[j] == "1") {
+                        element.checked = true;
+                    }
+                }
+
             }
 
         }
@@ -106,3 +126,4 @@ function getUserInfo(userid) {
         }
     };
 }
+

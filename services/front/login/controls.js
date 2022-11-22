@@ -64,31 +64,31 @@ function fnLogin(event) {
                     'Login Success',
                     ``,
                     'success'
-                )
+                ).then(() => {
+                    if (typeof (Storage) !== "undefined") {
+                        window.localStorage.setItem("uid", d[0]);
+                        window.localStorage.setItem("fname", d[1]);
+                        window.localStorage.setItem("role", d[2]);
+        
+                        if (d[2] == 1) {
+                            window.location.href = "dashboard.html"; //dashboard
+                        } else {
+                            window.location.href = "home.html";
+                        }
+        
+                    } else {    // no web storage
+                        console.log("**** No web storage.");
+        
+                        if (d[2] == 1) {   //dashboard
+                            window.location.href = "dashboard.html?uid=" + d[0] + "&fname=" + d[1] + "&role=" + d[2];
+                        } else {
+                            window.location.href = "home.html?uid=" + d[0] + "&fname=" + d[1] + "&role=" + d[2];
+                        }
+        
+                    }
+                })
             });
             
-            if (typeof (Storage) !== "undefined") {
-                window.localStorage.setItem("uid", d[0]);
-                window.localStorage.setItem("fname", d[1]);
-                window.localStorage.setItem("role", d[2]);
-
-                if (d[2] == 1) {
-                    window.location.href = "dashboard.html"; //dashboard
-                } else {
-                    window.location.href = "home.html";
-                }
-
-            } else {    // no web storage
-                console.log("**** No web storage.");
-
-                if (d[2] == 1) {   //dashboard
-                    window.location.href = "dashboard.html?uid=" + d[0] + "&fname=" + d[1] + "&role=" + d[2];
-                } else {
-                    window.location.href = "home.html?uid=" + d[0] + "&fname=" + d[1] + "&role=" + d[2];
-                }
-
-            }
-
         } 
         else if (this.readyState == 4) {
             alert("Server Unreachable. Possible Slow Internet Connection..!");

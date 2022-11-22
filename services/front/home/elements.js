@@ -26,8 +26,23 @@ var lbl_age = document.getElementById('htmLblAge');
 
 var chk_lawyer = document.getElementById("htmChkIsLawyer");
 
+var slct_lawyercat = document.getElementById("htmSlctLawyerCat");
+var inp_lawyeraddr = document.getElementById("htmInpLawyerAddress");
+var inp_lawyeropent = document.getElementById("htmTimeOpening");
+var inp_lawyercloset = document.getElementById("htmTimeClosing");
+
+var photo_prcId = document.getElementById("htmImgUploadPrcId");
+var inp_prcId = document.getElementById("htmInpPrcPhoto");
+
+var btn_savegmap = document.getElementById("htmBtnSaveGoogleMap");
+var btn_closegmap = document.getElementById("htmBtnCloseGoogleMap");
+
+
+
 var photo_validId = document.getElementById("htmImgUploadValidId");
 var inp_validId = document.getElementById("htmInpValidPhoto");
+
+
 
 var btn_update = document.getElementById("htmBtnProfileUpdate");
 var btn_clear = document.getElementById("htmBtnProfileClear");
@@ -37,4 +52,7 @@ var link_notifs = document.getElementById("htmAncClientNotifications");
 var link_appoint = document.getElementById("htmAncClientAppointments");
 
 
+var lbl_userverify = document.getElementById("htmLblUserVerification");
+
 var btn_notverified = document.getElementById("htmBtnNotVerified");
+var btn_googlemap = document.getElementById("htmBtnGoogleMap");

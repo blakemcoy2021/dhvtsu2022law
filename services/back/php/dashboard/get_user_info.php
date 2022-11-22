@@ -13,8 +13,14 @@
     $query .= "inner join tbl_login on tbl_user.user_id=tbl_login.login_userid ";
     $query .= "inner join tbl_role on tbl_login.login_roleid=tbl_role.role_id ";
     $query .= "inner join tbl_lawyer on tbl_user.user_id=tbl_lawyer.lawyer_userid ";
+    // **below glitches if there would be no id=0 for the lawcategory table due to registration's default lawcategory id set to 0
+    $query .= "inner join tbl_lawcategory on tbl_lawyer.lawyer_lawcatid=tbl_lawcategory.lawcategory_id ";
+    // **would result to multiple redundant rows
+    // $query .= "inner join tbl_lawfield on tbl_lawcategory.lawcategory_id=tbl_lawfield.lawfield_categoryid ";
+    $query .= "inner join tbl_days on tbl_lawyer.lawyer_daysid=tbl_days.days_id ";
     $query .= "where tbl_user.user_id=$uid ";
     $query .= "order by user_id desc";
+
 
     try {
         $conn = getConnection();

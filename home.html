@@ -35,6 +35,11 @@
 
 
     <!-- Page CSS -->
+    <style>
+        .lawyer-hide {
+            display: none;
+        }
+    </style>
 
     <!-- Helpers -->
     <script src="sneat/assets/vendor/js/helpers.js"></script>
@@ -42,7 +47,10 @@
     <script src="sneat/assets/js/config.js"></script>
     <script>
         var verified = "0";
+        var lawyer = "0";
     </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
 </head>
 
 <body>
@@ -157,8 +165,7 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-start align-items-sm-center gap-4">
                                             <img id="htmImgUploadPhoto" src="img/default-profile-photo.png"
-                                                alt="user-avatar" class="d-block rounded" height="100" width="100"
-                                                id="htmImgUserPhoto" />
+                                                alt="user-avatar" class="d-block rounded" height="100" width="100"/>
                                             <div class="button-wrapper">
                                                 <label for="htmInpUploadPhoto" class="btn btn-primary me-2 mb-4"
                                                     tabindex="0">
@@ -242,23 +249,128 @@
                                                     </div>
                                                 </div>
 
+                                                <hr>
+
+                                                <div class="mb-3 col-md-6 lawyer-fields lawyer-hide">
+                                                    <div class="mb-3">
+                                                        <label for="htmSlctLawyerCat" class="form-label">Field of Lawyer</label>
+                                                        <select class="form-select" id="htmSlctLawyerCat"
+                                                            aria-label="Loading Lawyer Expertise">
+                                                            <option selected value="0">Loading Lawyer Expertise...</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3 col-md-6 lawyer-fields lawyer-hide">
+                                                    <label for="htmInpLawyerAddress" class="form-label">Lawyer's
+                                                        Office</label>
+                                                    <input type="text" class="form-control" id="htmInpLawyerAddress"
+                                                        name="htmInpLawyerAddress" value="{'addr':'haha','lat':'0.00','lng':'0.00'}"
+                                                        placeholder="Click Here to Set Address" />
+                                                </div>
+
+                                                <div class="mb-3 col-md-6 lawyer-fields lawyer-hide">
+                                                    <label for="htmTimeOpening"
+                                                        class="col-md-2 col-form-label">Opening Time</label>
+                                                    <div class="col-md-10">
+                                                        <input class="form-control" type="time" value="00:00:00"
+                                                            id="htmTimeOpening" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3 col-md-6 lawyer-fields lawyer-hide">
+                                                    <label for="htmTimeClosing"
+                                                        class="col-md-2 col-form-label">Closing Time</label>
+                                                    <div class="col-md-10">
+                                                        <input class="form-control" type="time" value="00:00:00"
+                                                            id="htmTimeClosing" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3 col-md-6 lawyer-fields lawyer-hide">
+                                                    <small class="text-light fw-semibold d-block">Days Open:</small>
+                                                    <div class="form-check form-check-inline mt-3">
+                                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
+                                                        <label class="form-check-label" for="inlineCheckbox1">Sun</label>
+                                                    </div>
+
+                                                    <div class="form-check form-check-inline mt-3">
+                                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" />
+                                                        <label class="form-check-label" for="inlineCheckbox2">Mon</label>
+                                                    </div>
+
+                                                    <div class="form-check form-check-inline mt-3">
+                                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" />
+                                                        <label class="form-check-label" for="inlineCheckbox3">Tue</label>
+                                                    </div>
+
+                                                    <div class="form-check form-check-inline mt-3">
+                                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4" />
+                                                        <label class="form-check-label" for="inlineCheckbox4">Wed</label>
+                                                    </div>
+
+                                                    <div class="form-check form-check-inline mt-3">
+                                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5" />
+                                                        <label class="form-check-label" for="inlineCheckbox5">Thu</label>
+                                                    </div>
+                                                    
+                                                    <div class="form-check form-check-inline mt-3">
+                                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option6" />
+                                                        <label class="form-check-label" for="inlineCheckbox6">Fri</label>
+                                                    </div>
+
+                                                    <div class="form-check form-check-inline mt-3">
+                                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option7" />
+                                                        <label class="form-check-label" for="inlineCheckbox7">Sat</label>
+                                                    </div>
+
+                                                </div>
+
                                             </div>
+
+
                                             <div class="mt-2">
                                                 <button type="button" class="btn btn-primary me-2"
                                                     id="htmBtnProfileUpdate">Save changes</button>
                                                 <button type="button" class="btn btn-outline-secondary"
                                                     id="htmBtnProfileClear">Clear</button>
                                             </div>
+
                                         </form>
                                     </div>
+
+                                    <hr class="my-0" />
+
+                                    <div class="card-body lawyer-fields lawyer-hide">
+                                        <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                            <img id="htmImgUploadPrcId" src="img/default-valid-id.png"
+                                                alt="user-avatar" class="d-block rounded" height="250" width="450"/>
+                                            <div class="button-wrapper">
+                                                <label for="htmInpPrcPhoto" class="btn btn-primary me-2 mb-4"
+                                                    tabindex="0">
+                                                    <span class="d-none d-sm-block">Upload PRC Id</span>
+                                                    <i class="bx bx-upload d-block d-sm-none"></i>
+                                                    <input type="file" id="htmInpPrcPhoto" class="account-file-input"
+                                                        hidden accept="image/png, image/jpeg" />
+                                                </label>
+                                                <button type="button"
+                                                    class="btn btn-outline-secondary account-image-reset mb-4">
+                                                    <i class="bx bx-reset d-block d-sm-none"></i>
+                                                    <span class="d-none d-sm-block">Reset</span>
+                                                </button>
+
+                                                <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
 
                                     <hr class="my-0" />
 
                                     <div class="card-body">
                                         <div class="d-flex align-items-start align-items-sm-center gap-4">
                                             <img id="htmImgUploadValidId" src="img/default-valid-id.png"
-                                                alt="user-avatar" class="d-block rounded" height="250" width="450"
-                                                id="htmImgValidId" />
+                                                alt="user-avatar" class="d-block rounded" height="250" width="450"/>
                                             <div class="button-wrapper">
                                                 <label for="htmInpValidPhoto" class="btn btn-primary me-2 mb-4"
                                                     tabindex="0">
@@ -313,13 +425,41 @@
                             <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-body">
-                                            <div class="card bg-danger text-white">
-                                                <div class="card-header">Sorry!</div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title text-white">Not Yet Verified</h5>
-                                                    <p class="card-text">Unable to proceed see/create appointment unless you are a verified user.</p>
-                                                </div>
+                                        <div class="card bg-danger text-white">
+                                            <div class="card-header">Sorry!</div>
+                                            <div class="card-body">
+                                                <h5 class="card-title text-white" id="htmLblUserVerification">Not Yet Verified</h5>
+                                                <p class="card-text">Unable to proceed see/create appointment unless you
+                                                    are a verified client/lawyer.</p>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#fullscreenModal" style="display: none;" id="htmBtnGoogleMap">
+                        </button>
+                        <div class="modal fade" id="fullscreenModal" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-fullscreen" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalFullTitle">Select Lawyer's Office Address</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="htmGoogleMap"></div>
+                                        <img src="img/dump.png">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            id="htmBtnCloseGoogleMap" data-bs-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="htmBtnSaveGoogleMap">Save
+                                            changes</button>
                                     </div>
                                 </div>
                             </div>
@@ -379,7 +519,26 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of dhvsu
+            const dhvsu = { lat: 14.998049310379688, lng: 120.65602125460428 }; //, 
+            // The map, centered at dhvsu
+            const map = new google.maps.Map(document.getElementById("htmGoogleMap"), {
+                zoom: 4,
+                center: dhvsu,
+            });
+            // The marker, positioned at dhvsu
+            const marker = new google.maps.Marker({
+                position: dhvsu,
+                map: map,
+            });
+        }
+    </script>
+    <!-- <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdHEqx0Q3TbovLvis8S32bEIMV1qPl3xI&callback=initMap">
+    </script> -->
 
     <!-- Main JS -->
     <script src="sneat/assets/js/main.js"></script>
@@ -388,6 +547,7 @@
     <script src="services/front/home/elements.js"></script>
     <script src="services/front/home/core.js"></script>
     <script src="services/front/home/controls.js"></script>
+
     <script>
         window.onload = () => {
             var uid = 0;

@@ -43,6 +43,11 @@ function getNotifications(userid) {
                     photo_usersm.src = uploadphoto + "?nc=" + rmcache.getMilliseconds();
                 }
                 verified = records[0].login_verified;
+                let roleid = records[0].login_roleid;
+                
+                if (roleid == 3) {
+                    lawyer = "1";
+                }
 
                 for (let i = 0; i < records.length; i++) {
 
@@ -73,17 +78,30 @@ function getNotifications(userid) {
                     let options = "";
 
                     if (notifs.includes("verify")) {
-                        if (notifs.includes("verified")) {
+                        if (notifs.includes("lawyer verified")) {
+                            notif_title = "Congratulations! ⚖️🎉 You are now a Verified Lawyer! - " + notif_dt;
+                            notif_message = "Your can now set and accept appointment(s) from client(s).";
+                        }
+                        else if (notifs.includes("verified")) {
                             notif_title = "Congratulations! 🎉 Your Account has been Verified! - " + notif_dt;
                             notif_message = "Your account is now eligible to request appointment(s) to lawyers.";
                         }
+                        else if (notifs.includes("lawyer declined")) {
+                            notif_title = "Sorry! ⚖️❌ You have been Declined as a Lawyer! - " + notif_dt;
+                            notif_message = "Your lawyer credibility has not passed the verification ";
+                            notif_message += "process due to suspicious/inconsistent information given ";
+                            notif_message += "specially if PRC ID uploaded is not valid.";
+                            if (verified != "1") {
+                                options += "<a href='javascript: requestReVerify("+userid+","+roleid+");' class='btn btn-primary'>Request Again</a>";
+                            }
+                        }
                         else if (notifs.includes("declined")) {
                             notif_title = "Sorry! ❌ Your Account has been Declined! - " + notif_dt;
-                            notif_message = "Your account has not passed to the verification ";
+                            notif_message = "Your account has not passed the verification ";
                             notif_message += "process due to suspicious/inconsistent information given ";
                             notif_message += "specially if ID uploaded is not matched to your account.";
                             if (verified != "1") {
-                                options += "<a href='javascript: requestReVerify(" + userid + ");' class='btn btn-primary'>Request Again</a>";
+                                options += "<a href='javascript: requestReVerify("+userid+","+roleid+");' class='btn btn-primary'>Request Again</a>";
                             }
                         }
                     }

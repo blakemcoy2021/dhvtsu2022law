@@ -11,6 +11,8 @@ var lbl_username = document.getElementById("htmLblUserfullname");
 
 var list_notifs = document.getElementById("htmListNotifications");
 
+var lbl_userverify = document.getElementById("htmLblUserVerification");
+
 var link_profile = document.getElementById("htmAncClientProfile");
 var link_appoint = document.getElementById("htmAncClientAppointments");
 
