@@ -216,7 +216,9 @@ function slctPopulateLawyerCat(lawcatid = 0) {
                 for (let i = 0; i < records.length; i++) {
                     let lc = records[i].lawcategory_name;
                     let lcId = records[i].lawcategory_id;
-                    stream_opts += "<option selected value='"+lcId+"'>"+lc+"</option>";
+                    if (lcId != 0) {
+                        stream_opts += "<option value='"+lcId+"'>"+lc+"</option>";
+                    }
                 }
 
                 slct_lawyercat.innerHTML = stream_opts;

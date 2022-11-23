@@ -42,7 +42,7 @@ function slctPopulateLawyerField(fieldId = 0) {
                 for (let i = 0; i < records.length; i++) {
                     let lf = records[i].lawfield_name;
                     let lfId = records[i].lawfield_id;
-                    stream_opts += "<option selected value='"+lfId+"'>"+lf+"</option>";
+                    stream_opts += "<option value='"+lfId+"'>"+lf+"</option>";
                 }
 
                 slct_lawyerfield.innerHTML = stream_opts;
@@ -278,5 +278,38 @@ link_audit.onclick = () => {
         console.log("**** No web storage.");
 
         window.location.href = "auditlogs.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
+    }     
+}
+link_lawcategory.onclick = () => {
+    if (typeof (Storage) !== "undefined") {
+        window.location.href = "lawcategory.html";
+
+    } 
+    else {    // no web storage
+        console.log("**** No web storage.");
+
+        window.location.href = "lawcategory.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
+    }     
+}
+link_lawfield.onclick = () => {
+    if (typeof (Storage) !== "undefined") {
+        window.location.href = "lawfield.html";
+
+    } 
+    else {    // no web storage
+        console.log("**** No web storage.");
+
+        window.location.href = "lawfield.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
+    }     
+}
+link_lawcontent.onclick = () => {
+    if (typeof (Storage) !== "undefined") {
+        window.location.href = "lawcontent.html";
+
+    } 
+    else {    // no web storage
+        console.log("**** No web storage.");
+
+        window.location.href = "lawcontent.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
     }     
 }

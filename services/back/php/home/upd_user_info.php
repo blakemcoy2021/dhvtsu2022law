@@ -64,7 +64,7 @@
             $update_str .= "tbl_login.login_verified='2',";
             
             $daysArr = explode(",",$lawdays);
-            $daysNameArr = array("ismon","istue","iswed","isthu","isfri","issat","issun");
+            $daysNameArr = array("issun","ismon","istue","iswed","isthu","isfri","issat");
             $stream_values = "";
             for ($x = 0; $x < sizeof($daysArr); $x++) {
                 $stream_values .= "tbl_days.days_" . $daysNameArr[$x] . "='" . $daysArr[$x] . "'";

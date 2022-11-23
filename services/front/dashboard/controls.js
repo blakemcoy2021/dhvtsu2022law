@@ -42,7 +42,6 @@ function getUserInfo(userid, usertype) {
 
             let uploadphoto = records.user_photo;
             let uploadvalidid = records.user_validid;
-            let uploadprcid = records.lawyer_prcid;
             
             let fullname = records.user_lastname + ", " + records.user_firstname + " " + records.user_midname;
             let address = records.contact_address;
@@ -217,6 +216,7 @@ btn_decline.onclick = () => {
     };
 }
 
+
 link_lawyers.onclick = () => {
     if (typeof (Storage) !== "undefined") {
         window.location.href = "lawyers.html";
@@ -237,5 +237,38 @@ link_audit.onclick = () => {
         console.log("**** No web storage.");
 
         window.location.href = "auditlogs.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
+    }     
+}
+link_lawcategory.onclick = () => {
+    if (typeof (Storage) !== "undefined") {
+        window.location.href = "lawcategory.html";
+
+    } 
+    else {    // no web storage
+        console.log("**** No web storage.");
+
+        window.location.href = "lawcategory.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
+    }     
+}
+link_lawfield.onclick = () => {
+    if (typeof (Storage) !== "undefined") {
+        window.location.href = "lawfield.html";
+
+    } 
+    else {    // no web storage
+        console.log("**** No web storage.");
+
+        window.location.href = "lawfield.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
+    }     
+}
+link_lawcontent.onclick = () => {
+    if (typeof (Storage) !== "undefined") {
+        window.location.href = "lawcontent.html";
+
+    } 
+    else {    // no web storage
+        console.log("**** No web storage.");
+
+        window.location.href = "lawcontent.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
     }     
 }

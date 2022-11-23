@@ -49,7 +49,7 @@
         }
     </style>
     <script>
-        window.sessionStorage.setItem("userid", 0); 
+        window.sessionStorage.setItem("contentid", 0); 
     </script>
 </head>
 
@@ -103,14 +103,14 @@
                         </ul>
                     </li>
                     <!-- Audit Logs -->
-                    <li class="menu-item active">
-                        <a href="#" class="menu-link">
+                    <li class="menu-item">
+                        <a href="#" id="htmAncAuditlogs" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-collection"></i>
                             <div data-i18n="Audit Logs">Audit Logs</div>
                         </a>
                     </li>
                     <!-- Law Management -->
-                    <li class="menu-item">
+                    <li class="menu-item active open">
                         <a href="javascript:void(0)" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-box"></i>
                             <div data-i18n="Law Management">Law Management</div>
@@ -126,14 +126,13 @@
                                     <div data-i18n="Field of Laws">Field of Laws</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
-                                <a href="#" id="htmAncLawcontent" class="menu-link">
+                            <li class="menu-item active">
+                                <a href="#"class="menu-link">
                                     <div data-i18n="Law Page Info">Law Page Info</div>
                                 </a>
                             </li>
                         </ul>
                     </li>
-
 
                 </ul>
             </aside>
@@ -215,33 +214,44 @@
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Activity Logs</h4>
+
+                        <div style="display: flex; justify-content: left" class="mb-3">
+                            <div class="demo-inline-spacing">
+                                <h4 class="fw-bold"><span class="text-muted fw-light">Law Categories</h4>
+                                <button type="button" id="htmBtnAddLawCategory" class="btn btn-icon btn-primary">
+                                    <span class="tf-icons bx bxs-layer-plus"></span>
+                                </button>
+                                <button type="button" id="htmBtnReloadLawCategory" class="btn btn-icon btn-primary">
+                                    <span class="tf-icons bx bx-refresh"></span>
+                                </button>
+                            </div>
+                        </div>
 
                         <!-- Basic Bootstrap Table -->
                         <div class="card">
-                            <h5 class="card-header"><span id="htmLogsCtr">Loading Activity Log(s).</span></h5>
+                            <h5 class="card-header"><span id="htmLawCategoryCtr">Loading Law Categories.</span></h5>
                             <div class="table-responsive text-nowrap"
                                 style="overflow-y: auto; min-height: 200px; max-height: 440px">
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>Done By</th>
-                                            <th>Full Name</th>
-                                            <th>Web Page</th>
-                                            <th>Transaction</th>
-                                            <th>Affected</th>
+                                            <th>Category Name</th>
+                                            <th>Photo</th>
+                                            <th>Cover</th>
+                                            <th>Foreword</th>
+                                            <th>Details</th>
                                             <th>Date Saved</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="table-border-bottom-0" id="htmTblLogs">
+                                    <tbody class="table-border-bottom-0" id="htmTblLawCategory">
 
                                         <!-- <tr>
-                                            <td><strong>Done_By</strong></td>
-                                            <td><strong>Full_Name_Here</strong></td>
-                                            <td>Web_Page</td>
-                                            <td>Transaction_Here</td>
-                                            <th>Affected</th>
+                                            <td><strong>Category_Law_Name_Here</strong></td>
+                                            <td>Photo_Here</td>
+                                            <td>Cover_Here</td>
+                                            <td>Foreword_Here</td>
+                                            <td>Details_Here</td>
                                             <td>Date_Saved_Here</span></td>
                                             <td>
                                                 <div class="dropdown">
@@ -266,6 +276,77 @@
                             </div>
                         </div>
                         <!--/ Basic Bootstrap Table -->
+
+                        <!-- Modal for Update/Add Law Category -->
+                        <div class="modal fade" id="backDropModal" data-bs-backdrop="static" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <form class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="backDropModalTitle">Update Law Category</h5>
+                                        <button type="button" class="btn-close" onclick="closeModal();"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col mb-3" style="display: flex; justify-content: center;">
+                                                <img id="htmImgLawCategory" src="res/legal/none.png" width="150"
+                                                    height="150" class="rounded-circle"
+                                                    style="border: 4px solid gray; cursor: pointer;"
+                                                    onclick="javascript: if (lbl_modaltitle.innerHTML.indexOf('Update') != -1) { document.getElementById('htmInpUploadPhoto').click(); } else { alert('This can only be done on `Update`. Add first.'); return; } ">
+
+                                                <input type="file" id="htmInpUploadPhoto" class="account-file-input"
+                                                    hidden accept="image/png, image/jpeg" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col mb-3">
+                                                <label for="nameBackdrop" class="form-label">Law Category Name</label>
+                                                <input type="text" id="nameBackdrop" class="form-control"
+                                                    placeholder="Enter Law Category Name" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col mb-3">
+                                                <label for="forewordBackdrop" class="form-label">Foreword</label>
+                                                <textarea class="form-control" id="forewordBackdrop"
+                                                    rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col mb-3">
+                                                <label for="detailsBackdrop" class="form-label">Details</label>
+                                                <textarea class="form-control" id="detailsBackdrop" rows="3"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col mb-0">
+                                                <label for="htmImgLawCatCover" class="form-label">Cover</label>
+                                                <img id="htmImgLawCatCover" src="res/legal/none2.png"
+                                                    class="img-thumbnail"
+                                                    style="width: 100%; border: 4px solid #ECEEF1; cursor: pointer;"
+                                                    onclick="javascript: if (lbl_modaltitle.innerHTML.indexOf('Update') != -1) { document.getElementById('htmInpUploadCover').click(); } else { alert('This can only be done on `Update`. Add first.'); return; } "> 
+
+                                                <input type="file" id="htmInpUploadCover" class="account-file-input"
+                                                    hidden accept="image/png, image/jpeg" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary" onclick="closeModal();">
+                                            Close
+                                        </button>
+                                        <button id="htmBtnUpdate" type="button" class="btn btn-success"
+                                            style="color: black">Update</button>
+                                        <button id="htmBtnBackDropModal" class="btn btn-outline-secondary"
+                                            data-bs-dismiss="modal" style="display: none;">hidden_trigger</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
 
 
                     </div>
@@ -330,9 +411,9 @@
     <script src="sneat/assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="services/front/logs/elements.js"></script>
-    <script src="services/front/logs/core.js"></script>
-    <script src="services/front/logs/controls.js"></script>
+    <script src="services/front/lawcategory/elements.js"></script>
+    <script src="services/front/lawcategory/core.js"></script>
+    <script src="services/front/lawcategory/controls.js"></script>
     <script>
         window.onload = () => {
             if (typeof (Storage) !== "undefined") {
@@ -352,8 +433,8 @@
                 huid.value = urlParams.get('uid');
                 hrole.value = urlParams.get('role');
             }
-            getLogsCtr();
-            getLogs();
+            // getLawCategoryCtr();
+            // getLawCategory();
         }
     </script>
 

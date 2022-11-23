@@ -25,3 +25,6 @@ var btn_approve = document.getElementById("htmBtnUpdate2");
 
 var link_lawyers = document.getElementById("htmAncUserLawyers");
 var link_audit = document.getElementById("htmAncAuditlogs");
+var link_lawcategory = document.getElementById("htmAncLawcategory");
+var link_lawfield = document.getElementById("htmAncLawfield");
+var link_lawcontent = document.getElementById("htmAncLawcontent");
