@@ -4,7 +4,6 @@
     include "../common/utilities.php";
 
     $errors = [];
-    $data = array();
 
     $query = "select * from tbl_logs ";
     $query .= "inner join tbl_user on tbl_logs.log_postuid=tbl_user.user_id ";

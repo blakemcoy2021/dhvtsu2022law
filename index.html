@@ -27,6 +27,9 @@
             align-items: center;
         }
     </style>
+    <script>
+        window.sessionStorage.setItem("searchlaw", "");
+    </script>
 </head>
 
 <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
@@ -40,7 +43,7 @@
             <a class="navbar-brand" style="color: white;" href="#">Law Finder</a>
 
             <div class="input-group mb-3" id="divSearchBarLaw">
-                <input type="text" class="form-control" placeholder="Search Law Here" aria-label="Search Law Here"
+                <input id="htmInpSearchLaw" type="text" class="form-control" placeholder="Search Law Here" aria-label="Search Law Here"
                     aria-describedby="htmBtnSearchLaw" style="background-color: white; margin-right: 5px;">
                 <button class="btn btn-brand" type="button" id="htmBtnSearchLaw"><i class="fas fa-search"></i></button>
             </div>
@@ -494,6 +497,9 @@
     <script src="js/chanrich/bootstrap.bundle.min.js"></script>
     <script src="js/chanrich/owl.carousel.min.js"></script>
     <script src="js/chanrich/app.js"></script>
+
+    <script src="services/front/index/elements.js"></script>
+    <script src="services/front/index/controls.js"></script>
 </body>
 
 </html>
