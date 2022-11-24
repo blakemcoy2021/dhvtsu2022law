@@ -1,5 +1,9 @@
 <?php
 
+    function cleanSqlSave($str) {
+        return str_replace("'","",$str);
+    }
+
     function getResponse($state, $msg, $d) {
         $data = array();
         $data['success'] = $state;

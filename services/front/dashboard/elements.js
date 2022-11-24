@@ -28,3 +28,4 @@ var link_audit = document.getElementById("htmAncAuditlogs");
 var link_lawcategory = document.getElementById("htmAncLawcategory");
 var link_lawfield = document.getElementById("htmAncLawfield");
 var link_lawcontent = document.getElementById("htmAncLawcontent");
+var link_appoint = document.getElementById("htmAncAppointments");

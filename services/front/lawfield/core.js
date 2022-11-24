@@ -191,7 +191,6 @@ function getLawField() {
                                                     "<i class='bx bx-edit-alt me-1'></i> Edit</a>" +
                                                 "<a class='dropdown-item' href='javascript:delLawFldInfo("+ fldid +");'>" +
                                                     "<i class='bx bx-trash me-1'></i> Delete</a>" +
-                                                "<a class='dropdown-item' style='display: none' id='htmAncBackDropModal' data-bs-toggle='modal' data-bs-target='#backDropModal'>hidden_trigger</a>" +
                                             "</div>" +
                                         "</div>" +
                                     "</td>" +

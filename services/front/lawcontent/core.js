@@ -1,15 +1,15 @@
-function getLawyersCtr() {
-    let route = "services/back/php/dashboard/ctr_users.php?role=3";
+function getLawContentCtr() {
+    let route = "services/back/php/lawcontent/ctr_lawcontent.php";
     let xhttp = new XMLHttpRequest();
     xhttp.open("GET", route, true);
     xhttp.send();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
 
-            let tag = "LAWYER: GetLawyersCtr - ";
+            let tag = "LAW CONTENT: GetLawContentCtr - ";
             let respo = xhttp.responseText; console.log(tag, respo);
 
-            ctrlabel.innerHTML = "There are 0 registered lawyer(s).";
+            ctrlabel.innerHTML = "There are 0 law contents.";
 
             let d;
             try { 
@@ -24,21 +24,21 @@ function getLawyersCtr() {
                 return; 
             }
 
-            ctrlabel.innerHTML = "There are " + d.success + " registered lawyer(s).";
+            ctrlabel.innerHTML = "There are " + d.success + " law contents.";
 
         }
     };
 }
 
-function getLawyers() {
-    let route = "services/back/php/dashboard/get_users.php?role=3";
+function getLawContent() {
+    let route = "services/back/php/lawcontent/get_lawcontent.php";
     let xhttp = new XMLHttpRequest();
     xhttp.open("GET", route, true);
     xhttp.send();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
 
-            let tag = "LAWYERS: GetLawyers - ";
+            let tag = "LAW CONTENT: GetLawContent - ";
             let respo = xhttp.responseText; console.log(tag, respo);
 
             tbl.innerHTML = "";
@@ -69,10 +69,13 @@ function getLawyers() {
                 for (let i = 0; i < records.length; i++) {
                     
                     // <tr>
-                    //     <td><strong>Full_Name_Here</strong></td>
-                    //     <td>Contact_Here</td>
-                    //     <td>Email_Here</td>
-                    //     <td><span class="badge bg-label-primary me-1">Status_Here</span></td>
+                    //     <td><strong>Law_Title_Here</strong></td>
+                    //     <td>Details_Here</td>
+                    //     <td>Category_Name_Here</td>
+                    //     <td>
+                    //          "<img src='Law_photo_here' alt='Avatar' height='40' width='80' />"
+                    //     </td>
+                    //     <td>Attached_File_Here</td>
                     //     <td>Date_Saved_Here</span></td>
                     //     <td>
                     //         <div class="dropdown">
@@ -88,51 +91,53 @@ function getLawyers() {
                     //             </div>
                     //         </div>
                     //     </td>
-
                     // </tr>
 
-                    let fullname = records[i].user_lastname + ", " + records[i].user_firstname;
-                    if (fullname.length > 18) {
-                        fullname = fullname.substring(0, 18) + "...";
-                    }
-                    let contact = records[i].contact_phone;
-                    let contactemail = records[i].contact_email;
 
-                    if (contact.length > 18) {
-                        contact = contact.substring(0, 18) + "...";
+                    let lawid = records[i].law_id;
+                    let lawtitle = records[i].law_title;
+                    if (lawtitle.length > 18) {
+                        lawtitle = lawtitle.substring(0,18) + "...";
                     }
-                    if (contactemail.length > 18) {
-                        contactemail = contactemail.substring(0, 18) + "...";
+                    let lawdetails = records[i].law_details;
+                    if (lawdetails.length > 18) {
+                        lawdetails = lawdetails.substring(0,18) + "...";
+                    }
+                    let lawcat = records[i].lawcategory_name;
+                    let lawphoto = records[i].law_photo;
+                    if (lawphoto == "n/a") {
+                        lawphoto = "res/legal/none2.png";
+                    }
+                    let datesaved = records[i].law_datesaved;
+
+                    let lawattach = records[i].law_attachfile;
+                    if (lawattach != "n/a") {
+                        let lawpdfArr = lawattach.split("/");
+                        lawattach = lawpdfArr[lawpdfArr.length-1];
+                        if (lawattach.length > 18) {
+                            lawattach = lawattach.substring(0,18) + "...";
+                        }
                     }
 
-                    let verified = "<span class='badge bg-label-success me-1'>New";
-                    if (records[i].login_verified == 1) {
-                        verified = "<span class='badge bg-label-primary me-1'>Verified";
-                    }
-                    else if (records[i].login_verified == -1) {
-                        verified = "<span class='badge bg-label-danger me-1'>Unapproved";
-                    }
-                    else if (records[i].login_verified == 2) {
-                        verified = "<span class='badge bg-label-warning me-1'>Reverify";
-                    }
-                    let role = records[i].role_name;
-                    let usertype = role.charAt(0).toUpperCase() + role.slice(1);
 
                     stream += "<tr>" +
-                                    "<td><strong>" + fullname + "</strong></td>" +
-                                    "<td>" + contact +"</td>" +
-                                    "<td>" + contactemail + "</span></td>" +
-                                    "<td>" + verified + "</span></td>" +
-                                    "<td>" + records[i].user_datesaved + "</td>" +
+                                    "<td><strong>" + lawtitle + "</strong></td>" +
+                                    // "<td>" + lawdetails + "</td>" +
+                                    "<td>" + lawcat + "</td>" +
+                                    "<td>" +
+                                        "<img src='" +lawphoto+ "' alt='Avatar' height='40' width='80' />" +
+                                    "</td>" +
+                                    "<td>" + lawattach + "</td>" +                                    
+                                    "<td>" + datesaved + "</td>" +
                                     "<td>" +
                                         "<div class='dropdown'>" +
                                             "<button type='button' class='btn p-0 dropdown-toggle hide-arrow' data-bs-toggle='dropdown'>" +
                                                 "<i class='bx bx-dots-vertical-rounded'></i>" +
                                             "</button>" +
                                             "<div class='dropdown-menu'>" +
-                                                "<a class='dropdown-item' href='javascript:getLawyerInfo(" + records[i].user_id+ ",\"" +usertype+ "\");'>" +
+                                                "<a class='dropdown-item' href='javascript:getLawContentInfo(" +lawid+ ");'>" +
                                                     "<i class='bx bx-edit-alt me-1'></i> Edit</a>" +
-                                                "<a class='dropdown-item' href='javascript:delUserInfo("+ records[i].user_id +");'>" +
+                                                "<a class='dropdown-item' href='javascript:delLawContentInfo("+ lawid +");'>" +
                                                     "<i class='bx bx-trash me-1'></i> Delete</a>" +
                                             "</div>" +
                                         "</div>" +

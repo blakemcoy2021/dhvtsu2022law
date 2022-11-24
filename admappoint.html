@@ -103,8 +103,8 @@
                         </ul>
                     </li>
                     <!-- Audit Logs -->
-                    <li class="menu-item active">
-                        <a href="#" class="menu-link">
+                    <li class="menu-item">
+                        <a href="#" id="htmAncAuditlogs" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-collection"></i>
                             <div data-i18n="Audit Logs">Audit Logs</div>
                         </a>
@@ -134,7 +134,7 @@
                         </ul>
                     </li>
                     <!-- Appointments -->
-                    <li class="menu-item">
+                    <li class="menu-item active">
                         <a href="#" id="htmAncAppointments" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-table"></i>
                             <div data-i18n="Appointments">Appointments</div>
@@ -221,33 +221,31 @@
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Activity Logs</h4>
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Client-Lawyer Appointments</h4>
 
                         <!-- Basic Bootstrap Table -->
                         <div class="card">
-                            <h5 class="card-header"><span id="htmLogsCtr">Loading Activity Log(s).</span></h5>
+                            <h5 class="card-header"><span id="htmApppointCtr">Loading Appointment(s)...</span></h5>
                             <div class="table-responsive text-nowrap"
                                 style="overflow-y: auto; min-height: 200px; max-height: 340px">
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>Done By</th>
-                                            <th>Full Name</th>
-                                            <th>Web Page</th>
-                                            <th>Transaction</th>
-                                            <th>Affected</th>
+                                            <th>Client Name</th>
+                                            <th>Lawyer Name</th>
+                                            <th>Date Time</th>
+                                            <th>Status</th>
                                             <th>Date Saved</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="table-border-bottom-0" id="htmTblLogs">
+                                    <tbody class="table-border-bottom-0" id="htmTblAppoint">
 
                                         <!-- <tr>
-                                            <td><strong>Done_By</strong></td>
-                                            <td><strong>Full_Name_Here</strong></td>
-                                            <td>Web_Page</td>
-                                            <td>Transaction_Here</td>
-                                            <th>Affected</th>
+                                            <td><strong>Client_Name</strong></td>
+                                            <td><strong>Lawyer_Name</strong></td>
+                                            <td>Date_Time</td>
+                                            <td>Status</td>
                                             <td>Date_Saved_Here</span></td>
                                             <td>
                                                 <div class="dropdown">
@@ -274,8 +272,12 @@
                         <!--/ Basic Bootstrap Table -->
 
 
+
+
                     </div>
                     <!-- / Content -->
+
+
 
                     <!-- Footer -->
                     <footer class="content-footer footer bg-footer-theme">
@@ -336,9 +338,9 @@
     <script src="sneat/assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="services/front/logs/elements.js"></script>
-    <script src="services/front/logs/core.js"></script>
-    <script src="services/front/logs/controls.js"></script>
+    <script src="services/front/admappoint/elements.js"></script>
+    <script src="services/front/admappoint/core.js"></script>
+    <script src="services/front/admappoint/controls.js"></script>
     <script>
         window.onload = () => {
             if (typeof (Storage) !== "undefined") {
@@ -358,8 +360,8 @@
                 huid.value = urlParams.get('uid');
                 hrole.value = urlParams.get('role');
             }
-            getLogsCtr();
-            getLogs();
+            // getLogsCtr();
+            // getLogs();
         }
     </script>
 

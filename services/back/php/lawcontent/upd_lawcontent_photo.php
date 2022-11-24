@@ -8,8 +8,8 @@
     $data = array();
 
     $photo = $_FILES["photo"];
-    $type = $_POST["type"];
-    $uid = $_POST["uid"]; // echo "$type $uid"; die();
+    $cnid = $_POST["cnid"];
+    $uid = $_POST["uid"];
 
     $fldrname = "zlawfirm";
     //** validate photo if photo and size */
@@ -18,17 +18,11 @@
         $info = pathinfo($photo["name"]);
         $ext = $info['extension'];
 
-        $s = ucfirst("userid$uid");
+        $s = ucfirst("lawcontentid$cnid");
         $bar = ucwords(strtolower($s));
         $trim_name = preg_replace('/\s+/','',$bar);
         
-        $loc_photo = "data/users/imgs/$trim_name";
-        if ($type == "1") {
-            $loc_photo = "data/users/validids/$trim_name";
-        }
-        else if ($type == "2") {
-            $loc_photo = "data/users/prcids/$trim_name";
-        }
+        $loc_photo = "data/lawcn/imgs/$trim_name";
         $fileph = "$trim_name.$ext";
         
 
@@ -69,7 +63,6 @@
             echo getResponse(false, "Server Path Error!", "Path not writable.");
             die();
         }
-        
         if ($createDirectory) {
             mkdir($upload_urlph, 0777, true);
         }
@@ -104,46 +97,31 @@
 
 
 
-    $update_str = "set tbl_user.user_photo='$dbpath_ph' ";
-    if ($type == "1") {
-        $update_str = "set tbl_user.user_validid='$dbpath_ph' ";
-    }
-    else if ($type == "2") {
-        $update_str = "inner join tbl_lawyer on tbl_user.user_id=tbl_lawyer.lawyer_userid ";
-        $update_str .= "set tbl_lawyer.lawyer_prcid='$dbpath_ph' ";
-    }
+    $update_str = "set law_photo='$dbpath_ph'";
 
-    $query = "update tbl_user ";
+    $query = "update tbl_lawcontent ";
     $query .= "$update_str ";
-    $query .= "where tbl_user.user_id='$uid' ";
+    $query .= "where law_id='$cnid' ";
 
     try {
         $conn = getConnection();
         $stmt = $conn->prepare($query);
         $stmt->execute();
 
-        $msg = "User Photo";
-        $msgtyp = "imguser";
-        if ($type == "1") {
-            $msg = "Valid Id";
-            $msgtyp = "imgvalid";
-        }
-        else if ($type == "2") {
-            $msg = "PRC Id";
-            $msgtyp = "imgprc";
-        }
-        echo getResponse(true, "Successfully Uploaded $msg of User #$uid!", "User #$uid Uploaded $msg.");
+        $msg = "Law Content Photo";
+        $msgtyp = "imglawcontent";
+        echo getResponse(true, "Successfully Uploaded $msg of Law Content #$cnid!", "Law Content #$cnid Uploaded $msg.");
 
         $mdl = new ModelLogs();
         $mdl->userid = $uid;
-        $mdl->webpage = "home";
+        $mdl->webpage = "lawcontent";
         $mdl->process = "update $msgtyp";
         $mdl->receiver = 0;
-        $mdl->errlbl .= "client-audit";
+        $mdl->errlbl .= "admin-audit";
         auditLog($conn, $mdl);
 
     } catch(PDOException $e) {
-        echo getResponse(false, "Server Error! upddbusers", "Database Exception - " . $e->getMessage());
+        echo getResponse(false, "Server Error! upddblawcn", "Database Exception - " . $e->getMessage());
 
     }
     $conn = null;

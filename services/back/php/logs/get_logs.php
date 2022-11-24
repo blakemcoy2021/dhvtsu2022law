@@ -49,6 +49,9 @@
 
             $affected_user = "n/a";
             $affected = $results[$i]["log_getuid"];
+
+            $isContinue = true;
+
             if ($affected != 0) {
                 $query = "select * from tbl_user ";
                 $query .= "where user_id='$affected' ";
@@ -56,19 +59,27 @@
                 $stmt->execute();
                 $row = $stmt->fetch();
 
-                $affected_user = $row["user_lastname"] . ", " . $row["user_firstname"] . ": $affected";
+                if ($row) {
+                    $affected_user = $row["user_lastname"] . ", " . $row["user_firstname"] . ": $affected";
+                }
+                else {
+                    $isContinue = false;
+                }
             }
 
-            $info = array(
-                "id"=>$results[$i]["log_id"],
-                "usertype"=>$usertype, 
-                "fullname"=>$fullname, 
-                "webpage"=>$webpage, 
-                "transaction"=>$transaction, 
-                "datesaved"=>$datesaved,
-                "affected"=>$affected_user);
+            if ($isContinue == true) {
+                $info = array(
+                    "id"=>$results[$i]["log_id"],
+                    "usertype"=>$usertype, 
+                    "fullname"=>$fullname, 
+                    "webpage"=>$webpage, 
+                    "transaction"=>$transaction, 
+                    "datesaved"=>$datesaved,
+                    "affected"=>$affected_user);
+    
+                array_push($data, $info);
+            }
 
-            array_push($data, $info);
         }
 
         // echo "<pre>";

@@ -134,6 +134,14 @@
                         </ul>
                     </li>
 
+                    <!-- Appointments -->
+                    <li class="menu-item">
+                        <a href="#" id="htmAncAppointments" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-table"></i>
+                            <div data-i18n="Appointments">Appointments</div>
+                        </a>
+                    </li>
+
                 </ul>
             </aside>
             <!-- / Menu -->
@@ -217,11 +225,11 @@
 
                         <div style="display: flex; justify-content: left" class="mb-3">
                             <div class="demo-inline-spacing">
-                                <h4 class="fw-bold"><span class="text-muted fw-light">Law Categories</h4>
-                                <button type="button" id="htmBtnAddLawCategory" class="btn btn-icon btn-primary">
+                                <h4 class="fw-bold"><span class="text-muted fw-light">Law Contents</h4>
+                                <button type="button" id="htmBtnAddLawContent" class="btn btn-icon btn-primary">
                                     <span class="tf-icons bx bxs-layer-plus"></span>
                                 </button>
-                                <button type="button" id="htmBtnReloadLawCategory" class="btn btn-icon btn-primary">
+                                <button type="button" id="htmBtnReloadLawContent" class="btn btn-icon btn-primary">
                                     <span class="tf-icons bx bx-refresh"></span>
                                 </button>
                             </div>
@@ -229,29 +237,29 @@
 
                         <!-- Basic Bootstrap Table -->
                         <div class="card">
-                            <h5 class="card-header"><span id="htmLawCategoryCtr">Loading Law Categories.</span></h5>
+                            <h5 class="card-header"><span id="htmLawContentCtr">Loading Law Contents...</span></h5>
                             <div class="table-responsive text-nowrap"
                                 style="overflow-y: auto; min-height: 200px; max-height: 440px">
                                 <table class="table">
                                     <thead>
                                         <tr>
+                                            <th>Law Title</th>
+                                            <!-- <th>Details</th> -->
                                             <th>Category Name</th>
                                             <th>Photo</th>
-                                            <th>Cover</th>
-                                            <th>Foreword</th>
-                                            <th>Details</th>
+                                            <th>Attached File</th>
                                             <th>Date Saved</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="table-border-bottom-0" id="htmTblLawCategory">
+                                    <tbody class="table-border-bottom-0" id="htmTblLawContent">
 
                                         <!-- <tr>
-                                            <td><strong>Category_Law_Name_Here</strong></td>
-                                            <td>Photo_Here</td>
-                                            <td>Cover_Here</td>
-                                            <td>Foreword_Here</td>
+                                            <td><strong>Law_Title_Here</strong></td>
                                             <td>Details_Here</td>
+                                            <td>Category_Name_Here</td>
+                                            <td>Photo_Here</td>
+                                            <td>Attached_File_Here</td>
                                             <td>Date_Saved_Here</span></td>
                                             <td>
                                                 <div class="dropdown">
@@ -277,57 +285,57 @@
                         </div>
                         <!--/ Basic Bootstrap Table -->
 
-                        <!-- Modal for Update/Add Law Category -->
+                        <a class='dropdown-item' style='display: none' id='htmAncBackDropModal' data-bs-toggle='modal' data-bs-target='#backDropModal'>hidden_trigger</a>
+
+                        <!-- Modal for Update/Add Law Contents -->
                         <div class="modal fade" id="backDropModal" data-bs-backdrop="static" tabindex="-1">
                             <div class="modal-dialog modal-dialog-scrollable">
                                 <form class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="backDropModalTitle">Update Law Category</h5>
+                                        <h5 class="modal-title" id="backDropModalTitle">Update Law Content</h5>
                                         <button type="button" class="btn-close" onclick="closeModal();"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="col mb-3" style="display: flex; justify-content: center;">
-                                                <img id="htmImgLawCategory" src="res/legal/none.png" width="150"
-                                                    height="150" class="rounded-circle"
-                                                    style="border: 4px solid gray; cursor: pointer;"
-                                                    onclick="javascript: if (lbl_modaltitle.innerHTML.indexOf('Update') != -1) { document.getElementById('htmInpUploadPhoto').click(); } else { alert('This can only be done on `Update`. Add first.'); return; } ">
-
-                                                <input type="file" id="htmInpUploadPhoto" class="account-file-input"
-                                                    hidden accept="image/png, image/jpeg" />
-                                            </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col mb-3">
-                                                <label for="nameBackdrop" class="form-label">Law Category Name</label>
+                                                <label for="nameBackdrop" class="form-label">Law Title</label>
                                                 <input type="text" id="nameBackdrop" class="form-control"
-                                                    placeholder="Enter Law Category Name" />
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col mb-3">
-                                                <label for="forewordBackdrop" class="form-label">Foreword</label>
-                                                <textarea class="form-control" id="forewordBackdrop"
-                                                    rows="3"></textarea>
+                                                    placeholder="Enter Law Title Name" />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col mb-3">
                                                 <label for="detailsBackdrop" class="form-label">Details</label>
-                                                <textarea class="form-control" id="detailsBackdrop" rows="3"></textarea>
+                                                <textarea class="form-control" id="detailsBackdrop"
+                                                    rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col mb-3">
+                                                <label for="htmSlctLawCatField" class="form-label">Law Categories</label>
+                                                <select class="form-select" id="htmSlctLawCatField"
+                                                    aria-label="Loading Law Categories">
+                                                    <option selected value="0">Loading Law Categories...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col mb-3">
+                                                <label for="formFile" class="form-label" id="htmLblLawPdf">Attach PDF Law File</label>
+                                                <input class="form-control" type="file" id="formFile" />
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col mb-0">
-                                                <label for="htmImgLawCatCover" class="form-label">Cover</label>
-                                                <img id="htmImgLawCatCover" src="res/legal/none2.png"
+                                                <label for="htmImgLawPhoto" class="form-label">Photo</label>
+                                                <img id="htmImgLawPhoto" src="res/legal/none2.png"
                                                     class="img-thumbnail"
                                                     style="width: 100%; border: 4px solid #ECEEF1; cursor: pointer;"
-                                                    onclick="javascript: if (lbl_modaltitle.innerHTML.indexOf('Update') != -1) { document.getElementById('htmInpUploadCover').click(); } else { alert('This can only be done on `Update`. Add first.'); return; } "> 
+                                                    onclick="javascript: if (lbl_modaltitle.innerHTML.indexOf('Update') != -1) { document.getElementById('htmInpUploadPhoto').click(); } else { alert('This can only be done on `Update`. Add first.'); return; } "> 
 
-                                                <input type="file" id="htmInpUploadCover" class="account-file-input"
+                                                <input type="file" id="htmInpUploadPhoto" class="account-file-input"
                                                     hidden accept="image/png, image/jpeg" />
                                             </div>
                                         </div>
@@ -411,9 +419,9 @@
     <script src="sneat/assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="services/front/lawcategory/elements.js"></script>
-    <script src="services/front/lawcategory/core.js"></script>
-    <script src="services/front/lawcategory/controls.js"></script>
+    <script src="services/front/lawcontent/elements.js"></script>
+    <script src="services/front/lawcontent/core.js"></script>
+    <script src="services/front/lawcontent/controls.js"></script>
     <script>
         window.onload = () => {
             if (typeof (Storage) !== "undefined") {
@@ -433,8 +441,8 @@
                 huid.value = urlParams.get('uid');
                 hrole.value = urlParams.get('role');
             }
-            // getLawCategoryCtr();
-            // getLawCategory();
+            getLawContentCtr();
+            getLawContent();
         }
     </script>
 

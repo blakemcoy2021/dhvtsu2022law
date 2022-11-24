@@ -25,6 +25,17 @@ link_lawyers.onclick = () => {
         window.location.href = "lawyers.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
     }     
 }
+link_audit.onclick = () => {
+    if (typeof (Storage) !== "undefined") {
+        window.location.href = "auditlogs.html";
+
+    }
+    else {    // no web storage
+        console.log("**** No web storage.");
+
+        window.location.href = "auditlogs.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
+    }
+}
 link_lawcategory.onclick = () => {
     if (typeof (Storage) !== "undefined") {
         window.location.href = "lawcategory.html";
@@ -56,16 +67,5 @@ link_lawcontent.onclick = () => {
         console.log("**** No web storage.");
 
         window.location.href = "lawcontent.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
-    }     
-}
-link_appoint.onclick = () => {
-    if (typeof (Storage) !== "undefined") {
-        window.location.href = "admappoint.html";
-
-    } 
-    else {    // no web storage
-        console.log("**** No web storage.");
-
-        window.location.href = "admappoint.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
     }     
 }

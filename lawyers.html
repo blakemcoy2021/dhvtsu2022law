@@ -134,6 +134,13 @@
                             </li>
                         </ul>
                     </li>
+                    <!-- Appointments -->
+                    <li class="menu-item">
+                        <a href="#" id="htmAncAppointments" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-table"></i>
+                            <div data-i18n="Appointments">Appointments</div>
+                        </a>
+                    </li>
 
                 </ul>
             </aside>
@@ -219,7 +226,7 @@
 
                         <!-- Basic Bootstrap Table -->
                         <div class="card">
-                            <h5 class="card-header"><span id="htmDashboardCtr">Loading registered Lawyers(s).</span>
+                            <h5 class="card-header"><span id="htmDashboardCtr">Loading registered Lawyers(s)...</span>
                             </h5>
                             <div class="table-responsive text-nowrap"
                                 style="overflow-y: auto; min-height: 200px; max-height: 440px">
@@ -265,6 +272,8 @@
                             </div>
                         </div>
                         <!--/ Basic Bootstrap Table -->
+
+                        <a class='dropdown-item' style='display: none' id='htmAncBackDropModal' data-bs-toggle='modal' data-bs-target='#backDropModal'>hidden_trigger</a>
 
                         <!-- Modal for Users -->
                         <div class="modal fade" id="backDropModal" data-bs-backdrop="static" tabindex="-1">

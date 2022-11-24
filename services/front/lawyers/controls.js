@@ -313,3 +313,14 @@ link_lawcontent.onclick = () => {
         window.location.href = "lawcontent.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
     }     
 }
+link_appoint.onclick = () => {
+    if (typeof (Storage) !== "undefined") {
+        window.location.href = "admappoint.html";
+
+    } 
+    else {    // no web storage
+        console.log("**** No web storage.");
+
+        window.location.href = "admappoint.html?uid=" + huid + "&fname=" + hname + "&role=" + hrole;
+    }     
+}
