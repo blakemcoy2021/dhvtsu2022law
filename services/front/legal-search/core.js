@@ -130,7 +130,7 @@ function getLawSearch() {
                             }
                             let t = fldtagsArr[val].trim();
         
-                            htmTagStream += "<span style='cursor: pointer;' class='" + b + " m-1' onclick='removeTag(\"" + t + "\", this);'>" + t + "</span>";
+                            htmTagStream += "<span style='cursor: pointer;' class='" + b + " m-1'>" + t + "</span>";
                         }
                         htmTagStream += "...";
                     }

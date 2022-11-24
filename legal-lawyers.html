@@ -24,7 +24,7 @@
 
         .custombgcard {
             /* background-image: url('../res/legal/bg-politics-fill.jpg'); */
-            background-image: url('../res/legal/bg-civil-fill.jpg');
+            background-image: url('res/legal/legal-cover-placeholder.jpg');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
@@ -80,7 +80,7 @@
 
         <div class="container marketing">
 
-            <div class="card text-end custombgcard" style="width: 100%; margin-top: 30px;">
+            <div class="card text-end custombgcard" id="htmCoverLawItem" style="width: 100%; margin-top: 30px;">
                 <div class="card-body" style="color: white">
                     <!-- <h2 class="card-title">Political Law</h2>
                     <p class="card-text customfontcard">Established legal practice area encompassing the
@@ -91,13 +91,10 @@
                         primarily to government officials, candidates, advocacy groups, lobbyists, businesses, nonprofit
                         organizations, and trade unions.</p> -->
 
-                    <h2 class="card-title">Civil Law</h2>
-                    <p class="card-text customfontcard">Deals with behavior that constitutes an injury to an
-                        individual or other private party, such as a corporation. Examples are defamation
-                        (including libel and slander), breach of contract, negligence resulting in injury or
-                        death, and property damage.</p>
+                    <h2 class="card-title" id="htmLblLawTitle">Loading Type of Law here...</h2>
+                    <p class="card-text customfontcard" id="htmLblLawDetails">Loading Law Description here...</p>
 
-                    <a href="legal.html" class="btn btn-primary">See other law types</a>
+                    <a href="#" class="btn btn-primary">See other law types</a>
                 </div>
             </div>
 
@@ -126,31 +123,29 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="list-group">
+                    <div class="list-group" style="overflow-y: auto; height: 400px" id="htmListLawyersResults">
                         <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">List group item heading</h5>
-                                <small>3 days ago</small>
+                              <h5 class="mb-1">Loading Lawyers Results...</h5>
                             </div>
-                            <p class="mb-1">Some placeholder content in a paragraph.</p>
-                            <small>And some small print.</small>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">List group item heading</h5>
-                                <small class="text-muted">3 days ago</small>
+
+                        <!-- <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                            <div class="d-flex">
+                                <div style="margin-right: 20px">
+                                    <img src="res/legal/none.png" class="rounded-circle"  width="90" height="90">
+                                </div>
+                                <div>
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">List group item heading</h5>
+                                        <small>3 days ago</small>
+                                    </div>
+                                    <p class="mb-1">Some placeholder content in a paragraph.</p>
+                                    <small>And some small print.</small>
+                                </div>
                             </div>
-                            <p class="mb-1">Some placeholder content in a paragraph.</p>
-                            <small class="text-muted">And some muted small print.</small>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">List group item heading</h5>
-                                <small class="text-muted">3 days ago</small>
-                            </div>
-                            <p class="mb-1">Some placeholder content in a paragraph.</p>
-                            <small class="text-muted">And some muted small print.</small>
-                        </a>
+                        </a> -->
+
                     </div>
                 </div>
 
@@ -176,19 +171,24 @@
     <script>
         var lfid = "";
         window.onload = () => {
-            if (typeof (Storage) !== "undefined") {
-                lfid = window.sessionStorage.getItem("lfid");
-                console.log("Acquire session storage value :: " + lfid);
+            /** below commented due to legal-search auto-populate href-based search result */
 
-            }
-            else {
+            // if (typeof (Storage) !== "undefined") {
+            //     lfid = window.sessionStorage.getItem("lfid");
+            //     console.log("Acquire session storage value :: " + lfid);
+
+            // }
+            // else {
+
                 let urlParams = new URLSearchParams(window.location.search);
                 lfid = urlParams.get("lfid");
                 console.log("NO local/session storage support :: " + lfid);
 
-            }
+            //}
+
             // getLawContentCtr();
-            // getLawSearch();
+            getLawCategoryCover();
+            getLawyers();
         }
     </script>
 </body>
