@@ -31,8 +31,7 @@ function getLawContentCtr() {
 }
 
 function getLawSearch() {
-    // search_value
-    // div_listsearch
+    inp_lawsearch.value = search_value;
 
     let route = "services/back/php/legal-search/get_searchlaw.php?search=" + search_value;
     let xhttp = new XMLHttpRequest();
