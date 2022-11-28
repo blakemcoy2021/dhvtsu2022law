@@ -14,6 +14,30 @@
     <link href="css/main/bootstrap.min.css" rel="stylesheet">
     <link href="css/main/legal/main.css" rel="stylesheet">
 
+    <script src="js/main/pdfobject.js"></script>
+    <script src="js/main/pdfobject.min.js"></script>
+
+    <link href='fullcalendar/lib/main.css' rel='stylesheet' />
+    <script src='fullcalendar/lib/main.js'></script>
+    <style>
+        body {
+            margin: 40px 10px;
+            padding: 0;
+            font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        #calendar {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .picked {
+            background-color: rgb(0, 101, 160);
+            color: white;
+        }
+    </style>
+
     <!-- https://getbootstrap.com/docs/5.0/examples/carousel/ -->
 
     <style>
@@ -30,6 +54,10 @@
             background-position: center;
         }
     </style>
+    <script>
+        window.sessionStorage.setItem("pickId", 0);
+        window.sessionStorage.setItem("prevPicked", "");
+    </script>
 </head>
 
 <body>
@@ -102,20 +130,17 @@
                 <div class="row" style="width: 100%;">
 
                     <div class="col-sm-5" style="padding: 5px;">
-                        <input type="text" class="form-control" placeholder="Lawyer Name Here"
-                            aria-label="Lawyer Name Here" aria-describedby="button-addon2">
+                        <input type="text" class="form-control" id="htmInpLawyerSearch" placeholder="Lawyer Name Here"
+                            aria-label="Lawyer Name Here">
                     </div>
                     <div class="col-sm-5" style="padding: 5px;">
-                        <select class="form-select form-select-sm" aria-label=".form-select-sm example"
-                            style="height: 100%;">
-                            <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select class="form-select form-select-sm" id="htmSlctLawCat"
+                            aria-label=".form-select-sm example" style="height: 100%;">
+                            <option selected value="0">Loading Law Categories...</option>
                         </select>
                     </div>
                     <div class="col-sm-2" style="padding: 5px;">
-                        <button class="btn btn-primary" type="button" id="button-addon2"
+                        <button class="btn btn-primary" type="button" id="htmBtnSearch"
                             style="height: 100%; width: 100%;" style="font-size: 1.3rem;">Search</button>
                     </div>
                 </div>
@@ -126,31 +151,157 @@
                     <div class="list-group" style="overflow-y: auto; height: 400px" id="htmListLawyersResults">
                         <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
-                              <h5 class="mb-1">Loading Lawyers Results...</h5>
+                                <h5 class="mb-1">Loading Lawyers Results...</h5>
                             </div>
                         </a>
-
-                        <!-- <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                            <div class="d-flex">
-                                <div style="margin-right: 20px">
-                                    <img src="res/legal/none.png" class="rounded-circle"  width="90" height="90">
-                                </div>
-                                <div>
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">List group item heading</h5>
-                                        <small>3 days ago</small>
-                                    </div>
-                                    <p class="mb-1">Some placeholder content in a paragraph.</p>
-                                    <small>And some small print.</small>
-                                </div>
-                            </div>
-                        </a> -->
 
                     </div>
                 </div>
 
             </div>
 
+
+
+
+
+            <div class="modal" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+                tabindex="-1">
+                <div class="modal-dialog modal-fullscreen">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalToggleLabel">Lawyer and Expertise Info</h5>
+                            <button id="htmBtnMtClose" type="button" class="btn-close"></button>
+                            <button id="htmBtnMtCloseHid" type="button" style="display: none" data-bs-dismiss="modal" aria-label="Close"></button>                            
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <!-- lawyer info with gmap -->
+                                <div class="col-sm-7">
+                                    <div class="d-flex justify-content-center">
+                                        <div class="m-2">
+                                            <img id="htmImgInfoLawyer" src='res/legal/none.png' class='rounded-circle' width='140' height='140'>
+                                        </div>
+                                        <div class="m-2">
+                                            <h5 id="htmLblInfoLawyerName">???, ??? - ???</h5>
+                                            <h6 id="htmLblInfoAddress">???</h6>
+                                            <h6 id="htmLblInfoLawyerContact">Contact Info: </h6>
+                                            <h6 id="htmLblInfoLawyerTime">Open Time: [???] Close Time: [???]</h6>
+                                            <div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                                        value="option1" disabled>
+                                                    <label class="form-check-label" for="inlineCheckbox1">Sun</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
+                                                        value="option2" disabled>
+                                                    <label class="form-check-label" for="inlineCheckbox2">Mon</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3"
+                                                        value="option3" disabled>
+                                                    <label class="form-check-label" for="inlineCheckbox3">Tue</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4"
+                                                        value="option4" disabled>
+                                                    <label class="form-check-label" for="inlineCheckbox4">Wed</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox5"
+                                                        value="option5" disabled>
+                                                    <label class="form-check-label" for="inlineCheckbox5">Thu</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox6"
+                                                        value="option6" disabled>
+                                                    <label class="form-check-label" for="inlineCheckbox6">Fri</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox7"
+                                                        value="option4" disabled>
+                                                    <label class="form-check-label" for="inlineCheckbox7">Sat</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link active" id="pdf-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#pdf" type="button" role="tab"
+                                                    aria-controls="pdf" aria-selected="false">Law Guide</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="ratings-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#ratings" type="button" role="tab" aria-controls="ratings"
+                                                    aria-selected="true">Ratings - Comments</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="photos-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#photos" type="button" role="tab"
+                                                    aria-controls="photos" aria-selected="false">Photos</button>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade" id="pdf" role="tabpanel"
+                                                aria-labelledby="pdf-tab">
+                                            
+                                                <div id="pdfviewer_area" style="width: 100%"></div>
+                                            
+                                            </div>
+
+                                            <div class="tab-pane fade show active" id="ratings" role="tabpanel"
+                                                aria-labelledby="ratings-tab">...</div>
+
+                                            <div class="tab-pane fade" id="photos" role="tabpanel"
+                                                aria-labelledby="photos-tab">...</div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <!-- gmap here -->
+                                <div class="col-sm-5">
+                                    <div id="htmGoogleMap"></div>
+                                    <img src="img/dump.png">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="htmBtnSetAppoint" class="btn btn-primary">Set Appointment</button>
+                            <button id="htmBtnToggle2nd" style="display: none" class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+                tabindex="-1">
+                <div class="modal-dialog modal-fullscreen">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalToggleLabel2">Set Appointment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div id="htmFullCalendar" style="height:100%"></div>
+                                    </div>
+    
+                                </div>
+
+                        
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+                                data-bs-dismiss="modal">See Lawyers Info</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a id="htmBtnToggleModal" style="display: none;" class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button"></a>
 
         </div><!-- /.container -->
 
@@ -168,6 +319,7 @@
     <script src="js/main/bootstrap.bundle.min.js"></script>
     <script src="services/front/legal-lawyers/elements.js"></script>
     <script src="services/front/legal-lawyers/core.js"></script>
+    <script src="services/front/legal-lawyers/controls.js"></script>
     <script>
         var lfid = "";
         window.onload = () => {
@@ -180,15 +332,16 @@
             // }
             // else {
 
-                let urlParams = new URLSearchParams(window.location.search);
-                lfid = urlParams.get("lfid");
-                console.log("NO local/session storage support :: " + lfid);
+            let urlParams = new URLSearchParams(window.location.search);
+            lfid = urlParams.get("lfid");
+            console.log("NO local/session storage support :: " + lfid);
 
             //}
 
             // getLawContentCtr();
             getLawCategoryCover();
             getLawyers();
+            slctPopulateLawCat();
         }
     </script>
 </body>

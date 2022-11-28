@@ -32,6 +32,7 @@ function getLawContentCtr() {
 
 function getLawSearch() {
     inp_lawsearch.value = search_value;
+    lbl_searchinp.innerHTML = "" + search_value;
 
     let route = "services/back/php/legal-search/get_searchlaw.php?search=" + search_value;
     let xhttp = new XMLHttpRequest();
@@ -69,6 +70,8 @@ function getLawSearch() {
                 console.log(tag, e);
                 return;
             }   console.log(tag, records);
+
+            lbl_searchctr.innerHTML = records.length;
 
             if (records.length > 0) {
                 let stream = "";

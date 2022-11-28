@@ -201,8 +201,10 @@ function getLawyers() {
                         htmTagStream += fldtags;
                     }
 
+                    let lawyerId = records[i].lawyer_id;
+
                     // let link_str = "legal-lawyers.html?lfid=" + records[i].lawfield_id;
-                    stream += "<a href='#' class='list-group-item list-group-item-action' aria-current='true'>" +
+                    stream += "<a onclick='checkLoginRedirect("+lawyerId+", this);' href='#' class='list-group-item list-group-item-action' aria-current='true' id='rowId"+lawyerId+"'>" +
                                     "<div class='d-flex'>" +
                                         "<div style='margin-right: 20px'>" +
                                             "<img src='"+records[i].user_photo+"' class='rounded-circle' width='90' height='90'>" +
@@ -227,5 +229,58 @@ function getLawyers() {
         }
     };
 }
+function slctPopulateLawCat(catId = 0) {
+    let route = "services/back/php/lawcategory/get_lawcategory.php";
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("GET", route, true);
+    xhttp.send();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let tag = "LEGAL LAWYERS: GetLawCategories - ";
+            let respo = xhttp.responseText; console.log(tag, respo);
+
+            slct_lawcategory.innerHTML = "<option selected value='0'>No Law Categories Yet</option>";
+
+            let d;
+            try { 
+                d = JSON.parse(respo); 
+            } catch (e) {
+                console.log(tag, e)
+                return; 
+            }   console.log(tag, d.success);
+            
+            if (d.success == false) { 
+                console.log(tag, d.message);
+                return; 
+            }
+
+            var records;
+            try { 
+                records = JSON.parse(d.success); 
+            } catch (e) {
+                console.log(tag, e)
+                return; 
+            }   console.log(tag, records);
+
+            let stream_opts = "";
+            if (records.length > 0) {
+                let stream_opts = "<option selected value='0'>-- Select Lawyer Expertise --</option>";
+                for (let i = 0; i < records.length; i++) {
+                    let lc = records[i].lawcategory_name;
+                    let lcId = records[i].lawcategory_id;
+                    if (lcId != 0) {
+                        stream_opts += "<option value='"+lcId+"'>"+lc+"</option>";
+                    }
+                }
+
+                slct_lawcategory.innerHTML = stream_opts;
+                slct_lawcategory.value = catId;
+            }
+
+        }
+    };
+}
+
+
 
 
