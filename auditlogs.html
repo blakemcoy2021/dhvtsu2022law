@@ -202,7 +202,10 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="services/back/php/common/logout.php?page=admin">
+                                        <!-- href="services/back/php/common/logout.php?page=admin" -->
+                                        <a class="dropdown-item" 
+                                            href="javascript:void(0)"
+                                            onclick="logoutProcess();">
                                             <i class="bx bx-power-off me-2"></i>
                                             <span class="align-middle">Log Out</span>
                                         </a>
@@ -340,6 +343,11 @@
     <script src="services/front/logs/core.js"></script>
     <script src="services/front/logs/controls.js"></script>
     <script>
+        function logoutProcess() {
+            let route = "services/back/php/common/logout.php?page=admin";
+            route += "&uid=" + huid.value;
+            window.location.href = route;
+        }
         window.onload = () => {
             if (typeof (Storage) !== "undefined") {
                 let fname = window.localStorage.getItem("fname"); console.log("Acquire localstorage value :: " + fname);

@@ -24,5 +24,11 @@ var tab_photos = document.getElementById('photos-tab');
 var btn_modalAppoint = document.getElementById("htmBtnSetAppoint");
 var btn_modalToggle2nd = document.getElementById("htmBtnToggle2nd");
 
+var btn_modalCloseAppoint = document.getElementById("htmBtnModAppClose");
+var btn_modalTimeAppoint = document.getElementById("htmBtnModalAppoint");
+var inp_modalInpTimeStart = document.getElementById("htmInpAppStartTime");
+var inp_modalInpTimeEnd = document.getElementById("htmInpAppEndTime");
+var btn_modalTimeApply = document.getElementById("htmBtnApplyAppoint");
+
 
 var calx = document.getElementById("htmFullCalendar");

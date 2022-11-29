@@ -54,7 +54,7 @@
                     <i class="fas fa-bars"></i>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="login.html">Login</a></li>
+                    <li><a class="dropdown-item" href="login.html" id="htmLinkLogin">Login</a></li>
                     <li><a class="dropdown-item" href="#about">About</a></li>
                     <li><a class="dropdown-item" href="#services">Services</a></li>
                     <li><a class="dropdown-item" href="#portfolio">Legals</a></li>
@@ -500,6 +500,11 @@
 
     <script src="services/front/index/elements.js"></script>
     <script src="services/front/index/controls.js"></script>
+    <script>
+        if (window.localStorage.getItem("uid") != null) {
+            lnk_login.innerHTML = "Profile";
+        }
+    </script>
 </body>
 
 </html>

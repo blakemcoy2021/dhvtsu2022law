@@ -47,13 +47,13 @@
         return $isExist;
     }
 
-    function register($dbconn, $mdl_login, $isExist)
+    function register($dbconn, $mdl_lawfld, $isExist)
     {
         if ($isExist) {
             echo getResponse(false, "Adding failed: Law Field already exist.", 0);
             return;
         }
-        $mdl = $mdl_login;
+        $mdl = $mdl_lawfld;
         $tblname = "tbl_lawfield";
         $fld = "lawfield_";
         $fld1 = $fld . "name";

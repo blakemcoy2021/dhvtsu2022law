@@ -104,8 +104,10 @@
                 $ls_uid = "window.localStorage.setItem('uid', '');";
                 $ls_fname = "window.localStorage.setItem('fname', '');";
                 $ls_role = "window.localStorage.setItem('role', '');";
+                $ls_clear = "window.localStorage.clear();";
+                $ss_clear = "window.sessionStorage.clear();";
                 $relocate = "window.location.href = '../../../../index.html'; ";
-                echo "<script>$ls_uid $ls_fname $ls_role $relocate</script>";
+                echo "<script>$ls_uid $ls_fname $ls_role $ls_clear $ss_clear $relocate</script>";
             
                 // header("Location: ../../../../index.html");
                 die();

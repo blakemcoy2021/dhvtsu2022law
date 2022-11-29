@@ -114,7 +114,10 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="services/back/php/common/logout.php?page=notif">
+                                        <!-- href="services/back/php/common/logout.php?page=notif" -->
+                                        <a class="dropdown-item" 
+                                            href="javascript:void(0)"
+                                            onclick="logoutProcess();">
                                             <i class="bx bx-power-off me-2"></i>
                                             <span class="align-middle">Log Out</span>
                                         </a>
@@ -293,6 +296,13 @@
             lbl_username.innerHTML = hname.value;
 
             getNotifications(uid);
+        }
+
+
+        function logoutProcess() {
+            let route = "services/back/php/common/logout.php?page=notif";
+            route += "&uid=" + huid.value;
+            window.location.href = route;
         }
     </script>
 

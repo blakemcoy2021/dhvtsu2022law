@@ -30,9 +30,14 @@
         .custombtn:hover {opacity: 1}
     </style>
     <script>
-        window.localStorage.setItem("uid", "");
-        window.localStorage.setItem("role", "");
-        window.localStorage.setItem("fname", "");
+        if (window.localStorage.getItem("role") == "2") {
+            window.location.href = "home.html";
+        }
+        else {
+            window.localStorage.setItem("uid", "");
+            window.localStorage.setItem("role", "");
+            window.localStorage.setItem("fname", "");
+        }
     </script>
 </head>
 

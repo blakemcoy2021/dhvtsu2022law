@@ -74,8 +74,9 @@
                         <!-- Search -->
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
-                                <i class="bx bx-search fs-4 lh-0"></i>
-                                <input type="text" class="form-control border-0 shadow-none" placeholder="Search Law..."
+                                <!-- <i class="bx bx-search fs-4 lh-0"></i> -->
+                                <button class="btn btn-brand" type="button" id="htmBtnLawSearch"><i class="bx bx-search fs-4 lh-0"></i></button>
+                                <input id="htmInpLawSearch" type="text" class="form-control border-0 shadow-none" placeholder="Search Law..."
                                     aria-label="Search Law..." />
                             </div>
                         </div>
@@ -113,16 +114,19 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="index.html">
                                             <i class="bx bx-user me-2"></i>
-                                            <span class="align-middle">My Profile</span>
+                                            <span class="align-middle">Home</span>
                                         </a>
                                     </li>
                                     <li>
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="services/back/php/common/logout.php?page=home">
+                                        <!-- href="services/back/php/common/logout.php?page=home" -->
+                                        <a class="dropdown-item" 
+                                            href="javascript:void(0)"
+                                            onclick="logoutProcess();">
                                             <i class="bx bx-power-off me-2"></i>
                                             <span class="align-middle">Log Out</span>
                                         </a>
@@ -584,6 +588,12 @@
                 huid.value = uid;
             }
             getUserInfo(uid);
+        }
+
+        function logoutProcess() {
+            let route = "services/back/php/common/logout.php?page=home";
+            route += "&uid=" + huid.value;
+            window.location.href = route;
         }
     </script>
 

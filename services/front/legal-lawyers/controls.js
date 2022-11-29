@@ -278,6 +278,7 @@ function showCalendar() {
     var dtnow = new Date();
     var dtnow_str = dtnow.getFullYear().toString();
     var dtnow_month = dtnow.getMonth() + 1;
+    dtnow_str += "-";
     if (dtnow_month < 10) {
         dtnow_str += "0" + dtnow_month.toString();
     }
@@ -285,6 +286,7 @@ function showCalendar() {
         dtnow_str += dtnow_month.toString();
     }
     var dtnow_days = dtnow.getDate();
+    dtnow_str += "-";
     if (dtnow_days < 10) {
         dtnow_str += "0" + dtnow_days.toString();
     }
@@ -292,7 +294,7 @@ function showCalendar() {
         dtnow_str += dtnow_days.toString();
     }
 
-    var calendar = new FullCalendar.Calendar(calendarEl,
+    calendar = new FullCalendar.Calendar(calendarEl,
         {
             headerToolbar: {
                 left: 'prev,next today',
@@ -304,15 +306,34 @@ function showCalendar() {
             selectable: true,
             selectMirror: true,
             select: function (arg) {
-                var title = prompt('Set Appointed Time:');
-                if (title) {
-                    calendar.addEvent({
-                        title: title,
-                        start: arg.start,
-                        end: arg.end,
-                        allDay: arg.allDay
-                    })
+                let month = arg.start.getMonth() + 1;
+                let day = arg.start.getDate();
+                let year = arg.start.getFullYear();
+                dtstr = year.toString() + "-" + month.toString() + "-" + day.toString();
+                if (dtnow_str == dtstr) {
+                    alert(dtnow_str + " is equal to " + dtstr +". Cannot appoint on same day!");
+                    dtstr = "";
+                    return;
                 }
+                let datediff = dateDiffInDays(new Date(dtstr), new Date(dtnow_str));
+                if (datediff >= 0) {
+                    alert("Appointment date must be ahead from today and past date is not applicable!");
+                    dtstr = "";
+                    return;
+                }
+                btn_modalTimeAppoint.click();
+
+                // alert(arg.start.getMonth()); // 2022-11-11T16:00:00
+            
+                // var title = prompt('Set Appointed Time:');
+                // if (title) {
+                //     calendar.addEvent({
+                //         title: title,
+                //         start: arg.start,
+                //         end: arg.end,
+                //         allDay: arg.allDay
+                //     })
+                // }
                 calendar.unselect()
             },
             eventClick: function (arg) {
@@ -382,3 +403,128 @@ function showCalendar() {
 
     calendar.render();
 };
+
+btn_modalTimeApply.onclick = () => {
+    // let startTimeArr = inp_modalInpTimeStart.value.split(":");
+    // let endTimeArr = inp_modalInpTimeEnd.value.split(":");
+    // if (parseInt(startTimeArr[0]) > parseInt(endTimeArr[0])) {
+    //     alert("Selected Schedule Start Time cannot be late compare to End Time");
+    //     return;
+    // }
+    // else if (parseInt(startTimeArr[0]) == parseInt(endTimeArr[0])) {
+    //     if (parseInt(startTimeArr[1]) > parseInt(endTimeArr[1])) {
+    //        alert("Selected Schedule Start Time cannot be late compare to End Time");
+    //        return;
+    //     }
+    //     else {
+    //         let minutesDiff = parseInt(startTimeArr[1]) - parseInt(endTimeArr[1]);
+    //         if (minutesDiff < 60) {
+    //             alert("Selected Schedule cannot be less than one (1) hour.");
+    //             return;
+    //         }
+    //     }
+    // }
+
+    let timesched = inp_modalInpTimeStart.value;
+
+    let data = new FormData();
+    data.append("startT", timesched + ":00");
+    //data.append("closeT", inp_modalInpTimeEnd.value + ":00");
+
+    let lawyerId = window.sessionStorage.getItem("prevPicked");
+    lawyerId = lawyerId.split("rowId")[1];
+    data.append("lawId", lawyerId);
+
+    let uid = window.localStorage.getItem("uid");
+    data.append("uid", uid);
+
+    data.append("dtsched", dtstr);
+
+    let route = "services/back/php/legal-lawyer/add_appoint.php";
+    let tag = "LEGAL LAWYER: AddAppointment - ";
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("POST", route, true);
+    xhttp.send(data);
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            let respo = xhttp.responseText; console.log(tag, respo);
+
+            let d;
+            try {
+                d = JSON.parse(respo);
+            } catch (e) {
+                console.log(tag, e)
+                return;
+            } console.log(tag, d.success);
+
+            if (d.success == false) {
+                console.log(tag, d.message);
+                return;
+            }
+            alert(d.message);
+
+            /** populate the calendar here */
+            btn_modalCloseAppoint.click();
+
+            // 2022-11-11T16:00:00
+            let startTime_str = dtstr+"T"+timesched;
+            let endTime_str = dtstr+"T"+(parseInt(timesched.split(":")[0]) + 1).toString();
+                console.log(startTime_str, endTime_str);
+
+            calendar.addEvent({
+                title: 'Your Appointment',
+                start: startTime_str,
+                end: endTime_str
+            })
+        }
+    };
+}
+
+function getAppointments() {
+    let route = "services/back/php/legal-lawyer/get_appointment.php";
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("GET", route, true);
+    xhttp.send();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+
+            let tag = "LEGAL LAWYER: GetAppointment - ";
+            let respo = xhttp.responseText; console.log(tag, respo);
+
+            tbl.innerHTML = "";
+
+            let d;
+            try { 
+                d = JSON.parse(respo); 
+            } catch (e) {
+                console.log(tag, e)
+                return; 
+            }   console.log(tag, d.success);
+            
+            if (d.success == false) { 
+                console.log(tag, d.message);
+                return; 
+            }
+
+            var records;
+            try {
+                records = JSON.parse(d.success);
+            } catch (e) {
+                console.log(tag, e);
+                return;
+            }   console.log(tag, records);
+
+
+
+        }
+    };
+}
+
+function dateDiffInDays(a, b) {
+    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+    // Discard the time and time-zone information.
+    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+    return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+}
