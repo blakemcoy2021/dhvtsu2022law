@@ -30,8 +30,6 @@ function getLawContentCtr() {
     };
 }
 
-
-
 function getLawCategoryCover() {
     let route = "services/back/php/legal-lawyer/get_lawfieldcat.php?lfid=" + lfid;
     let xhttp = new XMLHttpRequest();

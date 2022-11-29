@@ -66,7 +66,7 @@
         <div class="layout-container">
 
             <!-- Layout container -->
-            <div class="layout-page" style="padding-left: 0px">
+            <div class="layout-page" style="padding-left: 0px;">
                 <!-- Navbar -->
 
                 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
@@ -81,8 +81,9 @@
                         <!-- Search -->
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
-                                <i class="bx bx-search fs-4 lh-0"></i>
-                                <input type="text" class="form-control border-0 shadow-none" placeholder="Search Law..."
+                                <!-- <i class="bx bx-search fs-4 lh-0"></i> -->
+                                <button class="btn btn-brand" type="button" id="htmBtnLawSearch"><i class="bx bx-search fs-4 lh-0"></i></button>
+                                <input id="htmInpLawSearch" type="text" class="form-control border-0 shadow-none" placeholder="Search Law..."
                                     aria-label="Search Law..." />
                             </div>
                         </div>
@@ -179,8 +180,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title">Loading User Appointments...</h5>
                                     </div>
-                                </div>
-                                
+                                </div>                                
 
                             </div>
                             <div class="col-sm-8">

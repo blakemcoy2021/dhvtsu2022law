@@ -120,9 +120,9 @@ function getAppointments(userid) {
             let tag = "APPOINTMENT: GetUserAppointment - ";
             let respo = xhttp.responseText; console.log(tag, respo);
 
-            list_appoints.innerHTML = "<div class='card mb-3'><div class='card-body'>" +
-                                            "<h5 class='card-title'>You have no Appointment(s) Yet.</h5>" +
-                                        "</div></div>";
+            // list_appoints.innerHTML = "<div class='card mb-3'><div class='card-body'>" +
+            //                                 "<h5 class='card-title'>You have no Appointment(s) Yet.</h5>" +
+            //                             "</div></div>";
 
             let d;
             try {
@@ -145,62 +145,66 @@ function getAppointments(userid) {
                 return;
             } console.log(tag, records);
 
-            // if (records.length > 0) {
-            //     let stream = "";
+            if (records.length > 0) {
+                let stream = "";
                 
-            //     let uploadphoto = records[0].user_photo;
-            //     let rmcache = new Date();
-            //     if (uploadphoto != "n/a") {
-            //         photo_usersm.src = uploadphoto + "?nc=" + rmcache.getMilliseconds();
-            //     }
+                for (let i = 0; i < records.length; i++) {
 
-            //     for (let i = 0; i < records.length; i++) {
+                    // <div class="card mb-3">
+                    //     <div class="card-body">
+                    //         <div class="d-flex row">
+                    //             <div class="col-sm-3">
+                    //                 <img src="res/legal/none.png" style="width: 100%">
+                    //             </div>
+                    //             <div class="col-sm-9">
+                    //                 <h5 class="card-title">Lawyer Name - Lawyer Category</h5>
+                    //                 <p class="card-text m-0">Contact Number Here</p>
+                    //                 <p class="card-text m-0">Schedule Here</p>
+                    //             </div>
+                    //         </div>
+                    //     </div>
+                    // </div>
 
-            //         // <div class="card mb-3">
-            //         //     <div class="card-body">
-            //         //         <h5 class="card-title">Special title treatment</h5>
-            //         //         <p class="card-text">With supporting text below as a natural lead-in to
-            //         //             additional content.</p>
-            //         //         <a href="javascript:void(0)" class="btn btn-primary">Go somewhere</a>
-            //         //     </div>
-            //         // </div>
+                    let lawyerphoto = records[i].user_photo;
+                    let rmcache = new Date();
+                    if (lawyerphoto != "n/a") {
+                        lawyerphoto = lawyerphoto + "?nc=" + rmcache.getMilliseconds();
+                    }
+                    else {
+                        lawyerphoto = "res/legal/none.png";
+                    }
 
-            //         let monthsArr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-            //         let dtstamp = records[i].log_datesaved;
-            //         let dt = new Date(dtstamp);
-            //         let notif_dt = "<span style='font-size: x-small'><u>" + monthsArr[dt.getMonth()] + " " + dt.getDate() + ", " + dt.getFullYear() + "</u></span>";
+                    let lawyername = records[i].user_lastname + ", " + records[i].user_firstname + " - " + records[i].lawcategory_name;
+                    if (lawyername.length > 40) {
+                        lawyername = lawyername.substring(0,40) + "...";
+                    }
 
-            //         let notifs = records[i].log_transaction;
-            //         let notif_title = "";
-            //         let notif_message = "";
-            //         let options = "";
+                    let contactnum = records[i].contact_phone;
 
-            //         if (notifs.includes("verify")) {
-            //             if (notifs.includes("verified")) {
-            //                 notif_title = "Congratulations! 🎉 Your Account has been Verified! - " + notif_dt;
-            //                 notif_message = "Your account is now eligible to request appointment(s) to lawyers.";
-            //             }
-            //             else if (notifs.includes("declined")) {
-            //                 notif_title = "Sorry! ❌ Your Account has been Declined! - " + notif_dt;
-            //                 notif_message = "Your account has not passed to the verification ";
-            //                 notif_message += "process due to suspicious/inconsistent information given ";
-            //                 notif_message += "specially if ID uploaded is not matched to your account.";
-            //                 options += "<a href='javascript: requestReVerify(" + userid + ")' class='btn btn-primary'>Request Again</a>";
-            //             }
-            //         }
+                    let monthsArr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                    let dtstamp = records[i].app_datesched;
+                    let dt = new Date(dtstamp);
+                    let tmstamp = records[i].app_timesched;
+                    let app_dt = monthsArr[dt.getMonth()] + " " + dt.getDate() + ", " + dt.getFullYear() + " - " + tmstamp;
 
+                    stream += "<div class='card mb-3'>" +
+                                    "<div class='card-body'>" +
+                                        "<div class='d-flex row'>" +
+                                            "<div class='col-sm-3'>" +
+                                                "<img src='"+lawyerphoto+"' class='rounded-circle' style='width: 100%'>" +
+                                            "</div>" +
+                                            "<div class='col-sm-9'>" +
+                                                "<h5 class='card-title m-1'>"+lawyername+"</h5>" +
+                                                "<p class='card-text m-0'>"+app_dt+"</p>" +
+                                                "<p class='card-text m-0'>+63 "+contactnum+"</p>" +
+                                            "</div>" +
+                                        "</div>" +
+                                    "</div>" +
+                                "</div>";
 
-            //         stream += "<div class='card mb-3'>" +
-            //                         "<div class='card-body'>" +
-            //                             "<h4 class='card-title'>" + notif_title + "</h4>" +
-            //                             "<p class='card-text'>" + notif_message + "</p>" +
-            //                             options +
-            //                         "</div>" +
-            //                     "</div>";
-
-            //         list_notifs.innerHTML = stream;
-            //     }
-            // }
+                    list_appoints.innerHTML = stream;
+                }
+            }
 
         }
         else if (this.readyState == 4) {

@@ -215,8 +215,6 @@ function checkLoginRedirect(lawyerid, element) {
                 loadLawPdf(lawcatid);
             }
         };
-
-
     }
     else {
         alert('You need to sign in as client.');
@@ -294,114 +292,131 @@ function showCalendar() {
         dtnow_str += dtnow_days.toString();
     }
 
-    calendar = new FullCalendar.Calendar(calendarEl,
-        {
-            headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
-            },
-            initialDate: dtnow_str,
-            navLinks: true, // can click day/week names to navigate views
-            selectable: true,
-            selectMirror: true,
-            select: function (arg) {
-                let month = arg.start.getMonth() + 1;
-                let day = arg.start.getDate();
-                let year = arg.start.getFullYear();
-                dtstr = year.toString() + "-" + month.toString() + "-" + day.toString();
-                if (dtnow_str == dtstr) {
-                    alert(dtnow_str + " is equal to " + dtstr +". Cannot appoint on same day!");
-                    dtstr = "";
-                    return;
-                }
-                let datediff = dateDiffInDays(new Date(dtstr), new Date(dtnow_str));
-                if (datediff >= 0) {
-                    alert("Appointment date must be ahead from today and past date is not applicable!");
-                    dtstr = "";
-                    return;
-                }
-                btn_modalTimeAppoint.click();
+    let lawyerId = window.sessionStorage.getItem("pickId"); 
+    let route = "services/back/php/legal-lawyer/get_appoint.php?lawyerId=" +lawyerId;
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("GET", route, true);
+    xhttp.send();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let tag = "LEGAL LAWYERS: GetAppointments - ";
+            let respo = xhttp.responseText; console.log(tag, respo);
 
-                // alert(arg.start.getMonth()); // 2022-11-11T16:00:00
+            let d;
+            try { 
+                d = JSON.parse(respo); 
+            } catch (e) {
+                console.log(tag, e)
+                return; 
+            }   console.log(tag, d.success);
             
-                // var title = prompt('Set Appointed Time:');
-                // if (title) {
-                //     calendar.addEvent({
-                //         title: title,
-                //         start: arg.start,
-                //         end: arg.end,
-                //         allDay: arg.allDay
-                //     })
-                // }
-                calendar.unselect()
-            },
-            eventClick: function (arg) {
-                // if (confirm('Are you sure you want to delete this event?')) {
-                //     arg.event.remove()
-                // }
-            },
-            editable: false, // true
-            dayMaxEvents: true, // allow "more" link when too many events
-            events: [
-                // {
-                //     title: 'All Day Event',
-                //     start: '2022-11-01'
-                // },
-                // {
-                //     title: 'Long Event',
-                //     start: '2022-11-07',
-                //     end: '2022-11-10'
-                // },
-                // {
-                //     groupId: 999,
-                //     title: 'Repeating Event',
-                //     start: '2022-11-11T16:00:00'
-                // },
-                // {
-                //     groupId: 999,
-                //     title: 'Repeating Event',
-                //     start: '2022-11-16T16:00:00'
-                // },
-                // {
-                //     title: 'Conference',
-                //     start: '2022-11-11',
-                //     end: '2022-11-13'
-                // },
-                // {
-                //     title: 'Meeting',
-                //     start: '2022-11-12T10:30:00',
-                //     end: '2022-11-12T12:30:00'
-                // },
-                // {
-                //     title: 'Lunch',
-                //     start: '2022-11-12T12:00:00'
-                // },
-                // {
-                //     title: 'Meeting',
-                //     start: '2022-11-12T14:30:00'
-                // },
-                // {
-                //     title: 'Happy Hour',
-                //     start: '2022-11-12T17:30:00'
-                // },
-                // {
-                //     title: 'Dinner',
-                //     start: '2022-11-12T20:00:00'
-                // },
-                // {
-                //     title: 'Birthday Party',
-                //     start: '2022-11-13T07:00:00'
-                // },
-                // {
-                //     title: 'Click for Google',
-                //     url: 'http://google.com/',
-                //     start: '2022-11-28'
-                // }
-            ]
-        });
+            if (d.success == false) { 
+                console.log(tag, d.message);
+                return; 
+            }
 
-    calendar.render();
+            var records;
+            try { 
+                records = JSON.parse(d.success); 
+            } catch (e) {
+                console.log(tag, e)
+                return; 
+            }   console.log(tag, records);
+
+            // {
+            //     title: 'Long Event',
+            //     start: '2022-11-07',
+            //     end: '2022-11-10'
+            // }
+
+            let calevents = [];
+
+            if (records.length > 0) {
+                for (let i = 0; i < records.length; i++) {
+                    let t = "Reserved Appointment";
+                    let u = window.localStorage.getItem("uid");
+                    if (u == records[i].app_userid) {
+                        t = "YOUR appointment";
+                    }
+                    let dt = records[i].app_datesched;
+                    let tm = records[i].app_timesched;
+                    let startTime = dt + "T" + tm;
+                    let startTimeArr = tm.split(":");
+                    let endHour = (parseInt(startTimeArr[0])+1);
+                    if (endHour < 10) {
+                        endHour = "0" + endHour.toString();
+                    }
+                    let endTime = dt + "T" + endHour + ":" + startTimeArr[1] + ":00";
+
+                    let appointment = {
+                        title : t,
+                        start : startTime,
+                        end : endTime
+                    };
+
+                    calevents.push(appointment);
+                    existSched.push(startTime);
+                }
+            }
+
+            calendar = new FullCalendar.Calendar(calendarEl,
+                {
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    },
+                    initialDate: dtnow_str,
+                    navLinks: true, // can click day/week names to navigate views
+                    selectable: true,
+                    selectMirror: true,
+                    select: function (arg) {
+                        let month = arg.start.getMonth() + 1;
+                        let day = arg.start.getDate();
+                        let year = arg.start.getFullYear();
+                        dtstr = year.toString() + "-" + month.toString() + "-" + day.toString();
+                        if (dtnow_str == dtstr) {
+                            alert(dtnow_str + " is equal to " + dtstr +". Cannot appoint on same day!");
+                            dtstr = "";
+                            return;
+                        }
+                        let datediff = dateDiffInDays(new Date(dtstr), new Date(dtnow_str));
+                        if (datediff >= 0) {
+                            alert("Appointment date must be ahead from today and past date is not applicable!");
+                            dtstr = "";
+                            return;
+                        }
+                        btn_modalTimeAppoint.click();
+        
+                        // alert(arg.start.getMonth()); // 2022-11-11T16:00:00
+                    
+                        // var title = prompt('Set Appointed Time:');
+                        // if (title) {
+                        //     calendar.addEvent({
+                        //         title: title,
+                        //         start: arg.start,
+                        //         end: arg.end,
+                        //         allDay: arg.allDay
+                        //     })
+                        // }
+                        calendar.unselect()
+                    },
+                    eventClick: function (arg) {
+                        // if (confirm('Are you sure you want to delete this event?')) {
+                        //     arg.event.remove()
+                        // }
+                    },
+                    editable: false, // true
+                    dayMaxEvents: true, // allow "more" link when too many events
+                    events: calevents
+                });
+        
+            calendar.render();
+
+
+        }
+    };
+
 };
 
 btn_modalTimeApply.onclick = () => {
@@ -426,19 +441,33 @@ btn_modalTimeApply.onclick = () => {
     // }
 
     let timesched = inp_modalInpTimeStart.value;
+    let lawyerId = window.sessionStorage.getItem("pickId"); // or picked
+    let uid = window.localStorage.getItem("uid");
+
+    let alreadyTaken = false;
+    let chosenDtstr = dtstr + "T" + timesched + ":00";
+    let chosenDt = new Date("" +chosenDtstr);
+    for (let i = 0; i < existSched.length; i++) {
+        let d = new Date("" + existSched[i]);
+        let diff = Math.abs(chosenDt.getTime() - d.getTime()); // console.log("@#@#@#", diff);
+        if (diff < 3600000) {
+            alreadyTaken = true;
+            break;
+        }
+    }
+    if (alreadyTaken) {
+        alert("Chosen Date Time for Appointment conflicts to existing appointments. Make sure it is later or ahead an hour to the existing schedules.");
+        return;
+    } //return;
+
+    
 
     let data = new FormData();
     data.append("startT", timesched + ":00");
-    //data.append("closeT", inp_modalInpTimeEnd.value + ":00");
-
-    let lawyerId = window.sessionStorage.getItem("prevPicked");
-    lawyerId = lawyerId.split("rowId")[1];
     data.append("lawId", lawyerId);
-
-    let uid = window.localStorage.getItem("uid");
     data.append("uid", uid);
-
     data.append("dtsched", dtstr);
+    // data.append("closeT", inp_modalInpTimeEnd.value + ":00");
 
     let route = "services/back/php/legal-lawyer/add_appoint.php";
     let tag = "LEGAL LAWYER: AddAppointment - ";
@@ -472,10 +501,12 @@ btn_modalTimeApply.onclick = () => {
                 console.log(startTime_str, endTime_str);
 
             calendar.addEvent({
-                title: 'Your Appointment',
+                title: 'YOUR Newly Added',
                 start: startTime_str,
                 end: endTime_str
-            })
+            });
+
+            inp_modalInpTimeStart.value = "";
         }
     };
 }

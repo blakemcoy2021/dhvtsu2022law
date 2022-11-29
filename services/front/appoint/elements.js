@@ -4,6 +4,9 @@ var hname = document.getElementById("hidfld_fname");
 var huid = document.getElementById("hidfld_uid");
 var hrole = document.getElementById("hidfld_role");
 
+var inp_lawsearch = document.getElementById("htmInpLawSearch");
+var btn_lawsearch = document.getElementById("htmBtnLawSearch");
+
 var roletyp = document.getElementById("htmLblUserType");
 var photo_usersm = document.getElementById("htmImgUserPhotoSm");
 
