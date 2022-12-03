@@ -1,13 +1,20 @@
 btn_search.onclick = () => {
-    if (inp_searchlawyer.value == "") {
-        getLawCategoryCover();
-        getLawyers();
-        slctPopulateLawCat();
-        return;
+    let txtval = inp_searchlawyer.value;
+    if (txtval == "") {
+        txtval = "n-a";
+
+    }
+    if (txtval == "n-a") {
+        if (slct_lawcategory.value == "0") {
+            getLawCategoryCover();
+            getLawyers();
+            slctPopulateLawCat();
+            return;
+        }
     }
 
     let lawcatid = slct_lawcategory.value;
-    let route = "services/back/php/legal-lawyer/get_lawyer_search.php?name=" + inp_searchlawyer.value + "&catid=" + lawcatid;
+    let route = "services/back/php/legal-lawyer/get_lawyer_search.php?name=" + txtval + "&catid=" + lawcatid;
     let xhttp = new XMLHttpRequest();
     xhttp.open("GET", route, true);
     xhttp.send();
@@ -17,10 +24,10 @@ btn_search.onclick = () => {
             let respo = xhttp.responseText; console.log(tag, respo);
 
             div_listlawyers.innerHTML = "<a href='#' class='list-group-item list-group-item-action' aria-current='true'>" +
-                "<div class='d-flex w-100 justify-content-between'>" +
-                "<h5 class='mb-1'>There are Lawyers found for this Type of Law...</h5>" +
-                "</div>" +
-                "</a>";
+                                            "<div class='d-flex w-100 justify-content-between'>" +
+                                                "<h5 class='mb-1'>There are Lawyers found for this Type of Law...</h5>" +
+                                            "</div>" +
+                                        "</a>";
 
             let d;
             try {
@@ -86,23 +93,25 @@ btn_search.onclick = () => {
                     let opent = opentimeArr[0] + ":" + opentimeArr[1];
                     let closet = closetimeArr[0] + ":" + closetimeArr[1];
                     let lawyer_time = opent + " to " + closet;
-
+                    let lawyerId = records[i].lawyer_id;
 
                     // let link_str = "legal-lawyers.html?lfid=" + records[i].lawfield_id;
-                    stream += "<a href='#' class='list-group-item list-group-item-action' aria-current='true'>" +
-                        "<div class='d-flex'>" +
-                        "<div style='margin-right: 20px'>" +
-                        "<img src='" + records[i].user_photo + "' class='rounded-circle' width='90' height='90'>" +
-                        "</div>" +
-                        "<div>" +
-                        "<div class='d-flex w-100 justify-content-between'>" +
-                        "<h5 class='mb-1'>" + lawyername + "</h5>" +
-                        // "<small>3 days ago</small>" +
-                        "</div>" +
-                        "<p class='mb-1'>" + lawyer_days + "&nbsp;&nbsp;<b>Open-Close Time: </b>" + lawyer_time + "</p>" +
-                        "</div>" +
-                        "</div>" +
-                        "</a>";
+                    stream += "<a onclick='checkLoginRedirect("+lawyerId+", this);' href='#' class='list-group-item list-group-item-action' aria-current='true' id='rowId"+lawyerId+"'>" +
+                                    "<div class='d-flex'>" +
+                                        "<div style='margin-right: 20px'>" +
+                                            "<img src='" + records[i].user_photo + "' class='rounded-circle' width='90' height='90'>" +
+                                        "</div>" +
+                                        "<div>" +
+                                            "<div class='d-flex w-100 justify-content-between'>" +
+                                                "<h5 class='mb-1'>" + lawyername + "</h5>" +
+                                            "</div>" +
+                                            "<p class='mb-1'>" + lawyer_days + "&nbsp;&nbsp;<b>Open-Close Time: </b>" + lawyer_time + "</p>" +
+                                            "<div style='width: 70%'>" +
+                                                "<h5>Lawyer Expertise: <u>"+records[i].lawcategory_name+"</u></h5>" +
+                                            "</div>" +
+                                        "</div>" +
+                                    "</div>" +
+                                "</a>";
 
                     if (lawcatid != 0) {
                         cover_lawphoto.style.backgroundImage = "url('" + records[0].lawcategory_cover + "')";
@@ -218,7 +227,9 @@ function checkLoginRedirect(lawyerid, element) {
     }
     else {
         alert('You need to sign in as client.');
-        window.location.href = "login.html";
+        let route = "services/back/php/common/logout.php?page=lawyerslegal";
+            route += "&uid=0";
+            window.location.href = route;
     }
 }
 
@@ -482,15 +493,16 @@ btn_modalTimeApply.onclick = () => {
             try {
                 d = JSON.parse(respo);
             } catch (e) {
+                alert(d.message);
                 console.log(tag, e)
                 return;
             } console.log(tag, d.success);
 
             if (d.success == false) {
+                alert(d.message);
                 console.log(tag, d.message);
                 return;
             }
-            alert(d.message);
 
             /** populate the calendar here */
             btn_modalCloseAppoint.click();

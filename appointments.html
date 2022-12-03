@@ -288,7 +288,13 @@
                 hname.value = fname;
                 huid.value = uid;
             }
-            getAppointments(uid);
+            if (roletyp.innerHTML == "Client") {
+                getAppointments(uid);
+            }
+            else {
+                getAppointments(uid, true);
+            }
+
         }
 
         function logoutProcess() {

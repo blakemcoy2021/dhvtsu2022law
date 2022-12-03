@@ -110,14 +110,18 @@ document.addEventListener('DOMContentLoaded',
         calendar.render();
     });
 
-function getAppointments(userid) {
+function getAppointments(userid, islawyer = false) {
+    
     let route = "services/back/php/appoint/get_user_appoints.php?uid=" + userid;
+    if (islawyer) {
+        route = "services/back/php/appoint/get_lawyer_appoints.php?uid=" + userid;
+    }
     let xhttp = new XMLHttpRequest();
     xhttp.open("GET", route, true);
     xhttp.send();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            let tag = "APPOINTMENT: GetUserAppointment - ";
+            let tag = "APPOINTMENT: GetUserLawyerAppointment - ";
             let respo = xhttp.responseText; console.log(tag, respo);
 
             // list_appoints.innerHTML = "<div class='card mb-3'><div class='card-body'>" +
@@ -165,18 +169,21 @@ function getAppointments(userid) {
                     //     </div>
                     // </div>
 
-                    let lawyerphoto = records[i].user_photo;
+                    let userphoto = records[i].user_photo;
                     let rmcache = new Date();
-                    if (lawyerphoto != "n/a") {
-                        lawyerphoto = lawyerphoto + "?nc=" + rmcache.getMilliseconds();
+                    if (userphoto != "n/a") {
+                        userphoto = userphoto + "?nc=" + rmcache.getMilliseconds();
                     }
                     else {
-                        lawyerphoto = "res/legal/none.png";
+                        userphoto = "res/legal/none.png";
                     }
 
-                    let lawyername = records[i].user_lastname + ", " + records[i].user_firstname + " - " + records[i].lawcategory_name;
-                    if (lawyername.length > 40) {
-                        lawyername = lawyername.substring(0,40) + "...";
+                    let fullname = records[i].user_lastname + ", " + records[i].user_firstname;
+                    if (!islawyer) {
+                        fullname += " - " + records[i].lawcategory_name;
+                    }
+                    if (fullname.length > 40) {
+                        fullname = fullname.substring(0,40) + "...";
                     }
 
                     let contactnum = records[i].contact_phone;
@@ -191,10 +198,10 @@ function getAppointments(userid) {
                                     "<div class='card-body'>" +
                                         "<div class='d-flex row'>" +
                                             "<div class='col-sm-3'>" +
-                                                "<img src='"+lawyerphoto+"' class='rounded-circle' style='width: 100%'>" +
+                                                "<img src='"+userphoto+"' class='rounded-circle' style='width: 100%'>" +
                                             "</div>" +
                                             "<div class='col-sm-9'>" +
-                                                "<h5 class='card-title m-1'>"+lawyername+"</h5>" +
+                                                "<h5 class='card-title m-1'>"+fullname+"</h5>" +
                                                 "<p class='card-text m-0'>"+app_dt+"</p>" +
                                                 "<p class='card-text m-0'>+63 "+contactnum+"</p>" +
                                             "</div>" +

@@ -1,35 +1,3 @@
-function getLawContentCtr() {
-    let route = "services/back/php/lawcontent/ctr_lawcontent.php";
-    let xhttp = new XMLHttpRequest();
-    xhttp.open("GET", route, true);
-    xhttp.send();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-
-            let tag = "LAW CONTENT: GetLawContentCtr - ";
-            let respo = xhttp.responseText; console.log(tag, respo);
-
-            ctrlabel.innerHTML = "There are 0 law contents.";
-
-            let d;
-            try { 
-                d = JSON.parse(respo); 
-            } catch (e) {
-                console.log(tag, e)
-                return; 
-            }   console.log(tag, d.success);
-            
-            if (d.success == false) { 
-                console.log(tag, d.message);
-                return; 
-            }
-
-            ctrlabel.innerHTML = "There are " + d.success + " law contents.";
-
-        }
-    };
-}
-
 function getLawSearch() {
     inp_lawsearch.value = search_value;
     lbl_searchinp.innerHTML = "" + search_value;
@@ -91,7 +59,7 @@ function getLawSearch() {
                     if (lawname.length > 44) {
                         lawname = lawname.substring(0,44) + "...";
                     }
-                    let lawdetails = records[i].lawcategory_details1;
+                    let lawdetails = records[i].lawfield_details;
                     if (lawdetails.length > 240) {
                         lawdetails = lawdetails.substring(0,240) + "...";
                     }

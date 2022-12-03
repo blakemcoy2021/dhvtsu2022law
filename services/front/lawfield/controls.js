@@ -4,6 +4,7 @@ btn_add.onclick = () => {
     lbl_modaltitle.innerHTML = "Add Law Field";
 
     inp_lawfldname.value = "";
+    inp_lawflddesc.value = "";
     slctPopulateLawCat(0);
     txta_lawfldtags.value = "";
     fldtagsArr = [];
@@ -20,6 +21,7 @@ btn_update.onclick = () => {
 
     let failfieldctr = 0;
     if (inp_lawfldname.value == "") { failfieldctr++; }
+    if (inp_lawflddesc.value == "") { failfieldctr++; }
     if (slct_lawcat.value == "0") { 
         alert('Law Category is required!');
         return;
@@ -32,6 +34,7 @@ btn_update.onclick = () => {
 
     let data = new FormData();
     data.append("fldname", inp_lawfldname.value);
+    data.append("flddesc", inp_lawflddesc.value);
     data.append("fldcatid", slct_lawcat.value);
     data.append("fldtags", txta_lawfldtags.value);
     data.append("uid", huid.value);
@@ -59,11 +62,11 @@ btn_update.onclick = () => {
                 return;
             } console.log(tag, d.success);
 
+            alert(d.message);            
             if (d.success == false) {
                 console.log(tag, d.message);
                 return;
             }
-            alert(d.message);
 
             getLawFieldCtr();
             getLawField();
@@ -112,7 +115,7 @@ function slctPopulateLawCat(catId = 0) {
 
             let stream_opts = "";
             if (records.length > 0) {
-                let stream_opts = "<option selected value='0'>-- Select Lawyer Expertise --</option>";
+                stream_opts = "<option selected value='0'>-- Select Lawyer Expertise --</option>";
                 for (let i = 0; i < records.length; i++) {
                     let lc = records[i].lawcategory_name;
                     let lcId = records[i].lawcategory_id;
@@ -169,6 +172,7 @@ function getLawFldInfo(fldid) {
             } console.log(tag, records);
 
             inp_lawfldname.value = records.lawfield_name;
+            inp_lawflddesc.value = records.lawfield_details;
             slctPopulateLawCat(records.lawfield_categoryid);
 
             /* blue, gray, green, red, orange, blue, dark */

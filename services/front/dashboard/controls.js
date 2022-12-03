@@ -160,11 +160,11 @@ btn_approve.onclick = () => {
                 return; 
             }   console.log(tag, d.success);
             
+            alert(d.message);
             if (d.success == false) { 
                 console.log(tag, d.message);
                 return; 
             }
-            alert(d.message);
 
             getUsersCtr();
             getUsers();
@@ -200,18 +200,16 @@ btn_decline.onclick = () => {
                 console.log(tag, e)
                 return; 
             }   console.log(tag, d.success);
-            
+
+            alert(d.message);
             if (d.success == false) { 
                 console.log(tag, d.message);
                 return; 
             }
-            alert(d.message);
 
             getUsersCtr();
             getUsers();
             closeModal();
-
-
         }
     };
 }

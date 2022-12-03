@@ -3,9 +3,6 @@
     include "../common/dbconfig.php";
     include "../common/utilities.php";
 
-    $errors = [];
-    $data = array();
-
     $fid = $_GET["fid"];
 
     $query = "select * from tbl_lawfield ";

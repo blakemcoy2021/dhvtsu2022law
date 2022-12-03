@@ -7,9 +7,10 @@
     $dbconn = getConnection();
 
     $mdl_lawfld = new ModelLawField();
-    $mdl_lawfld->name = $_POST["fldname"];
+    $mdl_lawfld->name = cleanSqlSave($_POST["fldname"]);
+    $mdl_lawfld->desc = cleanSqlSave($_POST["flddesc"]);
     $mdl_lawfld->catid = $_POST["fldcatid"];
-    $mdl_lawfld->tags = $_POST["fldtags"];
+    $mdl_lawfld->tags = cleanSqlSave($_POST["fldtags"]);
     $uid = $_POST["uid"];
 
     $isExist = isExist($dbconn, $mdl_lawfld);
@@ -57,10 +58,11 @@
         $tblname = "tbl_lawfield";
         $fld = "lawfield_";
         $fld1 = $fld . "name";
-        $fld2 = $fld . "categoryid";
-        $fld3 = $fld . "tags";
-        $query_str = "INSERT INTO `$tblname` (`$fld1`,`$fld2`,`$fld3`) ";
-        $query_str .= "VALUES ('$mdl->name','$mdl->catid','$mdl->tags');";
+        $fld2 = $fld . "details";
+        $fld3 = $fld . "categoryid";
+        $fld4 = $fld . "tags";
+        $query_str = "INSERT INTO `$tblname` (`$fld1`,`$fld2`,`$fld3`,`$fld4`) ";
+        $query_str .= "VALUES ('$mdl->name','$mdl->details','$mdl->catid','$mdl->tags');";
         try {
             $statement = $dbconn->prepare($query_str);
             $statement->execute();

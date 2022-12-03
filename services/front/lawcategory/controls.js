@@ -62,12 +62,12 @@ btn_update.onclick = () => {
                 console.log(tag, e)
                 return; 
             }   console.log(tag, d.success);
-            
+
+            alert(d.message);
             if (d.success == false) { 
                 console.log(tag, d.message);
                 return; 
             }
-            alert(d.message);
 
             getLawCategoryCtr();            
             getLawCategory();
@@ -97,7 +97,7 @@ function uploadPhoto(idtype) {
 
     let ext = photo.value.split('.').pop();
     if (ext != "jpg" && ext != "png" && ext != "jpeg") {
-        alert("The selected file is not a photo! Only accepts .jpg and .png. Convert first your photo, also in less than 20MB.");
+        alert("The selected file is not a photo! Only accepts .jpg and .png. Convert first your photo, also in less than 4MB.");
         return false;
     }
 
@@ -125,12 +125,12 @@ function uploadPhoto(idtype) {
                 console.log(tag, e)
                 return; 
             }   console.log(tag, d.success);
-            
+
+            alert(d.message);
             if (d.success == false) { 
                 console.log(tag, d.message);
                 return; 
-            }
-            alert(d.message);
+            }            
 
             getLawCategoryCtr();            
             getLawCategory();
@@ -161,11 +161,13 @@ function getLawCatInfo(catid) {
             try { 
                 d = JSON.parse(respo); 
             } catch (e) {
+                alert(d.message);
                 console.log(tag, e)
                 return; 
             }   console.log(tag, d.success);
             
             if (d.success == false) { 
+                alert(d.message);
                 console.log(tag, d.message);
                 return; 
             }
@@ -196,7 +198,6 @@ function getLawCatInfo(catid) {
             inp_lawcatname.value = lawcatname;
             inp_lawcatforeword.value = lawcatforeword;
             inp_lawcatdetails.value = lawcatdetails;
-
         }
     };
 }

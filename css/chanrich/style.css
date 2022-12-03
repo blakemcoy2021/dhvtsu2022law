@@ -121,6 +121,14 @@ section {
     background-repeat: no-repeat;
 }
 
+.slide3 {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(../../img/login/teamdream.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
 .slide .display-3 {
     text-transform: uppercase;
     color: #fff;

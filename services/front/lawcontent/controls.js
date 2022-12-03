@@ -46,7 +46,7 @@ btn_update.onclick = () => {
     let tag = "LAW CONTENT: AddLawContent - ";
     if (cnid != 0) {
         data.append("cnid", cnid);
-        route = "services/back/php/lawcategory/upd_lawcategory_info.php";
+        route = "services/back/php/lawcontent/upd_lawcontent_info.php";
         tag = "LAW CONTENT: UpdateLawContentInfo - ";
     }
 
@@ -113,7 +113,7 @@ function slctPopulateLawCat(catId = 0) {
 
             let stream_opts = "";
             if (records.length > 0) {
-                let stream_opts = "<option selected value='0'>-- Select Lawyer Expertise --</option>";
+                stream_opts = "<option selected value='0'>-- Select Lawyer Expertise --</option>";
                 for (let i = 0; i < records.length; i++) {
                     let lc = records[i].lawcategory_name;
                     let lcId = records[i].lawcategory_id;
@@ -146,7 +146,7 @@ function uploadPhoto() {
 
     let ext = photo.value.split('.').pop();
     if (ext != "jpg" && ext != "png" && ext != "jpeg") {
-        alert("The selected file is not a photo! Only accepts .jpg and .png. Convert first your photo, also in less than 20MB.");
+        alert("The selected file is not a photo! Only accepts .jpg and .png. Convert first your photo, also in less than 4MB.");
         return false;
     }
 
@@ -173,12 +173,12 @@ function uploadPhoto() {
                 console.log(tag, e)
                 return; 
             }   console.log(tag, d.success);
-            
+
+            alert(d.message);
             if (d.success == false) { 
                 console.log(tag, d.message);
                 return; 
             }
-            alert(d.message);
 
             getLawContentCtr();            
             getLawContent();
@@ -223,12 +223,12 @@ function uploadPDF() {
                 console.log(tag, e)
                 return; 
             }   console.log(tag, d.success);
-            
+
+            alert(d.message);
             if (d.success == false) { 
                 console.log(tag, d.message);
                 return; 
             }
-            alert(d.message);
 
             getLawContentCtr();            
             getLawContent();

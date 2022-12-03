@@ -67,7 +67,9 @@ function getLawCategoryCover() {
 
             cover_lawphoto.style.backgroundImage = "url('"+records.lawcategory_cover+"')";
             lbl_lawtitle.innerHTML = records.lawfield_name + " - " + records.lawcategory_name;
-            lbl_lawdetails.innerHTML = records.lawcategory_details1;
+            let details = "<span>"+records.lawfield_details+"</span><br><br>";
+            let lawdesc = "<span>" + records.lawcategory_name + " is a " + records.lawcategory_details1 + "</span>";
+            lbl_lawdetails.innerHTML = details + lawdesc;
 
         }
     };

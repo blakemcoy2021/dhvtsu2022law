@@ -104,13 +104,17 @@ btn_update.onclick = () => {
                 console.log(tag, e)
                 return; 
             }   console.log(tag, d.success);
-            
+
+            alert(d.message);
             if (d.success == false) { 
                 console.log(tag, d.message);
                 return; 
             }
-            alert(d.message);
 
+            let fullname = inp_lastname.value + ", " + inp_firstname.value;
+            lbl_username.innerHTML = fullname;
+            hname.value = fullname;
+            window.localStorage.setItem("fname", fullname);
             // chk_lawyer reset here???
             getUserInfo(userid);
         }

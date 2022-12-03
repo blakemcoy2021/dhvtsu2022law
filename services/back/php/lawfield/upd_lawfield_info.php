@@ -4,12 +4,10 @@
     include "../common/utilities.php";
     include "../common/model_logs.php";
 
-    $errors = [];
-    $data = array();
-
-    $fldname = $_POST["fldname"];
+    $fldname = cleanSqlSave($_POST["fldname"]);
+    $flddesc = cleanSqlSave($_POST["flddesc"]);
     $fldcatid = $_POST["fldcatid"];
-    $fldtags = $_POST["fldtags"];
+    $fldtags = cleanSqlSave($_POST["fldtags"]);
     $fldid = $_POST["fldid"];
     $uid = $_POST["uid"];
 
@@ -17,6 +15,7 @@
 
 
     $update_str = "lawfield_name='$fldname',";
+    $update_str .= "lawfield_details='$flddesc',";
     $update_str .= "lawfield_categoryid='$fldcatid',";
     $update_str .= "lawfield_tags='$fldtags'";
     $query = "update tbl_lawfield ";

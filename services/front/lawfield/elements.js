@@ -10,7 +10,7 @@ var ctrlabel = document.getElementById("htmLawFieldCtr");
 /* modal law fields */
 
 var inp_lawfldname = document.getElementById("nameBackdrop");
-
+var inp_lawflddesc = document.getElementById("forewordBackdrop");
 var slct_lawcat = document.getElementById("htmSlctLawCatField");
 
 var inp_lawfldtagadd = document.getElementById("tagAdderBackdrop");

@@ -26,6 +26,10 @@
             justify-content: left;
             align-items: center;
         }
+        .hs img:hover {
+            height: 150px;
+            width: 150px;
+        }
     </style>
     <script>
         window.sessionStorage.setItem("searchlaw", "");
@@ -87,6 +91,16 @@
                     <div class="col-12 col-lg-10 offset-lg-1 text-white">
                         <h6 class="text-white text-uppercase">We find legitimate lawyer</h6>
                         <h1 class="display-3 my-4">Design Driven For <br />Kapampangan</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide slide3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-10 offset-lg-1 text-white">
+                        <h6 class="text-white text-uppercase">Presented by:</h6>
+                        <h1 class="display-3 my-4">DHVSU-IT Students</h1>
                     </div>
                 </div>
             </div>
@@ -204,7 +218,7 @@
                             especially locating lawyers law office</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6" onclick="document.location='#'">
+                <div class="col-lg-4 col-md-6 hs" style="cursor: pointer" onclick="window.location.href='legal-library.html';">
                     <div class="service">
                         <img src="img/icon4.png" alt="">
                         <h5>Legal Library</h5>
@@ -501,7 +515,7 @@
     <script src="services/front/index/elements.js"></script>
     <script src="services/front/index/controls.js"></script>
     <script>
-        if (window.localStorage.getItem("uid") != null) {
+        if (window.localStorage.getItem("uid") != null || window.localStorage.getItem("uid") == "") {
             lnk_login.innerHTML = "Profile";
         }
     </script>

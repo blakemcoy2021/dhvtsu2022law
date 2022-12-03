@@ -7,9 +7,9 @@
     $dbconn = getConnection();
 
     $mdl_lawcat = new ModelLawCategory();
-    $mdl_lawcat->name = $_POST["catname"];
-    $mdl_lawcat->foreword = $_POST["catforeword"];
-    $mdl_lawcat->details = $_POST["catdetails"];
+    $mdl_lawcat->name = cleanSqlSave($_POST["catname"]);
+    $mdl_lawcat->foreword = cleanSqlSave($_POST["catforeword"]);
+    $mdl_lawcat->details = cleanSqlSave($_POST["catdetails"]);
     $uid = $_POST["uid"];
 
     $isExist = isExist($dbconn, $mdl_lawcat);

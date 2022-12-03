@@ -7,9 +7,9 @@
     $errors = [];
     $data = array();
 
-    $catname = $_POST["catname"];
-    $catforeword = $_POST["catforeword"];
-    $catdetails = $_POST["catdetails"];
+    $catname = cleanSqlSave($_POST["catname"]);
+    $catforeword = cleanSqlSave($_POST["catforeword"]);
+    $catdetails = cleanSqlSave($_POST["catdetails"]);
     $catid = $_POST["catid"];
     $uid = $_POST["uid"];
 

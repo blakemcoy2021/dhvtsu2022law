@@ -8,6 +8,7 @@ function getConnection()
 
     $username = "root";
     $password = "toor"; //ActivPower@123L
+    //$password = "ActivPower@123L";
 
     /**
      * sudo chown www-data:www-data /var/www/html

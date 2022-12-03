@@ -202,7 +202,10 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="services/back/php/common/logout.php?page=admin">
+                                        <!-- href="services/back/php/common/logout.php?page=admin" -->
+                                        <a class="dropdown-item" 
+                                            href="javascript:void(0)"
+                                            onclick="logoutProcess();">
                                             <i class="bx bx-power-off me-2"></i>
                                             <span class="align-middle">Log Out</span>
                                         </a>
@@ -231,7 +234,9 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th>Client Name</th>
+                                            <th></th>
                                             <th>Lawyer Name</th>
                                             <th>Date Time</th>
                                             <th>Status</th>
@@ -242,7 +247,9 @@
                                     <tbody class="table-border-bottom-0" id="htmTblAppoint">
 
                                         <!-- <tr>
+                                            <td><strong>Client_Photo</strong></td>
                                             <td><strong>Client_Name</strong></td>
+                                            <td><strong>Lawyer_Photo</strong></td>
                                             <td><strong>Lawyer_Name</strong></td>
                                             <td>Date_Time</td>
                                             <td>Status</td>
@@ -342,6 +349,11 @@
     <script src="services/front/admappoint/core.js"></script>
     <script src="services/front/admappoint/controls.js"></script>
     <script>
+        function logoutProcess() {
+            let route = "services/back/php/common/logout.php?page=admin";
+            route += "&uid=" + huid.value;
+            window.location.href = route;
+        }
         window.onload = () => {
             if (typeof (Storage) !== "undefined") {
                 let fname = window.localStorage.getItem("fname"); console.log("Acquire localstorage value :: " + fname);
@@ -360,8 +372,8 @@
                 huid.value = urlParams.get('uid');
                 hrole.value = urlParams.get('role');
             }
-            // getLogsCtr();
-            // getLogs();
+            getAppointmentsCtr();
+            getAppointments();
         }
     </script>
 

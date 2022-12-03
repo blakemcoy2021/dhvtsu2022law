@@ -2,15 +2,15 @@
 
     include "../common/dbconfig.php";
     include "../common/utilities.php";
-
-    $errors = [];
     
     $name = strtolower(cleanSqlSave($_GET["name"])); // echo "$search <br>";
     $catid = $_GET["catid"];
 
     $nameArr = [];
-    if (strpos($name, " ")) {
-        $nameArr = explode(" ",$name);
+    if ($name != "n-a") {
+        if (strpos($name, " ")) {
+            $nameArr = explode(" ",$name);
+        }
     }
 
     $query = "select * from tbl_lawcategory ";
@@ -32,18 +32,19 @@
             }
         }
     }
-    else {
-        $query .= "where ";
+    else if ($name != "n-a") {
+        $query .= "where (LOWER(tbl_user.user_firstname) like '%$name%' or LOWER(tbl_user.user_lastname) like '%$name%')";
         if ($catid != 0) {
-            $query .= "(";
+            $query .= "and ";
         }
-        $query .= "LOWER(tbl_user.user_firstname) like '%$name%' or LOWER(tbl_user.user_lastname) like '%$name%'";
     }
     if ($catid != 0) {
-        $query .= ") and tbl_lawcategory.lawcategory_id='$catid' ";
+        if ($name == "n-a") {
+            $query .= "where ";
+        }
+        $query .= "tbl_lawcategory.lawcategory_id='$catid' ";
     }
-    $query .= " order by tbl_lawyer.lawyer_id desc";
-
+    $query .= " order by tbl_lawcategory.lawcategory_id desc";
     try {
         $conn = getConnection();
         $stmt = $conn->prepare($query);
