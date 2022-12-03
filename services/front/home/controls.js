@@ -1,3 +1,44 @@
+chk_tos.onclick = () => {
+    if (chk_tos.checked) {
+        let tos = "Confirming means you can now update/upload your data ";
+        tos += "to the lawfirm system and this confirmation will be saved, Do you wish to proceed?";
+        if (confirm(tos) == true) {
+
+            let route = "services/back/php/home/agree_tos.php?uid=" + huid.value;
+            let xhttp = new XMLHttpRequest();
+            xhttp.open("GET", route, true);
+            xhttp.send();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    let tag = "HOME: AgreeToS - ";
+                    let respo = xhttp.responseText; console.log(tag, respo);
+        
+                    let d;
+                    try { 
+                        d = JSON.parse(respo); 
+                    } catch (e) {
+                        console.log(tag, e)
+                        return; 
+                    }   console.log(tag, d.success);
+        
+                    alert(d.message);
+                    if (d.success == false) { 
+                        console.log(tag, d.message);
+                        return; 
+                    }
+                    chk_tos.disabled = true;
+                }
+            };
+        }
+        else {
+            chk_tos.checked = false;
+        }
+    }
+    else {
+        chk_tos.checked = true;
+    }
+}
+
 btn_lawsearch.onclick = () => {
     if (inp_lawsearch.value == "") {
         alert("Insert law to search.");
@@ -16,6 +57,11 @@ btn_lawsearch.onclick = () => {
 
 
 btn_update.onclick = () => {
+    if (!chk_tos.checked) {
+        alert("You must first agree to the Terms of Service regarding data privacy for your own discretion and safety.");
+        return;
+    }
+
     let userid = window.localStorage.getItem("uid");
 
     let failfieldctr = 0;
@@ -122,14 +168,32 @@ btn_update.onclick = () => {
 }
 
 inp_photo.onchange = () => {
+    if (!chk_tos.checked) {
+        alert("You must first agree to the Terms of Service regarding data privacy for your own discretion and safety.");
+        inp_photo.value = "";
+        inp_photo.files[0] = null;
+        return;
+    }
     uploadPhoto(0);
 }
 
 inp_validId.onchange = () => {
+    if (!chk_tos.checked) {
+        alert("You must first agree to the Terms of Service regarding data privacy for your own discretion and safety.");
+        inp_validId.value = "";
+        inp_validId.files[0] = null;
+        return;
+    }
     uploadPhoto(1);
 }
 
 inp_prcId.onchange = () => {
+    if (!chk_tos.checked) {
+        alert("You must first agree to the Terms of Service regarding data privacy for your own discretion and safety.");
+        inp_prcId.value = "";
+        inp_prcId.files[0] = null;
+        return;
+    }
     uploadPhoto(2);
 }
 

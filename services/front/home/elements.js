@@ -1,3 +1,5 @@
+var chk_tos = document.getElementById("htmChkToS");
+
 var uname = document.getElementById("htmLblUserName");
 
 var hname = document.getElementById("hidfld_fname"); 
