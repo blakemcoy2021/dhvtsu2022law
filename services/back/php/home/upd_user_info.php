@@ -27,11 +27,14 @@
         $role = 3;
         $lawcatg = $_POST["lawcatg"];
         $lawaddr = $_POST["lawaddr"];
+        $lawaddr = str_replace("\"", "_", $lawaddr);
         $lawopen = $_POST["lawopen"];
         $lawclos = $_POST["lawclos"];
         $lawdays = $_POST["lawdays"];
     }
     $uid = $_POST["uid"];
+
+
 
     // echo "$fname, $mname, $lname, $email, $phone, $addr, $bday, $islaw, $role, $uid"; die();
 

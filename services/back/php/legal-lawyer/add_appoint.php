@@ -12,6 +12,7 @@
     $mdl_appoint->lawyId = $_POST["lawId"];
     $mdl_appoint->userid = $_POST["uid"];
     $mdl_appoint->dtschd = $_POST["dtsched"];
+    $mdl_appoint->remarks = $_POST["reason"];
 
     $isExist = isExist($dbconn, $mdl_appoint);
     register($dbconn, $mdl_appoint, $isExist);
@@ -75,7 +76,7 @@
         $fld3 = $fld . "datesched";
         $fld4 = $fld . "timesched";
         $query_str = "INSERT INTO `$tbl` (`$fld1`,`$fld2`,`$fld3`,`$fld4`,`app_status`,`app_remarks`,`app_ratingid`) ";
-        $query_str .= "VALUES ($mdl->userid,$mdl->lawyId,'$mdl->dtschd','$mdl->tmschd','unverified','n/a',$ratingId);";
+        $query_str .= "VALUES ($mdl->userid,$mdl->lawyId,'$mdl->dtschd','$mdl->tmschd','unverified','$mdl->remarks',$ratingId);";
         try {
             $statement = $dbconn->prepare($query_str);
             $statement->execute();

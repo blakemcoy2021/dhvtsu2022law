@@ -120,6 +120,7 @@ btn_search.onclick = () => {
                     }
 
                     div_listlawyers.innerHTML = stream;
+                    clearSelection();
                 }
             }
 
@@ -135,8 +136,6 @@ function clearSelection() {
 htmBtnMtClose.onclick = () => {
     htmBtnMtCloseHid.click();
 
-    // clearSelection();
-    // getLawyers();
 }
 
 function checkLoginRedirect(lawyerid, element) {
@@ -201,7 +200,32 @@ function checkLoginRedirect(lawyerid, element) {
                 lbl_infoLawyerName.innerHTML = lbl_lawyer;
 
                 let address = records.lawyer_mapaddr;
-                lbl_infoLawyerAddr.innerHTML = address;
+                address = address.replaceAll("_", "\"", address);
+                let jsonmap;
+                try {
+                    jsonmap = JSON.parse(address);
+                } catch (e) {
+                    console.log("gmap parse error", e);
+                    return;
+                }
+                lbl_infoLawyerAddr.innerHTML = jsonmap.place;
+
+                let coordinates = {
+                    lat: jsonmap.lat, lng: jsonmap.lng
+                }
+                gmap = new google.maps.Map(document.getElementById("htmGoogleMap"), {
+                    zoom: 18,
+                    center: coordinates,
+                });
+                let opts = {
+                    position: coordinates,
+                    map: gmap
+                }
+                let htm = "<h6 style='cursor: pointer;'>Lawyer's Office: " + jsonmap.place + "</h6>"; 
+                marker = new google.maps.Marker(opts);
+                info = new google.maps.InfoWindow({content: htm});
+                info.open(gmap, marker);
+
 
                 let daysArr = [records.days_issun, records.days_ismon,
                                 records.days_istue, records.days_iswed,
@@ -272,13 +296,55 @@ function loadLawPdf(catId) {
             } console.log(tag, records);
 
             PDFObject.embed(records.law_attachfile, "#pdfviewer_area");
+            tab_photos.click();
+            tab_pdf.click();
         }
     };
 }
 
 btn_modalAppoint.onclick = () => {
-    btn_modalToggle2nd.click();
-    showCalendar();
+
+    let route = "services/back/php/legal-lawyer/get_user_validate.php?luid=" + window.localStorage.getItem("uid");
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("GET", route, true);
+    xhttp.send();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            let tag = "LEGAL LAWYERS: GetUserVerified - ";
+            let respo = xhttp.responseText; console.log(tag, respo);
+
+            let d;
+            try {
+                d = JSON.parse(respo);
+            } catch (e) {
+                console.log(tag, e)
+                return;
+            } console.log(tag, d.success);
+
+            if (d.success == false) {
+                console.log(tag, d.message);
+                return;
+            }
+
+            var records;
+            try {
+                records = JSON.parse(d.success);
+            } catch (e) {
+                console.log(tag, e)
+                return;
+            } console.log(tag, records);
+
+            if (records.login_verified != 1) {
+                alert("You are yet to be verified.");
+                return;
+            }
+
+            btn_modalToggle2nd.click();
+            showCalendar();
+        }
+    };
+
+
 }
 
 function showCalendar() {
@@ -344,10 +410,10 @@ function showCalendar() {
 
             if (records.length > 0) {
                 for (let i = 0; i < records.length; i++) {
-                    let t = "Reserved Appointment";
+                    let txt = "Reserved Appointment";
                     let u = window.localStorage.getItem("uid");
                     if (u == records[i].app_userid) {
-                        t = "YOUR appointment";
+                        txt = "YOUR appointment";
                     }
                     let dt = records[i].app_datesched;
                     let tm = records[i].app_timesched;
@@ -360,7 +426,7 @@ function showCalendar() {
                     let endTime = dt + "T" + endHour + ":" + startTimeArr[1] + ":00";
 
                     let appointment = {
-                        title : t,
+                        title : txt,
                         start : startTime,
                         end : endTime
                     };
@@ -370,8 +436,8 @@ function showCalendar() {
                 }
             }
 
-            calendar = new FullCalendar.Calendar(calendarEl,
-                {
+            xcalendar = new FullCalendar.Calendar(
+                calendarEl, {
                     headerToolbar: {
                         left: 'prev,next today',
                         center: 'title',
@@ -382,10 +448,19 @@ function showCalendar() {
                     selectable: true,
                     selectMirror: true,
                     select: function (arg) {
+
                         let month = arg.start.getMonth() + 1;
                         let day = arg.start.getDate();
                         let year = arg.start.getFullYear();
-                        dtstr = year.toString() + "-" + month.toString() + "-" + day.toString();
+                        let daystr = day.toString();
+                        if (day < 10) {
+                            daystr = "0" + daystr;
+                        }
+                        let monthstr = month.toString();
+                        if (month < 10) {
+                            monthstr = "0" + monthstr;
+                        }
+                        dtstr = year.toString() + "-" + monthstr + "-" + daystr;
                         if (dtnow_str == dtstr) {
                             alert(dtnow_str + " is equal to " + dtstr +". Cannot appoint on same day!");
                             dtstr = "";
@@ -410,7 +485,7 @@ function showCalendar() {
                         //         allDay: arg.allDay
                         //     })
                         // }
-                        calendar.unselect()
+                        xcalendar.unselect()
                     },
                     eventClick: function (arg) {
                         // if (confirm('Are you sure you want to delete this event?')) {
@@ -420,9 +495,10 @@ function showCalendar() {
                     editable: false, // true
                     dayMaxEvents: true, // allow "more" link when too many events
                     events: calevents
-                });
+                }
+            );
         
-            calendar.render();
+            xcalendar.render();
 
 
         }
@@ -431,6 +507,14 @@ function showCalendar() {
 };
 
 btn_modalTimeApply.onclick = () => {
+    if (inp_modalInpTimeStart.value == "") {
+        alert("Enter Time Schedule");
+        return;
+    }
+    if (inp_modalReason.value == "") {
+        alert("Enter Reason of Appointment");
+        return;
+    }
     // let startTimeArr = inp_modalInpTimeStart.value.split(":");
     // let endTimeArr = inp_modalInpTimeEnd.value.split(":");
     // if (parseInt(startTimeArr[0]) > parseInt(endTimeArr[0])) {
@@ -457,9 +541,9 @@ btn_modalTimeApply.onclick = () => {
 
     let alreadyTaken = false;
     let chosenDtstr = dtstr + "T" + timesched + ":00";
-    let chosenDt = new Date("" +chosenDtstr);
+    let chosenDt = new Date(chosenDtstr); console.log("Chosen " + chosenDtstr, chosenDt);
     for (let i = 0; i < existSched.length; i++) {
-        let d = new Date("" + existSched[i]);
+        let d = new Date(existSched[i]);  console.log("Existing " + existSched[i], d);
         let diff = Math.abs(chosenDt.getTime() - d.getTime()); // console.log("@#@#@#", diff);
         if (diff < 3600000) {
             alreadyTaken = true;
@@ -478,6 +562,7 @@ btn_modalTimeApply.onclick = () => {
     data.append("lawId", lawyerId);
     data.append("uid", uid);
     data.append("dtsched", dtstr);
+        data.append("reason", inp_modalReason.value);
     // data.append("closeT", inp_modalInpTimeEnd.value + ":00");
 
     let route = "services/back/php/legal-lawyer/add_appoint.php";
@@ -507,17 +592,9 @@ btn_modalTimeApply.onclick = () => {
             /** populate the calendar here */
             btn_modalCloseAppoint.click();
 
-            // 2022-11-11T16:00:00
-            let startTime_str = dtstr+"T"+timesched;
-            let endTime_str = dtstr+"T"+(parseInt(timesched.split(":")[0]) + 1).toString();
-                console.log(startTime_str, endTime_str);
+            showCalendar();
 
-            calendar.addEvent({
-                title: 'YOUR Newly Added',
-                start: startTime_str,
-                end: endTime_str
-            });
-
+            inp_modalReason.value = "";
             inp_modalInpTimeStart.value = "";
         }
     };

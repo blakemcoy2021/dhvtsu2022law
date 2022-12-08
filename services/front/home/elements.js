@@ -39,8 +39,6 @@ var inp_lawyercloset = document.getElementById("htmTimeClosing");
 var photo_prcId = document.getElementById("htmImgUploadPrcId");
 var inp_prcId = document.getElementById("htmInpPrcPhoto");
 
-var btn_savegmap = document.getElementById("htmBtnSaveGoogleMap");
-var btn_closegmap = document.getElementById("htmBtnCloseGoogleMap");
 
 
 

@@ -80,13 +80,18 @@ btn_update.onclick = () => {
     let lawyerCheck = chk_lawyer.checked;
     let opentime = inp_lawyeropent.value;
     let closetime = inp_lawyercloset.value;
+    let gmapAddr = window.sessionStorage.getItem("gmapAddr");
     if (lawyerCheck) {
         if (slct_lawyercat.value == "0") { 
             alert('Lawyer\'s Field of Expertise is required!');
             return;
         }
-        if (inp_lawyeraddr.value == "") { 
+        if (inp_lawyeraddr.value == "" || inp_lawyeraddr.value == "n/a") { 
             alert('Lawyer\'s office address required!');
+            return;
+        }
+        if (gmapAddr == null) { 
+            alert('Lawyer\'s office address must be selected again!');
             return;
         }
         let opentimeVal = parseInt(opentime.split(":")[0]);
@@ -109,7 +114,7 @@ btn_update.onclick = () => {
     data.append("islaw", lawyerCheck);
     if (lawyerCheck) {
         data.append("lawcatg", slct_lawyercat.value);
-        data.append("lawaddr", inp_lawyeraddr.value); // make it object {addr, lat, long}
+        data.append("lawaddr", gmapAddr); // make it object {addr, lat, long}
         data.append("lawopen", opentime);
         data.append("lawclos", closetime);
 
@@ -327,10 +332,7 @@ chk_lawyer.onchange = () => {
 inp_lawyeraddr.onclick = () => {
     btn_googlemap.click();
 }
-btn_savegmap.onclick = () => {
-    alert("feature on-hold due to google map account!");
-    btn_closegmap.click();
-}
+
 
 
 link_notifs.onclick = () => {

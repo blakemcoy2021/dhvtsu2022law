@@ -8,7 +8,7 @@
     $lawyerId = $_GET["lawyerId"]; 
     
     $query = "select * from tbl_appointment ";
-    $query .= "where app_lawyerid='$lawyerId' ";
+    $query .= "where app_lawyerid='$lawyerId' and not app_status='declined' and not app_status='done' and not app_status='cancel' ";
     $query .= "order by app_datesched desc, app_timesched desc";
 
     try {

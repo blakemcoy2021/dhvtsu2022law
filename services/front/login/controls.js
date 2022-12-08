@@ -73,7 +73,7 @@ function fnLogin(event) {
                         if (d[2] == 1) {
                             window.location.href = "dashboard.html"; //dashboard
                         } else {
-                            window.location.href = "home.html";
+                            window.location.href = "index.html";
                         }
         
                     } else {    // no web storage
@@ -82,7 +82,7 @@ function fnLogin(event) {
                         if (d[2] == 1) {   //dashboard
                             window.location.href = "dashboard.html?uid=" + d[0] + "&fname=" + d[1] + "&role=" + d[2];
                         } else {
-                            window.location.href = "home.html?uid=" + d[0] + "&fname=" + d[1] + "&role=" + d[2];
+                            window.location.href = "index.html?uid=" + d[0] + "&fname=" + d[1] + "&role=" + d[2];
                         }
         
                     }

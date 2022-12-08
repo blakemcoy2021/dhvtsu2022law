@@ -13,3 +13,9 @@ btn_search.onclick = () => {
         window.location.href = "legal-search.html?search=" + inp_search.value;
     }
 }
+
+function showPublicNotaryPlaces() {
+    btn_maptrigger.click();
+    lbl_modaltitle.innerHTML = "Public Notary Places";
+    
+}

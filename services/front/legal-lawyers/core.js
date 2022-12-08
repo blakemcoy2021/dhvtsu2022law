@@ -30,52 +30,79 @@ function getLawContentCtr() {
     };
 }
 
-function getLawCategoryCover() {
+function getLawCategoryCover(mode = 0) {
     let route = "services/back/php/legal-lawyer/get_lawfieldcat.php?lfid=" + lfid;
-    let xhttp = new XMLHttpRequest();
-    xhttp.open("GET", route, true);
-    xhttp.send();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+    if (mode == 1) {
+        route = "services/back/php/legal-lawyer/get_pao.php";
+    }
+    if (mode != 2) {
+        let xhttp = new XMLHttpRequest();
+        xhttp.open("GET", route, true);
+        xhttp.send();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
 
-            let tag = "LEGAL LAWYER: GetLegalLawyer - ";
-            let respo = xhttp.responseText; console.log(tag, respo);
+                let tag = "LEGAL LAWYER: GetLegalLawyer - ";
+                let respo = xhttp.responseText; console.log(tag, respo);
 
-            lbl_lawtitle.innerHTML = "Failed to Retrieve Law Title";
-            lbl_lawdetails.innerHTML = "Failed to Retrieve Law Description";
+                lbl_lawtitle.innerHTML = "Failed to Retrieve Law Title";
+                lbl_lawdetails.innerHTML = "Failed to Retrieve Law Description";
 
-            let d;
-            try { 
-                d = JSON.parse(respo); 
-            } catch (e) {
-                console.log(tag, e)
-                return; 
-            }   console.log(tag, d.success);
-            
-            if (d.success == false) { 
-                console.log(tag, d.message);
-                return; 
+                let d;
+                try { 
+                    d = JSON.parse(respo); 
+                } catch (e) {
+                    console.log(tag, e)
+                    return; 
+                }   console.log(tag, d.success);
+                
+                if (d.success == false) {
+                    alert("There are no registered PAO lawyers!");
+                    getLawCategoryCover(2);
+                    getLawyers(2);
+                    console.log(tag, d.message);
+                    return; 
+                }
+
+                var records;
+                try {
+                    records = JSON.parse(d.success);
+                } catch (e) {
+                    console.log(tag, e);
+                    return;
+                }   console.log(tag, records);
+
+                cover_lawphoto.style.backgroundImage = "url('"+records.lawcategory_cover+"')";
+                
+                if (mode == 1) {
+                    lbl_lawtitle.innerHTML = records.lawcategory_name;
+                    let lawdesc = "<span>" + records.lawcategory_name + " is a " + records.lawcategory_details1 + "</span>";
+                    lbl_lawdetails.innerHTML = lawdesc;
+                }
+                else {
+                    lbl_lawtitle.innerHTML = records.lawfield_name + " - " + records.lawcategory_name;                    
+                    let details = "<span>"+records.lawfield_details+"</span><br><br>";
+                    let lawdesc = "<span>" + records.lawcategory_name + " is a " + records.lawcategory_details1 + "</span>";
+                    lbl_lawdetails.innerHTML = details + lawdesc;
+                }
+
             }
-
-            var records;
-            try {
-                records = JSON.parse(d.success);
-            } catch (e) {
-                console.log(tag, e);
-                return;
-            }   console.log(tag, records);
-
-            cover_lawphoto.style.backgroundImage = "url('"+records.lawcategory_cover+"')";
-            lbl_lawtitle.innerHTML = records.lawfield_name + " - " + records.lawcategory_name;
-            let details = "<span>"+records.lawfield_details+"</span><br><br>";
-            let lawdesc = "<span>" + records.lawcategory_name + " is a " + records.lawcategory_details1 + "</span>";
-            lbl_lawdetails.innerHTML = details + lawdesc;
-
-        }
-    };
+        };
+    }
+    else {  /** mode 2 */
+        cover_lawphoto.style.backgroundImage = "url('res/lawyersall.jpg')";
+        lbl_lawtitle.innerHTML = "List of All Lawyers";
+        lbl_lawdetails.innerHTML = "What are some descriptions of a lawyer? An attorney provides legal advice to individuals who require proper representation in legal proceedings. As an attorney, they make sure that they clients (organization or individuals) receive maximum representation offered by the law";
+    }
 }
-function getLawyers() {
+function getLawyers(mode = 0) {    
     let route = "services/back/php/legal-lawyer/get_lawyers_all.php?lfid=" + lfid;
+    if (mode == 1) {
+        route = "services/back/php/legal-lawyer/get_pao.php";
+    }
+    else if (mode == 2) {
+        route = "services/back/php/legal-lawyer/get_lawyers_all.php?lfid=-1";
+    }
     let xhttp = new XMLHttpRequest();
     xhttp.open("GET", route, true);
     xhttp.send();
@@ -87,7 +114,7 @@ function getLawyers() {
 
             div_listlawyers.innerHTML = "<a href='#' class='list-group-item list-group-item-action' aria-current='true'>" +
                                             "<div class='d-flex w-100 justify-content-between'>" +
-                                                "<h5 class='mb-1'>There are Lawyers found for this Type of Law...</h5>" +
+                                                "<h5 class='mb-1'>There are 0 Lawyers found in PAO...</h5>" +
                                             "</div>" +
                                         "</a>";
 
@@ -99,7 +126,8 @@ function getLawyers() {
                 return; 
             }   console.log(tag, d.success);
             
-            if (d.success == false) { 
+            if (d.success == false) {
+                
                 console.log(tag, d.message);
                 return; 
             }
@@ -113,24 +141,19 @@ function getLawyers() {
             }   console.log(tag, records);
 
             if (records.length > 0) {
+                
                 let stream = "";
+                let lawyerArr = [];
+
                 for (let i = 0; i < records.length; i++) {
                     
-                    // <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                    //     <div class="d-flex">
-                    //         <div style="margin-right: 20px">
-                    //             <img src="res/legal/none.png" class="rounded-circle"  width="90" height="90">
-                    //         </div>
-                    //         <div>
-                    //             <div class="d-flex w-100 justify-content-between">
-                    //                 <h5 class="mb-1">List group item heading</h5>
-                    //                 <small>3 days ago</small>
-                    //             </div>
-                    //             <p class="mb-1">Some placeholder content in a paragraph.</p>
-                    //             <small>And some small print.</small>
-                    //         </div>
-                    //     </div>
-                    // </a>
+                    let lawyerId = records[i].lawyer_id;
+                    if (lawyerArr.includes(lawyerId)) {
+                        continue;
+                    }
+                    else {
+                        lawyerArr.push(lawyerId);
+                    }
 
                     let lawyername = "Atty. " + records[i].user_lastname + ", " + 
                                                 records[i].user_firstname + " " + 
@@ -201,7 +224,21 @@ function getLawyers() {
                         htmTagStream += fldtags;
                     }
 
-                    let lawyerId = records[i].lawyer_id;
+                    // <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                    //     <div class="d-flex">
+                    //         <div style="margin-right: 20px">
+                    //             <img src="res/legal/none.png" class="rounded-circle"  width="90" height="90">
+                    //         </div>
+                    //         <div>
+                    //             <div class="d-flex w-100 justify-content-between">
+                    //                 <h5 class="mb-1">List group item heading</h5>
+                    //                 <small>3 days ago</small>
+                    //             </div>
+                    //             <p class="mb-1">Some placeholder content in a paragraph.</p>
+                    //             <small>And some small print.</small>
+                    //         </div>
+                    //     </div>
+                    // </a>
 
                     // let link_str = "legal-lawyers.html?lfid=" + records[i].lawfield_id;
                     stream += "<a onclick='checkLoginRedirect("+lawyerId+", this);' href='#' class='list-group-item list-group-item-action' aria-current='true' id='rowId"+lawyerId+"'>" +
@@ -223,6 +260,9 @@ function getLawyers() {
                                 "</a>";
 
                     div_listlawyers.innerHTML = stream;
+                    clearSelection();
+
+
                 }
             }
 

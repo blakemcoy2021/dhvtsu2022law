@@ -48,6 +48,9 @@
     <script>
         var verified = "0";
         var lawyer = "0";
+        if (window.sessionStorage.getItem("gmapAddr") !== null) {
+            window.sessionStorage.removeItem("gmapAddr");
+        }
     </script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
@@ -281,7 +284,7 @@
                                                     <label for="htmInpLawyerAddress" class="form-label">Lawyer's
                                                         Office</label>
                                                     <input type="text" class="form-control" id="htmInpLawyerAddress"
-                                                        name="htmInpLawyerAddress" value="{'addr':'haha','lat':'0.00','lng':'0.00'}"
+                                                        name="htmInpLawyerAddress" value="n/a"
                                                         placeholder="Click Here to Set Address" />
                                                 </div>
 
@@ -471,12 +474,7 @@
                                         <div id="htmGoogleMap" style="width: 100%; height: 500px"></div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-outline-secondary"
-                                            id="htmBtnCloseGoogleMap" data-bs-dismiss="modal">
-                                            Close
-                                        </button>
-                                        <button type="button" class="btn btn-primary" id="htmBtnSaveGoogleMap">Save
-                                            changes</button>
+
                                     </div>
                                 </div>
                             </div>
@@ -535,27 +533,6 @@
     <script src="sneat/assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
-    <!-- Vendors JS -->
-    <script>
-        // Initialize and add the map
-        function initMap() {
-            // The location of dhvsu
-            const dhvsu = { lat: 14.998049310379688, lng: 120.65602125460428 }; //, 
-            // The map, centered at dhvsu
-            const map = new google.maps.Map(document.getElementById("htmGoogleMap"), {
-                zoom: 18,
-                center: dhvsu,
-            });
-            // The marker, positioned at dhvsu
-            const marker = new google.maps.Marker({
-                position: dhvsu,
-                map: map,
-            });
-        }
-    </script>
-    <script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNzWk-9j_qMKYO2UvX3hcNM6kBI24nBbo&callback=initMap">
-    </script>
 
     <!-- Main JS -->
     <script src="sneat/assets/js/main.js"></script>
@@ -574,15 +551,19 @@
                 let role = window.localStorage.getItem("role"); console.log("Acquire localstorage value :: role " + fname);
                 uid = window.localStorage.getItem("uid"); console.log("Acquire localstorage value :: uid " + uid);
 
+                hrole.value = role;
+                hname.value = fname;
+                huid.value = uid;
+
+                if (fname.includes("n/a")) {
+                    fname = "No Name Yet";
+                }
                 lbl_username.innerHTML = fname;
                 roletyp.innerHTML = "Client";
                 if (role == 3) {
                     roletyp.innerHTML = "Lawyer";
                 }
 
-                hrole.value = role;
-                hname.value = fname;
-                huid.value = uid;
             }
             else {
                 let urlParams = new URLSearchParams(window.location.search);
@@ -590,15 +571,18 @@
                 let role = urlParams.get('role'); console.log("NO localstorage support :: role " + role);
                 uid = urlParams.get("uid"); console.log("NO localstorage support :: uid " + uid);
 
+                hrole.value = role;
+                hname.value = fname;
+                huid.value = uid;
+
+                if (fname.includes("n/a")) {
+                    fname = "No Name Yet";
+                }
                 lbl_username.innerHTML = fname;
                 roletyp.innerHTML = "Client";
                 if (role == 3) {
                     roletyp.innerHTML = "Lawyer";
                 }
-
-                hrole.value = role;
-                hname.value = fname;
-                huid.value = uid;
             }
             getUserInfo(uid);
         }
@@ -608,6 +592,101 @@
             route += "&uid=" + huid.value;
             window.location.href = route;
         }
+    </script>
+
+
+    <!-- Vendors JS -->
+    <script>
+        var gmap;
+        var marker;
+        var info;
+        var gps;
+        var place;
+
+        function decidedLocation() {
+            let latlng = JSON.stringify(gps.toJSON(), null, 2);
+            try {
+                latlng = JSON.parse(latlng);
+            } catch (e) {
+                alert("Latitude and Longitude Parse Error!");
+                return;
+            }
+
+            inp_lawyeraddr.click(); // closes the dialog map
+            inp_lawyeraddr.value = place;
+
+            let gmapAddr = {
+                "place": place,
+                "lat": latlng.lat,
+                "lng": latlng.lng
+            }
+            window.sessionStorage.setItem("gmapAddr", JSON.stringify(gmapAddr));
+            marker.setMap(null);
+
+        } 
+
+        function initMap() {
+
+            gmap = new google.maps.Map(document.getElementById("htmGoogleMap"), {
+                center: { lat: 14.9986076, lng: 120.6212871 },
+                zoom: 13,
+            });
+
+            function addMarker(loc) {
+                let opts = {
+                    position: loc,
+                    map: gmap
+                }
+                let htm = "<h6 style='cursor: pointer;' onclick='javascript: decidedLocation();'>" +
+                            "<span style='text-decoration: underline;'>Click to select:&nbsp;&nbsp;'<span>"; 
+                marker = new google.maps.Marker(opts);
+                
+                let geocoder = new google.maps.Geocoder();
+                geocoder.geocode({location: loc}).then((response) => {
+                    if (response.results[0]) {
+                        place = response.results[0].formatted_address;
+                        htm += place + "'</h6>";
+                        info = new google.maps.InfoWindow({content: htm});
+                        info.open(gmap, marker);
+
+                    } else {
+                        window.alert("Place' Text not found.");
+                    }
+                }).catch((e) => {
+                    window.alert("Geocoder failed due to: " + e);
+                });
+            }
+
+            gmap.addListener("click", (mapsMouseEvent) => {
+                if (marker != null) {
+                    marker.setMap(null);
+                }
+                gps = mapsMouseEvent.latLng;
+                addMarker(gps);
+            });
+        }
+
+
+
+        // // Initialize and add the map
+        // function initMap() {
+        //     // The location of dhvsu
+        //     const dhvsu = { lat: 14.998049310379688, lng: 120.65602125460428 }; //, 
+        //     // The map, centered at dhvsu
+        //     const map = new google.maps.Map(document.getElementById("htmGoogleMap"), {
+        //         zoom: 18,
+        //         center: dhvsu,
+        //     });
+        //     // The marker, positioned at dhvsu
+        //     const marker = new google.maps.Marker({
+        //         position: dhvsu,
+        //         map: map,
+        //     });
+        // }
+
+    </script>
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNzWk-9j_qMKYO2UvX3hcNM6kBI24nBbo&callback=initMap">
     </script>
 
 

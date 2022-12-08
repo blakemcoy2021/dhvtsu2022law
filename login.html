@@ -30,7 +30,10 @@
         .custombtn:hover {opacity: 1}
     </style>
     <script>
-        if (window.localStorage.getItem("role") == "2") {
+        if (window.localStorage.getItem("role") == "1") {
+            window.location.href = "dashboard.html";
+        }
+        else if (window.localStorage.getItem("role") == "2" || window.localStorage.getItem("role") == "3") {
             window.location.href = "home.html";
         }
         else {
@@ -70,7 +73,7 @@
                         <div class="input-boxes">
                             <div class="input-box">
                                 <i class="fas fa-envelope"></i>
-                                <input type="text" placeholder="Enter your email" required id="usernameLogin">
+                                <input type="text" placeholder="Enter your username" required id="usernameLogin">
                             </div>
 
                             <div class="input-box">

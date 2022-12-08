@@ -4,14 +4,13 @@
     include "../common/utilities.php";
     include "../common/model_logs.php";
 
-    $errors = [];
-    $data = array();
 
     $lawtitle = cleanSqlSave($_POST["lawtitle"]);
     $lawdetails = cleanSqlSave($_POST["lawdetails"]);
-    $catid = $_POST["catid"];
+    $catid = $_POST["lawcatid"];
     $uid = $_POST["uid"];
     $cnid = $_POST["cnid"];
+
 
     // echo "$fname, $mname, $lname, $email, $phone, $addr, $bday, $islaw, $role, $uid"; die();
 

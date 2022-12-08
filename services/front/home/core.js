@@ -36,11 +36,23 @@ function getUserInfo(userid) {
             verified = records.login_verified;
             let uploadphoto = records.user_photo;
             let firstname = records.user_firstname;
+            if (firstname == "n/a") {
+                firstname = "";
+            }
             let lastname = records.user_lastname;
+            if (lastname == "n/a") {
+                lastname = "";
+            }
 
             let midname = records.user_midname;
+            if (midname == "n/a") {
+                midname = "";
+            }
             let email = records.contact_email;
             let contact = records.contact_phone;
+            if (contact == "n/a") {
+                contact = "";
+            }
             let address = records.contact_address;
             let bday = records.user_birthdate;
 
@@ -102,7 +114,19 @@ function getUserInfo(userid) {
                 chk_lawyer.checked = true;
                 toggleLawyerFields(1);
                 slctPopulateLawyerCat(records.lawyer_lawcatid);
-                inp_lawyeraddr.value = records.lawyer_mapaddr; // adjust when google map is working
+
+                let mapObjStr = records.lawyer_mapaddr; // adjust when google map is working
+                mapObjStr = mapObjStr.replaceAll("_", "\"");
+                let map;
+                try {
+                    map = JSON.parse(mapObjStr);
+                } catch (e) {
+                    console.log("map parse! ", e)
+                    return;
+                } 
+                window.sessionStorage.setItem("gmapAddr", JSON.stringify(map));
+                inp_lawyeraddr.value = map.place;
+
                 inp_lawyeropent.value = records.lawyer_opentime;
                 inp_lawyercloset.value = records.lawyer_closetime;
                 

@@ -48,6 +48,10 @@
             background-repeat: no-repeat;
             background-position: center;
         }
+
+        .hideout {
+            display: none;
+        }
     </style>
 
     <!-- https://getbootstrap.com/docs/5.0/examples/carousel/ -->
@@ -72,6 +76,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse" style="flex-grow: 0;">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item hideout" style="margin-right: 20px" id="htmHomeProfile">
+                            <a class="nav-link" style="font-weight: bolder;" href="home.html">Profile</a>
+                        </li>
                         <li class="nav-item" style="margin-right: 20px">
                             <a class="nav-link" style="font-weight: bolder;" href="index.html">Home</a>
                         </li>
@@ -82,7 +89,7 @@
                             <a class="nav-link" style="font-weight: bolder;" href="index.html#about">About</a>
                         </li>
                         <li class="nav-item" style="margin-right: 20px">
-                            <a class="nav-link" style="font-weight: bolder;" href="#">Lawyer</a>
+                            <a class="nav-link" style="font-weight: bolder;" href="legal-lawyers.html">Lawyer</a>
                         </li>
                         <li class="nav-item" style="margin-right: 20px">
                             <a class="nav-link active" style="font-weight: bolder;" aria-current="page"
@@ -257,7 +264,7 @@
                                                 <div class="tab-pane fade" id="pdf" role="tabpanel"
                                                     aria-labelledby="pdf-tab">
 
-                                                    <div id="pdfviewer_area" style="width: 100%"></div>
+                                                    <div id="pdfviewer_area" style="width: 100%; height: 500px"></div>
 
                                                 </div>
 
@@ -273,7 +280,7 @@
                                     </div>
                                     <!-- gmap here -->
                                     <div class="col-sm-5">
-                                        <div id="htmGoogleMap" style="width: 100%; height: 500px"></div>
+                                        <div id="htmGoogleMap" style="width: 100%; height: 700px"></div>
                                     </div>
                                 </div>
                             </div>
@@ -321,8 +328,9 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Set Appointment</h5>
-                            <button id="htmBtnModAppClose" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h5 class="modal-title" id="staticBackdropLabel">Set Appointment: (1-hour apart/schedule)</h5>
+                            <button id="htmBtnModAppClose" type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <!-- Start -->
@@ -330,6 +338,12 @@
                             <input id="htmInpAppStartTime" class="form-control" type="time" />
                             <!-- <label for="htmInpAppEndTime">End</label>
                             <input id="htmInpAppEndTime" class="form-control" type="time" /> -->
+
+                            <div class="mb-3">
+                                <label for="htmInpAppointReason" class="form-label">Reason</label>
+                                <input type="text" class="form-control" id="htmInpAppointReason"
+                                    placeholder="Reason">
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" id="htmBtnApplyAppoint" class="btn btn-primary">Apply</button>
@@ -359,61 +373,62 @@
             // The location of dhvsu
             const dhvsu = { lat: 14.998049310379688, lng: 120.65602125460428 }; //, 
             // The map, centered at dhvsu
-            const map = new google.maps.Map(document.getElementById("htmGoogleMap"), {
+            const gmap = new google.maps.Map(document.getElementById("htmGoogleMap"), {
                 zoom: 18,
                 center: dhvsu,
             });
             // The marker, positioned at dhvsu
             const marker = new google.maps.Marker({
                 position: dhvsu,
-                map: map,
+                map: gmap,
             });
         }
     </script>
     <script async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNzWk-9j_qMKYO2UvX3hcNM6kBI24nBbo&callback=initMap">
-    </script>
+        </script>
 
     <script src="js/main/bootstrap.bundle.min.js"></script>
     <script src="services/front/legal-lawyers/elements.js"></script>
     <script src="services/front/legal-lawyers/core.js"></script>
     <script src="services/front/legal-lawyers/controls.js"></script>
     <script>
-        var lfid = ""; var calendar; var dtstr = ""; var existSched = []; //var appmodal = "";
+        var lfid = ""; var xcalendar; var dtstr = ""; var existSched = []; //var appmodal = "";
         window.onload = () => {
             /** below commented due to legal-search auto-populate href-based search result */
 
             // if (typeof (Storage) !== "undefined") {
             //     lfid = window.sessionStorage.getItem("lfid");
             //     console.log("Acquire session storage value :: " + lfid);
-
             // }
             // else {
-
-            let urlParams = new URLSearchParams(window.location.search);
-            lfid = urlParams.get("lfid");
-            console.log("NO local/session storage support :: " + lfid);
-
             //}
 
-            // getLawContentCtr();
-            getLawCategoryCover();
-            getLawyers();
-            slctPopulateLawCat();
+            let urlParams = new URLSearchParams(window.location.search);
 
+            if (urlParams.has('pao')) {
+                getLawCategoryCover(1);
+                getLawyers(1);
+                slctPopulateLawCat();
+            }
+            else if (urlParams.has('lfid')) {
+                lfid = urlParams.get("lfid");
+                console.log("NO local/session storage support :: " + lfid);
+                getLawCategoryCover();
+                getLawyers();
+                slctPopulateLawCat();
 
+            }
+            else {
+                /** search all lawyers */
+                getLawCategoryCover(2);
+                getLawyers(2);
+                slctPopulateLawCat();
+            }
 
-            // appmodal = document.getElementById("htmModalAppoint");
-            // var span = document.getElementsByClassName("close")[0];
-            // span.onclick = function() {
-            //     appmodal.style.display = "none";
-            // }
-            // window.onclick = function(event) {
-            //     if (event.target == appmodal) {
-            //         appmodal.style.display = "none";
-            //     }
-            // }
-
+            if (window.localStorage.getItem("role") == "2") {
+                document.getElementById("htmHomeProfile").classList.remove("hideout");
+            }
 
         }
     </script>

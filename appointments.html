@@ -56,6 +56,10 @@
             max-width: 1100px;
             margin: 0 auto;
         }
+
+        .hideout {
+            display: none;
+        }
     </style>
 
 </head>
@@ -189,6 +193,34 @@
 
                         </div>
                     </div>
+
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#smallModal" style="display: none;" id="htmBtnAppOptions">
+                    </button>
+                    <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="card bg-primary text-white">
+                                        <div class="card-header">Appointment Options</div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-12 d-flex justify-content-between">
+                                                    <button id="htmBtnDoneAppLawyer" class="btn btn-success hideout" data-bs-dismiss="modal">Done</button>
+                                                    <button id="htmBtnDeclineAppLawyer" class="btn btn-danger hideout" data-bs-dismiss="modal">Decline</button>
+                                                    <button id="htmBtnCancelApp" class="btn btn-warning hideout" data-bs-dismiss="modal">Cancel</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <!-- / Content -->
 
                     <!-- Footer -->
@@ -290,9 +322,11 @@
             }
             if (roletyp.innerHTML == "Client") {
                 getAppointments(uid);
+                showCalendar();
             }
             else {
                 getAppointments(uid, true);
+                showCalendar();
             }
 
         }

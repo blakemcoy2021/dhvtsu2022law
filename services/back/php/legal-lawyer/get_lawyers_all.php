@@ -3,7 +3,6 @@
     include "../common/dbconfig.php";
     include "../common/utilities.php";
 
-    $errors = [];
     
     $lfid = $_GET["lfid"]; // echo "$search <br>";
 
@@ -14,9 +13,14 @@
     $query .= "tbl_lawfield.lawfield_categoryid=tbl_lawyer.lawyer_lawcatid ";
     $query .= "inner join tbl_user on ";
     $query .= "tbl_lawyer.lawyer_userid=tbl_user.user_id ";
+    $query .= "inner join tbl_login on ";
+    $query .= "tbl_user.user_id=tbl_login.login_userid ";
     $query .= "inner join tbl_days on ";
     $query .= "tbl_lawyer.lawyer_daysid=tbl_days.days_id ";
-    $query .= "where tbl_lawfield.lawfield_id='$lfid' ";
+    $query .= "where tbl_login.login_verified='1' ";
+    if ($lfid != -1) {
+        $query .= "and tbl_lawfield.lawfield_id='$lfid' ";
+    }
     $query .= "order by tbl_lawfield.lawfield_id desc";     //echo $query; die();
 
     try {

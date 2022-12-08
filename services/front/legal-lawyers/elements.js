@@ -27,7 +27,8 @@ var btn_modalToggle2nd = document.getElementById("htmBtnToggle2nd");
 var btn_modalCloseAppoint = document.getElementById("htmBtnModAppClose");
 var btn_modalTimeAppoint = document.getElementById("htmBtnModalAppoint");
 var inp_modalInpTimeStart = document.getElementById("htmInpAppStartTime");
-var inp_modalInpTimeEnd = document.getElementById("htmInpAppEndTime");
+    var inp_modalInpTimeEnd = document.getElementById("htmInpAppEndTime");
+var inp_modalReason = document.getElementById("htmInpAppointReason");
 var btn_modalTimeApply = document.getElementById("htmBtnApplyAppoint");
 
 

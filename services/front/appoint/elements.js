@@ -13,6 +13,12 @@ var photo_usersm = document.getElementById("htmImgUserPhotoSm");
 var lbl_username = document.getElementById("htmLblUserfullname");
 
 var list_appoints = document.getElementById("htmListAppointments");
+
+var btn_appops = document.getElementById("htmBtnAppOptions");
+var btn_doneapplaw = document.getElementById("htmBtnDoneAppLawyer");
+var btn_declineapp = document.getElementById("htmBtnDeclineAppLawyer");
+var btn_cancelapp = document.getElementById("htmBtnCancelApp");
+
 var calx = document.getElementById("htmFullCalendar");
 
 var link_profile = document.getElementById("htmAncClientProfile");
