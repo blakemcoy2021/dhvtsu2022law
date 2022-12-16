@@ -105,6 +105,23 @@ function getNotifications(userid) {
                             }
                         }
                     }
+                    else if (notifs.includes("appointment update")) {
+                        if (notifs.includes("done")) {
+                            let processArr = notifs.split(" ");
+                            let appId = processArr[processArr.length-1];
+                            notif_title = "Great! ⚖️🎉 Your Appointment now has been finished! - " + notif_dt;
+                            notif_message = "Your can now set and accept appointment(s) to other lawyer(s).";
+                            options += "<a href='javascript: rateAndComment("+records[i].log_postuid+","+appId+");' class='btn btn-primary'>Rate Lawyer Experience</a>";
+                        }
+                        else if (notifs.includes("decline")) {
+                            notif_title = "Sorry! 🎉 Your Appointment has been declined! - " + notif_dt;
+                            notif_message = "Try to request appointment(s) to lawyer(s) again.";
+                        }
+                        else if (notifs.includes("cancel")) {
+                            notif_title = "Sorry! ⚖️❌ The Appointment had been cancelled by the client! - " + notif_dt;
+                            notif_message = "Your client cancelled it. ";
+                        }
+                    }
 
 
                     stream += "<div class='card mb-3'>" +

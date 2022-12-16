@@ -60,12 +60,13 @@ function getLawList() {
 
                     let lawphoto = records[i].lawcategory_photo;
 
-                    let link_str = "legal-lawyers.html?lfid=" + records[i].lawfield_id;
+                    let id = records[i].lawcategory_id;
+
                     stream +=  "<div class='col-lg-4'>" +
                                     "<img class='rounded-circle' src='"+lawphoto+"' width='140' height='140'>" +
                                     "<h2>"+lawcat+"</h2>" +
                                     "<p>"+lawdetails+"</p>" +
-                                    "<p><a class='btn btn-primary' href='#'>View details &raquo;</a></p>" +
+                                    "<p><a class='btn btn-primary' href='javascript:void(0);' onclick='showLaws("+id+")'>View details &raquo;</a></p>" +
                                 "</div>";
 
                     div_listlaw.innerHTML = stream;

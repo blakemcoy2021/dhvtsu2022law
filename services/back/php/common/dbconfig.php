@@ -7,7 +7,7 @@ function getConnection()
     $conn_str = "mysql:host=$hostname;dbname=$database;";
 
     $username = "root";
-    $password = "toor"; //ActivPower@123L
+    $password = "toor";
     //$password = "ActivPower@123L";
 
     /**

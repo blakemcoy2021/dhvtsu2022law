@@ -33,3 +33,13 @@ var btn_modalTimeApply = document.getElementById("htmBtnApplyAppoint");
 
 
 var calx = document.getElementById("htmFullCalendar");
+
+
+var div_listratings = document.getElementById("htmListRatings");
+
+var btn_modalStar1 = document.getElementById("htmStarRate1");
+var btn_modalStar2 = document.getElementById("htmStarRate2");
+var btn_modalStar3 = document.getElementById("htmStarRate3");
+var btn_modalStar4 = document.getElementById("htmStarRate4");
+var btn_modalStar5 = document.getElementById("htmStarRate5");
+var lbl_ratepercent = document.getElementById("htmLblRatePercent");

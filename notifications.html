@@ -67,9 +67,10 @@
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
                                 <!-- <i class="bx bx-search fs-4 lh-0"></i> -->
-                                <button class="btn btn-brand" type="button" id="htmBtnLawSearch"><i class="bx bx-search fs-4 lh-0"></i></button>
-                                <input id="htmInpLawSearch" type="text" class="form-control border-0 shadow-none" placeholder="Search Law..."
-                                    aria-label="Search Law..." />
+                                <button class="btn btn-brand" type="button" id="htmBtnLawSearch"><i
+                                        class="bx bx-search fs-4 lh-0"></i></button>
+                                <input id="htmInpLawSearch" type="text" class="form-control border-0 shadow-none"
+                                    placeholder="Search Law..." aria-label="Search Law..." />
                             </div>
                         </div>
                         <!-- /Search -->
@@ -116,9 +117,7 @@
                                     </li>
                                     <li>
                                         <!-- href="services/back/php/common/logout.php?page=notif" -->
-                                        <a class="dropdown-item" 
-                                            href="javascript:void(0)"
-                                            onclick="logoutProcess();">
+                                        <a class="dropdown-item" href="javascript:void(0)" onclick="logoutProcess();">
                                             <i class="bx bx-power-off me-2"></i>
                                             <span class="align-middle">Log Out</span>
                                         </a>
@@ -182,13 +181,58 @@
                                         <div class="card bg-danger text-white">
                                             <div class="card-header">Sorry!</div>
                                             <div class="card-body">
-                                                <h5 class="card-title text-white" id="htmLblUserVerification">Not Yet Verified</h5>
+                                                <h5 class="card-title text-white" id="htmLblUserVerification">Not Yet
+                                                    Verified</h5>
                                                 <p class="card-text">Unable to proceed see/create appointment unless you
                                                     are a verified client/lawyer.</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+
+                        <button id="htmBtnRatingLauncher" type="button" style="display: none;" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#backDropModal"></button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="backDropModal" data-bs-backdrop="static" tabindex="-1">
+                            <div class="modal-dialog">
+                                <form class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="backDropModalTitle">Rate Lawyer Experience</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close" style="display: none;" id="htmBtnCommentClose"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div style="display: flex" class="mb-2">
+                                            <div style="padding: 5px;">
+                                                <i style='cursor: pointer;' class="bx bx-star bx-sm" id="htmStarRate1"></i>
+                                            </div>
+                                            <div style="padding: 5px;">
+                                                <i style='cursor: pointer;' class="bx bx-star bx-sm" id="htmStarRate2"></i>
+                                            </div>
+                                            <div style="padding: 5px;">
+                                                <i style='cursor: pointer;' class="bx bx-star bx-sm" id="htmStarRate3"></i>
+                                            </div>
+                                            <div style="padding: 5px;">
+                                                <i style='cursor: pointer;' class="bx bx-star bx-sm" id="htmStarRate4"></i>
+                                            </div>
+                                            <div style="padding: 5px;">
+                                                <i style='cursor: pointer;' class="bx bx-star bx-sm" id="htmStarRate5"></i>                                                
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col mb-2">
+                                                <label for="htmComment" class="form-label">Comment</label>
+                                                <textarea class="form-control" id="htmComment" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id="htmBtnRateSave" class="btn btn-primary">Save</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
 

@@ -6,7 +6,7 @@
 
     $appid = $_GET["appid"];
     $msg = $_GET["msg"];
-
+    $luid = $_GET["luid"];
 
     $query = "update tbl_appointment set app_status='$msg' where app_id='$appid' ";
     try {
@@ -16,12 +16,37 @@
 
         echo getResponse(true, "Successfully Updated Appointment!", "Appointment Updated.");
 
+        $query = "select * from tbl_appointment where app_id='$appid' ";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        $clientid = $row["app_userid"];
+        $lawyerid = $row["app_lawyerid"];
+
+        $tag = "client";
+        $poster = 0;
+        $reader = 0;
+        if ($msg == "done" || $msg == "decline") {
+            $poster = $luid;
+            $reader = $clientid;
+            $tag = "lawyer";
+        }
+        else if ($msg == "cancel") {
+            $poster = $clientid; // luid
+            $query = "select * from tbl_lawyer ";
+            $query .= "where lawyer_id='$lawyerid' ";
+            $stmt = $conn->prepare($query);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            $reader = $row["lawyer_userid"];
+        }
+
         $mdl = new ModelLogs();
-        $mdl->userid = 0;
+        $mdl->userid = $poster;
         $mdl->webpage = "appointment";
-        $mdl->process = "appointment options";
-        $mdl->receiver = 0;
-        $mdl->errlbl .= "client/lawyer-audit";
+        $mdl->process = "appointment update $msg $appid";
+        $mdl->receiver = $reader;
+        $mdl->errlbl .= "$tag-audit";
         auditLog($conn, $mdl);
 
     } catch (PDOException $e) {

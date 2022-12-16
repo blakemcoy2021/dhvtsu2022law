@@ -186,7 +186,9 @@ function showCalendar() {
 
 function appointmentUpdate(msg) {
     let appid = window.sessionStorage.getItem("appid");
-    let route = "services/back/php/appoint/upd_appoint.php?appid=" +appid+ "&msg=" + msg;
+    let luid = window.localStorage.getItem("uid"); // login_userid from login.php
+
+    let route = "services/back/php/appoint/upd_appoint.php?appid=" +appid+ "&msg=" + msg + "&luid=" + luid;
     let xhttp = new XMLHttpRequest();
     xhttp.open("GET", route, true);
     xhttp.send();

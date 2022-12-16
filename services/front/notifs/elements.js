@@ -20,3 +20,13 @@ var link_profile = document.getElementById("htmAncClientProfile");
 var link_appoint = document.getElementById("htmAncClientAppointments");
 
 var btn_notverified = document.getElementById("htmBtnNotVerified");
+
+var btn_modalLauncher = document.getElementById("htmBtnRatingLauncher");
+var btn_modalCommentClose = document.getElementById("htmBtnCommentClose");
+var btn_modalStar1 = document.getElementById("htmStarRate1");
+var btn_modalStar2 = document.getElementById("htmStarRate2");
+var btn_modalStar3 = document.getElementById("htmStarRate3");
+var btn_modalStar4 = document.getElementById("htmStarRate4");
+var btn_modalStar5 = document.getElementById("htmStarRate5");
+var inp_comment = document.getElementById("htmComment");
+var btn_ratesave = document.getElementById("htmBtnRateSave");

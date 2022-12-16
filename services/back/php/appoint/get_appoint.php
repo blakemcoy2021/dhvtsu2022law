@@ -14,7 +14,7 @@
     else if ($roleid == "2") {
         $query .= "inner join tbl_login on tbl_appointment.app_userid=tbl_login.login_userid ";
     }
-    $query .= "where tbl_login.login_id='$luid' ";
+    $query .= "where tbl_login.login_userid='$luid' ";
     $query .= "order by app_datesched desc, app_timesched desc";
 
     try {

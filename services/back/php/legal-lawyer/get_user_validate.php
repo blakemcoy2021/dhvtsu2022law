@@ -6,7 +6,7 @@
     $luid = $_GET["luid"];
 
     $query = "select * from tbl_login ";
-    $query .= "where login_id='$luid' ";
+    $query .= "where login_userid='$luid' ";
 
     try {
         $conn = getConnection();

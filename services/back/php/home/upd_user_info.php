@@ -34,9 +34,13 @@
     }
     $uid = $_POST["uid"];
 
-
-
+    
     // echo "$fname, $mname, $lname, $email, $phone, $addr, $bday, $islaw, $role, $uid"; die();
+    
+    $lawopenArr = explode($lawopen,":");
+    $lawclosArr = explode($lawclos,":");
+    $lawopen = $lawopen[0] + ":" + $lawopen[1] + ":" + $lawopen[2];
+    $lawclos = $lawclos[0] + ":" + $lawclos[1] + ":" + $lawclos[2];
 
 
     $update_str = "tbl_user.user_firstname='$fname',";

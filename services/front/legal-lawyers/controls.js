@@ -24,10 +24,10 @@ btn_search.onclick = () => {
             let respo = xhttp.responseText; console.log(tag, respo);
 
             div_listlawyers.innerHTML = "<a href='#' class='list-group-item list-group-item-action' aria-current='true'>" +
-                                            "<div class='d-flex w-100 justify-content-between'>" +
-                                                "<h5 class='mb-1'>There are Lawyers found for this Type of Law...</h5>" +
-                                            "</div>" +
-                                        "</a>";
+                "<div class='d-flex w-100 justify-content-between'>" +
+                "<h5 class='mb-1'>There are Lawyers found for this Type of Law...</h5>" +
+                "</div>" +
+                "</a>";
 
             let d;
             try {
@@ -96,22 +96,22 @@ btn_search.onclick = () => {
                     let lawyerId = records[i].lawyer_id;
 
                     // let link_str = "legal-lawyers.html?lfid=" + records[i].lawfield_id;
-                    stream += "<a onclick='checkLoginRedirect("+lawyerId+", this);' href='#' class='list-group-item list-group-item-action' aria-current='true' id='rowId"+lawyerId+"'>" +
-                                    "<div class='d-flex'>" +
-                                        "<div style='margin-right: 20px'>" +
-                                            "<img src='" + records[i].user_photo + "' class='rounded-circle' width='90' height='90'>" +
-                                        "</div>" +
-                                        "<div>" +
-                                            "<div class='d-flex w-100 justify-content-between'>" +
-                                                "<h5 class='mb-1'>" + lawyername + "</h5>" +
-                                            "</div>" +
-                                            "<p class='mb-1'>" + lawyer_days + "&nbsp;&nbsp;<b>Open-Close Time: </b>" + lawyer_time + "</p>" +
-                                            "<div style='width: 70%'>" +
-                                                "<h5>Lawyer Expertise: <u>"+records[i].lawcategory_name+"</u></h5>" +
-                                            "</div>" +
-                                        "</div>" +
-                                    "</div>" +
-                                "</a>";
+                    stream += "<a onclick='checkLoginRedirect(" + lawyerId + ", this);' href='#' class='list-group-item list-group-item-action' aria-current='true' id='rowId" + lawyerId + "'>" +
+                        "<div class='d-flex'>" +
+                        "<div style='margin-right: 20px'>" +
+                        "<img src='" + records[i].user_photo + "' class='rounded-circle' width='90' height='90'>" +
+                        "</div>" +
+                        "<div>" +
+                        "<div class='d-flex w-100 justify-content-between'>" +
+                        "<h5 class='mb-1'>" + lawyername + "</h5>" +
+                        "</div>" +
+                        "<p class='mb-1'>" + lawyer_days + "&nbsp;&nbsp;<b>Open-Close Time: </b>" + lawyer_time + "</p>" +
+                        "<div style='width: 70%'>" +
+                        "<h5>Lawyer Expertise: <u>" + records[i].lawcategory_name + "</u></h5>" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "</a>";
 
                     if (lawcatid != 0) {
                         cover_lawphoto.style.backgroundImage = "url('" + records[0].lawcategory_cover + "')";
@@ -188,7 +188,7 @@ function checkLoginRedirect(lawyerid, element) {
                 let rmcache = new Date();
                 if (uploadphoto != "n/a") {
                     img_infoLawyer.src = uploadphoto + "?nc=" + rmcache.getMilliseconds();
-    
+
                 }
 
                 let fullname = records.user_lastname + ", " + records.user_firstname;
@@ -221,17 +221,17 @@ function checkLoginRedirect(lawyerid, element) {
                     position: coordinates,
                     map: gmap
                 }
-                let htm = "<h6 style='cursor: pointer;'>Lawyer's Office: " + jsonmap.place + "</h6>"; 
+                let htm = "<h6 style='cursor: pointer;'>Lawyer's Office: " + jsonmap.place + "</h6>";
                 marker = new google.maps.Marker(opts);
-                info = new google.maps.InfoWindow({content: htm});
+                info = new google.maps.InfoWindow({ content: htm });
                 info.open(gmap, marker);
 
 
                 let daysArr = [records.days_issun, records.days_ismon,
-                                records.days_istue, records.days_iswed,
-                                records.days_isthu, records.days_isfri, records.days_issat];
+                records.days_istue, records.days_iswed,
+                records.days_isthu, records.days_isfri, records.days_issat];
                 for (let j = 0; j < daysArr.length; j++) {
-                    let id_str = "inlineCheckbox" + (j + 1).toString();2320
+                    let id_str = "inlineCheckbox" + (j + 1).toString(); 2320
                     let element = document.getElementById(id_str);
                     element.checked = false;
                     if (daysArr[j] == "1") {
@@ -239,21 +239,24 @@ function checkLoginRedirect(lawyerid, element) {
                     }
                 }
 
-                let operationsTime = "<b>Open Time:</b> [" + records.lawyer_opentime + "] <b>Close Time:</b> [" +records.lawyer_closetime+"]";
+                let operationsTime = "<b>Open Time:</b> [" + records.lawyer_opentime + "] <b>Close Time:</b> [" + records.lawyer_closetime + "]";
                 lbl_infoLawyerTime.innerHTML = operationsTime;
                 let contactinfo = "<b>Phone: </b>[+63 " + records.contact_phone + "] <b>Email: </b>[" + records.contact_email + "]";
                 lbl_infoLawyerContact.innerHTML = contactinfo;
 
                 let lawcatid = records.lawcategory_id;
                 loadLawPdf(lawcatid);
+
+                loadRatingComments(lawyerid);
+                loadTotalRating(lawyerid);
             }
         };
     }
     else {
         alert('You need to sign in as client.');
         let route = "services/back/php/common/logout.php?page=lawyerslegal";
-            route += "&uid=0";
-            window.location.href = route;
+        route += "&uid=0";
+        window.location.href = route;
     }
 }
 
@@ -279,7 +282,7 @@ function loadLawPdf(catId) {
                 console.log(tag, d.message);
 
                 let css = "style='text-align: center; width: 100%; margin-top: 15%;'";
-                let htm = "<h5 "+css+">There is no designated file for this Law</h5>";
+                let htm = "<h5 " + css + ">There is no designated file for this Law</h5>";
                 div_pdf.innerHTML = htm;
                 tab_photos.click();
                 tab_pdf.click();
@@ -301,6 +304,212 @@ function loadLawPdf(catId) {
         }
     };
 }
+
+function loadRatingComments(lawyerid) {
+    route = "services/back/php/legal-lawyer/get_lawyer_rating.php?lawyerid=" + lawyerid;
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("GET", route, true);
+    xhttp.send();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            let tag = "LEGAL LAWYERS: GetLawyerRating - ";
+            let respo = xhttp.responseText; console.log(tag, respo);
+
+            div_listratings.innerHTML = "<div class='card mb-3'><div class='card-body'>" +
+                                            "<h5 class='card-title'>There are no current Rating(s) Yet.</h5>" +
+                                        "</div></div>";
+
+            let d;
+            try {
+                d = JSON.parse(respo);
+            } catch (e) {
+                console.log(tag, e)
+                return;
+            } console.log(tag, d.success);
+
+            if (d.success == false) {
+                console.log(tag, d.message);
+                return;
+            }
+
+            var records;
+            try {
+                records = JSON.parse(d.success);
+            } catch (e) {
+                console.log(tag, e)
+                return;
+            } console.log(tag, records);
+
+            if (records.length > 0) {
+                let stream = "";
+
+                for (let i = 0; i < records.length; i++) {
+
+                    let userphoto = records[i].user_photo;
+                    let rmcache = new Date();
+                    if (userphoto != "n/a") {
+                        userphoto = userphoto + "?nc=" + rmcache.getMilliseconds();
+                    }
+                    else {
+                        userphoto = "res/legal/none.png";
+                    }
+
+                    let fullname = records[i].user_lastname + ", " + records[i].user_firstname;
+                    if (fullname.length > 40) {
+                        fullname = fullname.substring(0, 40) + "...";
+                    }
+
+                    let dtstamp = records[i].rating_datesaved;
+
+                    let rateCtr = 0;
+                    let rating = records[i].rating_value;
+                    let ratingHtm = "<div style='display: flex' class='mb-2'>";
+                    for (let j = 0; j < rating; j++) {
+                        ratingHtm += "<i class='bx bxs-star bx-sm'></i>";
+                        rateCtr++;
+                    }
+                    let rateFiller = 5 - rateCtr;
+                    for (let k = 0; k < rateFiller; k++) {
+                        ratingHtm += "<i class='bx bx-star bx-sm'></i>";
+                    }
+                    ratingHtm += "</div>";
+
+                    stream += "<div class='card mb-3'>" +
+                                    "<div class='card-body'>" +
+                                        "<div class='d-flex row'>" +
+                                            "<div class='col-sm-2'>" +
+                                                "<img src='"+userphoto+"' class='rounded-circle' width=100 height=100 style='border: 1px gray solid'>" +
+                                            "</div>" +
+                                            "<div class='col-sm-10'>" +
+                                                "<h5 class='card-title m-1'>"+fullname+"</h5>" +
+                                                "<p class='card-text m-0'>"+dtstamp+"</p>" +
+                                                ratingHtm +        
+                                                "<i><p class='card-text m-0'>\""+records[i].rating_comment+"\"</p></i>" +
+                                            "</div>" +
+                                        "</div>" +
+                                    "</div>" +
+                                "</div>";
+
+                    div_listratings.innerHTML = stream;
+                }
+            }
+
+        }
+        else if (this.readyState == 4) {
+            alert("Server Unreachable. Possible Slow Internet Connection..!");
+        }
+    };
+}
+
+function loadTotalRating(lawyerid) {
+    route = "services/back/php/legal-lawyer/get_rating_overall.php?lawyerid=" + lawyerid;
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("GET", route, true);
+    xhttp.send();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            let tag = "LEGAL LAWYERS: GetLawyerRatingOverall - ";
+            let respo = xhttp.responseText; console.log(tag, respo);
+
+            let d;
+            try {
+                d = JSON.parse(respo);
+            } catch (e) {
+                console.log(tag, e)
+                return;
+            } console.log(tag, d.success);
+
+            if (d.success == false) {
+                console.log(tag, d.message);
+                return;
+            }
+
+            if (parseFloat(d.success) > 0.9) {
+                let btnStarArr = [btn_modalStar1, btn_modalStar2, btn_modalStar3, btn_modalStar4, btn_modalStar5];
+                for (let i = 0; i < btnStarArr.length; i++) {
+                    if (btnStarArr[i].classList.contains("bx-star")) {
+                        btnStarArr[i].classList.remove("bx-star");
+                        btnStarArr[i].classList.add("bxs-star");
+                    }
+                }
+            }
+            else if (parseFloat(d.success) > 0.7) {
+                let btnStarArr = [btn_modalStar1, btn_modalStar2, btn_modalStar3, btn_modalStar4];
+                for (let i = 0; i < btnStarArr.length; i++) {
+                    if (btnStarArr[i].classList.contains("bx-star")) {
+                        btnStarArr[i].classList.remove("bx-star");
+                        btnStarArr[i].classList.add("bxs-star");
+                    }
+                }
+                if (btn_modalStar5.classList.contains("bxs-star")) {
+                    btn_modalStar5.classList.remove("bxs-star");
+                    btn_modalStar5.classList.add("bx-star");
+                }
+            }
+            else if (parseFloat(d.success) > 0.5) {
+                let btnStarArr = [btn_modalStar1, btn_modalStar2, btn_modalStar3];
+                for (let i = 0; i < btnStarArr.length; i++) {
+                    if (btnStarArr[i].classList.contains("bx-star")) {
+                        btnStarArr[i].classList.remove("bx-star");
+                        btnStarArr[i].classList.add("bxs-star");
+                    }
+                }
+                
+                if (btn_modalStar4.classList.contains("bxs-star")) {
+                    btn_modalStar4.classList.remove("bxs-star");
+                    btn_modalStar4.classList.add("bx-star");
+                }
+                if (btn_modalStar5.classList.contains("bxs-star")) {
+                    btn_modalStar5.classList.remove("bxs-star");
+                    btn_modalStar5.classList.add("bx-star");
+                }
+            }
+            else if (parseFloat(d.success) > 0.3) {
+                let btnStarArr = [btn_modalStar3, btn_modalStar4, btn_modalStar5];
+                for (let i = 0; i < btnStarArr.length; i++) {
+                    if (btnStarArr[i].classList.contains("bxs-star")) {
+                        btnStarArr[i].classList.remove("bxs-star");
+                        btnStarArr[i].classList.add("bx-star");
+                    }
+                }
+                if (btn_modalStar1.classList.contains("bx-star")) {
+                    btn_modalStar1.classList.remove("bx-star");
+                    btn_modalStar1.classList.add("bxs-star");
+                }
+                if (btn_modalStar2.classList.contains("bx-star")) {
+                    btn_modalStar2.classList.remove("bx-star");
+                    btn_modalStar2.classList.add("bxs-star");
+                }
+            }
+            else if (parseFloat(d.success) > 0.1) {
+                let btnStarArr = [btn_modalStar2, btn_modalStar3, btn_modalStar4, btn_modalStar5];
+                for (let i = 0; i < btnStarArr.length; i++) {
+                    if (btnStarArr[i].classList.contains("bxs-star")) {
+                        btnStarArr[i].classList.remove("bxs-star");
+                        btnStarArr[i].classList.add("bx-star");
+                    }
+                }
+                if (btn_modalStar1.classList.contains("bx-star")) {
+                    btn_modalStar1.classList.remove("bx-star");
+                    btn_modalStar1.classList.add("bxs-star");
+                }
+            }
+
+            lbl_ratepercent.innerHTML = (parseFloat(d.success) * 100).toFixed(1) + "% Overall Performance";
+
+        }
+        else if (this.readyState == 4) {
+            alert("Server Unreachable. Possible Slow Internet Connection..!");
+        }
+    };
+}
+
+
+
+
+
 
 btn_modalAppoint.onclick = () => {
 
@@ -369,36 +578,36 @@ function showCalendar() {
         dtnow_str += dtnow_days.toString();
     }
 
-    let lawyerId = window.sessionStorage.getItem("pickId"); 
-    let route = "services/back/php/legal-lawyer/get_appoint.php?lawyerId=" +lawyerId;
+    let lawyerId = window.sessionStorage.getItem("pickId");
+    let route = "services/back/php/legal-lawyer/get_appoint.php?lawyerId=" + lawyerId;
     let xhttp = new XMLHttpRequest();
     xhttp.open("GET", route, true);
     xhttp.send();
-    xhttp.onreadystatechange = function() {
+    xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             let tag = "LEGAL LAWYERS: GetAppointments - ";
             let respo = xhttp.responseText; console.log(tag, respo);
 
             let d;
-            try { 
-                d = JSON.parse(respo); 
+            try {
+                d = JSON.parse(respo);
             } catch (e) {
                 console.log(tag, e)
-                return; 
-            }   console.log(tag, d.success);
-            
-            if (d.success == false) { 
+                return;
+            } console.log(tag, d.success);
+
+            if (d.success == false) {
                 console.log(tag, d.message);
-                return; 
+                return;
             }
 
             var records;
-            try { 
-                records = JSON.parse(d.success); 
+            try {
+                records = JSON.parse(d.success);
             } catch (e) {
                 console.log(tag, e)
-                return; 
-            }   console.log(tag, records);
+                return;
+            } console.log(tag, records);
 
             // {
             //     title: 'Long Event',
@@ -419,16 +628,16 @@ function showCalendar() {
                     let tm = records[i].app_timesched;
                     let startTime = dt + "T" + tm;
                     let startTimeArr = tm.split(":");
-                    let endHour = (parseInt(startTimeArr[0])+1);
+                    let endHour = (parseInt(startTimeArr[0]) + 1);
                     if (endHour < 10) {
                         endHour = "0" + endHour.toString();
                     }
                     let endTime = dt + "T" + endHour + ":" + startTimeArr[1] + ":00";
 
                     let appointment = {
-                        title : txt,
-                        start : startTime,
-                        end : endTime
+                        title: txt,
+                        start: startTime,
+                        end: endTime
                     };
 
                     calevents.push(appointment);
@@ -438,66 +647,66 @@ function showCalendar() {
 
             xcalendar = new FullCalendar.Calendar(
                 calendarEl, {
-                    headerToolbar: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                    },
-                    initialDate: dtnow_str,
-                    navLinks: true, // can click day/week names to navigate views
-                    selectable: true,
-                    selectMirror: true,
-                    select: function (arg) {
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                initialDate: dtnow_str,
+                navLinks: true, // can click day/week names to navigate views
+                selectable: true,
+                selectMirror: true,
+                select: function (arg) {
 
-                        let month = arg.start.getMonth() + 1;
-                        let day = arg.start.getDate();
-                        let year = arg.start.getFullYear();
-                        let daystr = day.toString();
-                        if (day < 10) {
-                            daystr = "0" + daystr;
-                        }
-                        let monthstr = month.toString();
-                        if (month < 10) {
-                            monthstr = "0" + monthstr;
-                        }
-                        dtstr = year.toString() + "-" + monthstr + "-" + daystr;
-                        if (dtnow_str == dtstr) {
-                            alert(dtnow_str + " is equal to " + dtstr +". Cannot appoint on same day!");
-                            dtstr = "";
-                            return;
-                        }
-                        let datediff = dateDiffInDays(new Date(dtstr), new Date(dtnow_str));
-                        if (datediff >= 0) {
-                            alert("Appointment date must be ahead from today and past date is not applicable!");
-                            dtstr = "";
-                            return;
-                        }
-                        btn_modalTimeAppoint.click();
-        
-                        // alert(arg.start.getMonth()); // 2022-11-11T16:00:00
-                    
-                        // var title = prompt('Set Appointed Time:');
-                        // if (title) {
-                        //     calendar.addEvent({
-                        //         title: title,
-                        //         start: arg.start,
-                        //         end: arg.end,
-                        //         allDay: arg.allDay
-                        //     })
-                        // }
-                        xcalendar.unselect()
-                    },
-                    eventClick: function (arg) {
-                        // if (confirm('Are you sure you want to delete this event?')) {
-                        //     arg.event.remove()
-                        // }
-                    },
-                    editable: false, // true
-                    dayMaxEvents: true, // allow "more" link when too many events
-                    events: calevents
-                }
+                    let month = arg.start.getMonth() + 1;
+                    let day = arg.start.getDate();
+                    let year = arg.start.getFullYear();
+                    let daystr = day.toString();
+                    if (day < 10) {
+                        daystr = "0" + daystr;
+                    }
+                    let monthstr = month.toString();
+                    if (month < 10) {
+                        monthstr = "0" + monthstr;
+                    }
+                    dtstr = year.toString() + "-" + monthstr + "-" + daystr;
+                    if (dtnow_str == dtstr) {
+                        alert(dtnow_str + " is equal to " + dtstr + ". Cannot appoint on same day!");
+                        dtstr = "";
+                        return;
+                    }
+                    let datediff = dateDiffInDays(new Date(dtstr), new Date(dtnow_str));
+                    if (datediff >= 0) {
+                        alert("Appointment date must be ahead from today and past date is not applicable!");
+                        dtstr = "";
+                        return;
+                    }
+                    btn_modalTimeAppoint.click();
+
+                    // alert(arg.start.getMonth()); // 2022-11-11T16:00:00
+
+                    // var title = prompt('Set Appointed Time:');
+                    // if (title) {
+                    //     calendar.addEvent({
+                    //         title: title,
+                    //         start: arg.start,
+                    //         end: arg.end,
+                    //         allDay: arg.allDay
+                    //     })
+                    // }
+                    xcalendar.unselect()
+                },
+                eventClick: function (arg) {
+                    // if (confirm('Are you sure you want to delete this event?')) {
+                    //     arg.event.remove()
+                    // }
+                },
+                editable: false, // true
+                dayMaxEvents: true, // allow "more" link when too many events
+                events: calevents
+            }
             );
-        
+
             xcalendar.render();
 
 
@@ -543,7 +752,7 @@ btn_modalTimeApply.onclick = () => {
     let chosenDtstr = dtstr + "T" + timesched + ":00";
     let chosenDt = new Date(chosenDtstr); console.log("Chosen " + chosenDtstr, chosenDt);
     for (let i = 0; i < existSched.length; i++) {
-        let d = new Date(existSched[i]);  console.log("Existing " + existSched[i], d);
+        let d = new Date(existSched[i]); console.log("Existing " + existSched[i], d);
         let diff = Math.abs(chosenDt.getTime() - d.getTime()); // console.log("@#@#@#", diff);
         if (diff < 3600000) {
             alreadyTaken = true;
@@ -555,14 +764,14 @@ btn_modalTimeApply.onclick = () => {
         return;
     } //return;
 
-    
+
 
     let data = new FormData();
     data.append("startT", timesched + ":00");
     data.append("lawId", lawyerId);
     data.append("uid", uid);
     data.append("dtsched", dtstr);
-        data.append("reason", inp_modalReason.value);
+    data.append("reason", inp_modalReason.value);
     // data.append("closeT", inp_modalInpTimeEnd.value + ":00");
 
     let route = "services/back/php/legal-lawyer/add_appoint.php";
@@ -605,7 +814,7 @@ function getAppointments() {
     let xhttp = new XMLHttpRequest();
     xhttp.open("GET", route, true);
     xhttp.send();
-    xhttp.onreadystatechange = function() {
+    xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
 
             let tag = "LEGAL LAWYER: GetAppointment - ";
@@ -614,16 +823,16 @@ function getAppointments() {
             tbl.innerHTML = "";
 
             let d;
-            try { 
-                d = JSON.parse(respo); 
+            try {
+                d = JSON.parse(respo);
             } catch (e) {
                 console.log(tag, e)
-                return; 
-            }   console.log(tag, d.success);
-            
-            if (d.success == false) { 
+                return;
+            } console.log(tag, d.success);
+
+            if (d.success == false) {
                 console.log(tag, d.message);
-                return; 
+                return;
             }
 
             var records;
@@ -632,7 +841,7 @@ function getAppointments() {
             } catch (e) {
                 console.log(tag, e);
                 return;
-            }   console.log(tag, records);
+            } console.log(tag, records);
 
 
 

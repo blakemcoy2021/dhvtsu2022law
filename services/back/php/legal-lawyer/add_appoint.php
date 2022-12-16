@@ -14,13 +14,30 @@
     $mdl_appoint->dtschd = $_POST["dtsched"];
     $mdl_appoint->remarks = $_POST["reason"];
 
+    // $timeArr = explode($mdl_appoint->tmschd,":");
+    // $mdl_appoint->tmschd = $timeArr[0] + ":" + $timeArr[1] + ":" + $timeArr[2];
+
+
     $isExist = isExist($dbconn, $mdl_appoint);
     register($dbconn, $mdl_appoint, $isExist);
+
+    $lawyerUserId = 0;
+    $query = "select * from tbl_lawyer where lawyer_id='$mdl_appoint->lawyId' ";
+    try {
+        $stmt = $dbconn->prepare($query);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        $lawyerUserId = $row["lawyer_userid"];
+    }
+    catch (PDOException $e) {
+        echo getResponse(false, "failed @ lawyer get userid appointment : $e", -1); return;
+    }
 
     $mdl = new ModelLogs();
     $mdl->userid = $mdl_appoint->userid;
     $mdl->webpage = "appoint";
     $mdl->process = "add";
+    $mdl->receiver = $lawyerUserId;
     $mdl->errlbl .= "client-audit";
     auditLog($dbconn, $mdl);
     die();
